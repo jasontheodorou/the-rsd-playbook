@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
+  color: #333333;
+  background: #FAF8F6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+*:focus-visible {
+  outline: 2px solid #213D59;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 1000;
+  background: #213D59;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  left: 8px;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.pathway-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -8px rgba(33, 61, 89, 0.14), 0 2px 6px rgba(33, 61, 89, 0.06);
+  border-color: #CCC8C4 !important;
+}
+
+.pathway-card:hover .card-arrow {
+  color: #EC671B;
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
