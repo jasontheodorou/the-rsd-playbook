@@ -1,8 +1,8 @@
 import type { PracticeProfile } from '../components/PracticeForm'
 
 const SESSION_KEY = 'rsd_session'
-const PROFILE_KEY = 'rsd_profile'
-const PROGRESS_KEY = 'rsd_progress'
+const profileKey = (email: string) => `rsd_profile_${email.toLowerCase()}`
+const progressKey = (email: string) => `rsd_progress_${email.toLowerCase()}`
 
 const CREDENTIALS: Record<string, string> = {
   'servicedesigner@demo.com': 'sponges123!',
@@ -33,8 +33,10 @@ export function signOut(): void {
 }
 
 export function getProfile(): PracticeProfile | null {
+  const session = getSession()
+  if (!session) return null
   try {
-    const raw = localStorage.getItem(PROFILE_KEY)
+    const raw = localStorage.getItem(profileKey(session.email))
     return raw ? JSON.parse(raw) : null
   } catch {
     return null
@@ -42,12 +44,16 @@ export function getProfile(): PracticeProfile | null {
 }
 
 export function saveProfile(profile: PracticeProfile): void {
-  localStorage.setItem(PROFILE_KEY, JSON.stringify(profile))
+  const session = getSession()
+  if (!session) return
+  localStorage.setItem(profileKey(session.email), JSON.stringify(profile))
 }
 
 export function getProgress(): Set<string> {
+  const session = getSession()
+  if (!session) return new Set()
   try {
-    const raw = localStorage.getItem(PROGRESS_KEY)
+    const raw = localStorage.getItem(progressKey(session.email))
     return raw ? new Set(JSON.parse(raw)) : new Set()
   } catch {
     return new Set()
@@ -55,5 +61,7 @@ export function getProgress(): Set<string> {
 }
 
 export function saveProgress(completed: Set<string>): void {
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify([...completed]))
+  const session = getSession()
+  if (!session) return
+  localStorage.setItem(progressKey(session.email), JSON.stringify([...completed]))
 }
