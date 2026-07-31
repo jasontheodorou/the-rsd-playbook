@@ -33,7 +33,7 @@ export function ModuleView({ profile, userEmail, completed, onToggleComplete, on
 
   const handleModuleSwitch = (moduleId: string) => {
     setActiveModuleId(moduleId)
-    const newCards = getModule(moduleId).cards
+    const newCards = (modules.find(m => m.id === moduleId) ?? modules[0]).cards
     setSelectedCardId(newCards.find(c => !completed.has(c.id))?.id ?? newCards[0].id)
   }
 
