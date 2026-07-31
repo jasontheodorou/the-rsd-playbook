@@ -17,7 +17,7 @@ type ModuleViewProps = {
 }
 
 export function ModuleView({ profile, userEmail, completed, onToggleComplete, onReturnHome, isLoggedIn, onSignOut }: ModuleViewProps) {
-  const modules = getModulesForUser(userEmail, profile.account_id)
+  const modules = getModulesForUser(profile.role, profile.account_id)
 
   const [activeModuleId, setActiveModuleId] = useState(modules[0].id)
   const [selectedCardId, setSelectedCardId] = useState(

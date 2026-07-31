@@ -918,8 +918,8 @@ const idModules: Module[] = [
 
 // ── Public API ─────────────────────────────────────────────────────────────────
 
-export function getModulesForUser(email: string, accountId: string): Module[] {
-  const isSD = email.toLowerCase().includes('servicedesigner')
+export function getModulesForUser(role: string, accountId: string): Module[] {
+  const isSD = role.toLowerCase().includes('service designer')
   const baseModules = isSD ? sdModules : idModules
 
   if (accountId !== 'hmcts' && accountId !== 'dfe') return baseModules

@@ -11,9 +11,9 @@ type TopBarProps = {
 
 function roleFromEmail(email: string): { initials: string; label: string; colour: string } {
   if (email.toLowerCase().includes('servicedesigner')) {
-    return { initials: 'SD', label: 'Senior service designer', colour: '#213D59' }
+    return { initials: 'SD', label: 'Service designer', colour: '#213D59' }
   }
-  return { initials: 'ID', label: 'Consultant interaction designer', colour: '#EC671B' }
+  return { initials: 'ID', label: 'Interaction designer', colour: '#EC671B' }
 }
 
 export function TopBar({ onHome, isLoggedIn, userEmail, onSignIn, onSignOut }: TopBarProps) {

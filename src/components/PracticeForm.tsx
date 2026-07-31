@@ -6,7 +6,6 @@ import { OrangeCircle } from './Transform'
 
 export type PracticeProfile = {
   role: string
-  seniority: string
   account_id: string
   account_name: string
 }
@@ -16,8 +15,7 @@ type PracticeFormProps = {
   onSubmit: (profile: PracticeProfile) => void
 }
 
-const ROLES = ['Service designer', 'Content designer']
-const SENIORITY = ['Consultant', 'Senior']
+const ROLES = ['Service designer', 'Interaction designer']
 const ACCOUNTS = [
   { value: 'hmcts', label: 'HM Courts and Tribunals Service' },
   { value: 'dfe', label: 'Department for Education' },
@@ -25,12 +23,11 @@ const ACCOUNTS = [
 
 export function PracticeForm({ onReturnHome, onSubmit }: PracticeFormProps) {
   const [role, setRole] = useState<string | null>(null)
-  const [seniority, setSeniority] = useState<string | null>(null)
   const [accountId, setAccountId] = useState<string | null>(null)
   const accounts = ACCOUNTS
 
   const selectedAccount = accounts.find(a => a.value === accountId)
-  const canSubmit = role && seniority && accountId && selectedAccount
+  const canSubmit = role && accountId && selectedAccount
 
   return (
     <Box style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
@@ -76,16 +73,6 @@ export function PracticeForm({ onReturnHome, onSubmit }: PracticeFormProps) {
                 styles={selectStyles}
               />
               <Select
-                label="What's your seniority?"
-                placeholder="Select an option"
-                data={SENIORITY}
-                value={seniority}
-                onChange={setSeniority}
-                size="md"
-                radius="sm"
-                styles={selectStyles}
-              />
-              <Select
                 label="Which account are you working on?"
                 placeholder="Select an account"
                 data={accounts}
@@ -112,7 +99,6 @@ export function PracticeForm({ onReturnHome, onSubmit }: PracticeFormProps) {
                 }}
                 onClick={() => canSubmit && onSubmit({
                   role: role!,
-                  seniority: seniority!,
                   account_id: accountId!,
                   account_name: selectedAccount!.label,
                 })}
