@@ -1,8 +1,26 @@
-import { Container, Stack, Text } from '@mantine/core'
-import { ArrowRight } from 'lucide-react'
+import { Box, Container, Stack, Text } from '@mantine/core'
+import { ArrowRight, Target, Zap, ShieldCheck, RefreshCw, Scale, Eye } from 'lucide-react'
 import { Button } from '@mantine/core'
 import { HighlightedHeadline, OrangeCircle } from '../components/Transform'
-import { Body, Eyebrow, SlideFrame, SlideIcon, SlideIllustration, SlideTitle, type Slide } from '../components/SlideDeck'
+import { Body, SlideFrame, SlideIcon, SlideIllustration, SlideTitle, type Slide } from '../components/SlideDeck'
+import { DiscoveryStar, type DiscoveryStarPoint } from '../components/DiscoveryStar'
+import { RebuildTower } from '../components/RebuildTower'
+
+const trustPoints: [
+  DiscoveryStarPoint,
+  DiscoveryStarPoint,
+  DiscoveryStarPoint,
+  DiscoveryStarPoint,
+  DiscoveryStarPoint,
+  DiscoveryStarPoint,
+] = [
+  { id: 'real-problems', title: 'Real problems', body: 'Trust starts with services that solve what actually matters to people.', icon: <Target size={20} strokeWidth={2} /> },
+  { id: 'less-waste', title: 'Less waste', body: 'Every unnecessary step erodes belief. Simpler journeys build confidence.', icon: <Zap size={20} strokeWidth={2} /> },
+  { id: 'confidence', title: 'Confidence', body: 'People must feel able to move forward without confusion or fear.', icon: <ShieldCheck size={20} strokeWidth={2} /> },
+  { id: 'learning', title: 'Learning', body: 'Services that keep learning keep earning trust over time.', icon: <RefreshCw size={20} strokeWidth={2} /> },
+  { id: 'fairness', title: 'Fairness', body: 'Trust survives when everyone can use the service, not only those it was designed around.', icon: <Scale size={20} strokeWidth={2} /> },
+  { id: 'honesty', title: 'Honesty', body: 'Trust breaks the moment a service overclaims what it does or hides how it works.', icon: <Eye size={20} strokeWidth={2} /> },
+]
 
 type SlideOpts = {
   onReturnHome: () => void
@@ -22,7 +40,7 @@ function Lines({ items }: { items: string[] }) {
 export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
   return [
 
-  // ── 0 — Welcome ──────────────────────────────────────────────────────────
+  // ── 1 — Welcome ──────────────────────────────────────────────────────────
   {
     id: 'welcome',
     content: (
@@ -32,7 +50,6 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
           style={{ position: 'absolute', top: -120, right: -180, opacity: 0.1, zIndex: 0, pointerEvents: 'none' }}
         />
         <Stack gap="lg" maw={680} style={{ marginInline: 'auto', position: 'relative', zIndex: 1 }}>
-          <Eyebrow>Pathway one — explore the foundations</Eyebrow>
           <HighlightedHeadline
             before="Welcome to design at"
             accent="Transform"
@@ -52,13 +69,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 1 — Turning uncertainty into possibility ──────────────────────────────
+  // ── 2 — Turning uncertainty into possibility ──────────────────────────────
   {
     id: 'uncertainty',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>What we do</Eyebrow>
           <SlideTitle>Turning uncertainty into possibility.</SlideTitle>
         </Stack>
         <Lines items={[
@@ -72,32 +88,35 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 2 — Good design earns trust ───────────────────────────────────────────
+  // ── 3 — Good design earns trust ───────────────────────────────────────────
   {
     id: 'trust',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>Why it matters</Eyebrow>
           <SlideTitle>Good design earns trust.</SlideTitle>
         </Stack>
-        <SlideIcon src="/illustrations/gooddesignearnstrust2.svg" size={360} align="center" />
-        <Lines items={[
-          'Services succeed when people believe in them.',
-          'Not because they are polished.',
-          'Because they solve real problems, reduce waste, build confidence and learn as they go.',
-        ]} />
+        <Text c="#5C5C5C" fz={18} lh={1.6}>
+          Services succeed when people believe in them. Not because they are polished — because
+          they earn it. Explore what makes trust real.
+        </Text>
+        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+          <DiscoveryStar
+            className="rsd-trust-star"
+            points={trustPoints}
+            completionMessage="We're all in"
+          />
+        </Box>
       </SlideFrame>
     ),
   },
 
-  // ── 3 — When services lose people ────────────────────────────────────────
+  // ── 4 — When services lose people ────────────────────────────────────────
   {
     id: 'failure',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>The problem</Eyebrow>
           <SlideTitle>When services lose people.</SlideTitle>
         </Stack>
         <SlideIcon src="/illustrations/whenserviceslosepeople2.svg" size={360} align="center" />
@@ -107,17 +126,17 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
           'When feedback is absent.',
           'When decisions serve the organisation, not the people living the experience.',
         ]} />
+        <RebuildTower />
       </SlideFrame>
     ),
   },
 
-  // ── 4 — Design is connective creativity ──────────────────────────────────
+  // ── 5 — Design is connective creativity ──────────────────────────────────
   {
     id: 'connective',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>What design is</Eyebrow>
           <SlideTitle>Design is connective creativity.</SlideTitle>
         </Stack>
         <Lines items={[
@@ -133,13 +152,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 5 — Think with head, heart, hands ────────────────────────────────────
+  // ── 6 — Think with head, heart, hands ────────────────────────────────────
   {
     id: 'hhh',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>How we think</Eyebrow>
           <SlideTitle>Think with head, heart, hands.</SlideTitle>
         </Stack>
         <SlideIllustration src="/illustrations/head_heart_hands.png" alt="Head, heart and hands" maxWidth={680} radius={0} />
@@ -153,13 +171,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 6 — See the whole system ──────────────────────────────────────────────
+  // ── 7 — See the whole system ──────────────────────────────────────────────
   {
     id: 'system',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>Systems thinking</Eyebrow>
           <SlideTitle>See the whole system.</SlideTitle>
         </Stack>
         <Lines items={[
@@ -173,13 +190,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 7 — Put people in the work ────────────────────────────────────────────
+  // ── 8 — Put people in the work ────────────────────────────────────────────
   {
     id: 'participation',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>Participation</Eyebrow>
           <SlideTitle>Put people in the work.</SlideTitle>
         </Stack>
         <Lines items={[
@@ -193,13 +209,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 8 — Make the possible real ────────────────────────────────────────────
+  // ── 9 — Make the possible real ────────────────────────────────────────────
   {
     id: 'making',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>Making and testing</Eyebrow>
           <SlideTitle>Make the possible real.</SlideTitle>
         </Stack>
         <Lines items={[
@@ -214,13 +229,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 9 — The standard is transformational ─────────────────────────────────
+  // ── 10 — The standard is transformational ────────────────────────────────
   {
     id: 'standard',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>Our standard</Eyebrow>
           <SlideTitle>The standard is transformational.</SlideTitle>
         </Stack>
         <SlideIcon src="/illustrations/standardistransformational.svg" size={360} align="center" />
@@ -234,13 +248,12 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 10 — Build, learn, evolve together ───────────────────────────────────
+  // ── 11 — Build, learn, evolve together ───────────────────────────────────
   {
     id: 'evolve',
     content: (
       <SlideFrame>
         <Stack gap="sm">
-          <Eyebrow>How we grow</Eyebrow>
           <SlideTitle>Build, learn, evolve together.</SlideTitle>
         </Stack>
         <SlideIcon src="/illustrations/lego-bricks-refined.png" alt="Lego bricks" size={260} />
@@ -254,19 +267,16 @@ export function createFoundationSlides({ onNextPathway }: SlideOpts): Slide[] {
     ),
   },
 
-  // ── 11 — Closing ─────────────────────────────────────────────────────────
+  // ── 12 — Closing ─────────────────────────────────────────────────────────
   {
     id: 'closing',
     content: (
       <Container size="md" px="md" style={{ paddingTop: 96, paddingBottom: 120 }}>
         <Stack gap="xl" maw={560} style={{ marginInline: 'auto', alignItems: 'center', textAlign: 'center' }}>
           <OrangeCircle size={140} />
-          <Stack gap="md">
-            <Eyebrow>That's pathway one</Eyebrow>
-            <Text fz={44} fw={700} c="#333333" lh={1.2} style={{ fontFamily: "'Open Sans', sans-serif" }}>
-              The philosophy is shared.
-            </Text>
-          </Stack>
+          <Text fz={44} fw={700} c="#333333" lh={1.2} style={{ fontFamily: "'Open Sans', sans-serif" }}>
+            The philosophy is shared.
+          </Text>
           <Body>
             What happens next depends on your role. Pathway two takes everything here
             and makes it specific to how you actually work.

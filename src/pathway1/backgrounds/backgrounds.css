@@ -1,0 +1,77 @@
+/*
+ * Shared styles for the ambient backgrounds. Every ambient sits absolute-fill
+ * inside its slide, behind the base image and card. Pointer-events: none so
+ * they never intercept clicks.
+ */
+
+.p1v2-amb {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Drift ──────────────────────────────────────────────────────────────── */
+
+.p1v2-amb-drift__blob {
+  position: absolute;
+  filter: blur(48px);
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* ── Grid ───────────────────────────────────────────────────────────────── */
+
+.p1v2-amb-grid__dots {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+
+.p1v2-amb-grid__sweep {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+  filter: blur(28px);
+  will-change: transform, opacity;
+}
+
+/* ── Orbs ───────────────────────────────────────────────────────────────── */
+
+.p1v2-amb-orbs__orb {
+  position: absolute;
+  filter: blur(20px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+
+/* ── Sweep ──────────────────────────────────────────────────────────────── */
+
+.p1v2-amb-sweep__band {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 50%;
+  filter: blur(56px);
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* ── Grain ──────────────────────────────────────────────────────────────── */
+
+.p1v2-amb-grain {
+  mix-blend-mode: multiply;
+  background-repeat: repeat;
+  will-change: background-position;
+}
+
+/* ── Constellation ──────────────────────────────────────────────────────── */
+
+.p1v2-amb-constellation svg {
+  display: block;
+}

@@ -1,0 +1,10 @@
+.p1v2-jd {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.p1v2-jd svg {
+  overflow: visible;
+}

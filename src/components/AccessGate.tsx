@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { logError } from '../lib/log'
 
 const GATE_KEY = 'rsd_gate'
 const PASSWORD = import.meta.env.VITE_GATE_PASSWORD as string | undefined
@@ -7,24 +8,31 @@ export function isGateOpen(): boolean {
   if (!PASSWORD) return import.meta.env.DEV
   try {
     return localStorage.getItem(GATE_KEY) === PASSWORD
-  } catch {
+  } catch (err) {
+    logError(err, { op: 'localStorage.getItem', key: GATE_KEY, context: 'isGateOpen' })
     return false
   }
 }
 
 export function AccessGate({ onUnlock }: { onUnlock: () => void }) {
   const [value, setValue] = useState('')
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (value === PASSWORD) {
-      try { localStorage.setItem(GATE_KEY, value) } catch { /* */ }
-      onUnlock()
-    } else {
-      setError(true)
+    if (value !== PASSWORD) {
+      setError('Incorrect password.')
       setValue('')
+      return
     }
+    try {
+      localStorage.setItem(GATE_KEY, value)
+    } catch (err) {
+      logError(err, { op: 'localStorage.setItem', key: GATE_KEY, context: 'AccessGate.submit' })
+      setError('Could not save your unlock — check your browser storage settings and try again.')
+      return
+    }
+    onUnlock()
   }
 
   return (
@@ -51,7 +59,7 @@ export function AccessGate({ onUnlock }: { onUnlock: () => void }) {
           <input
             type="password"
             value={value}
-            onChange={e => { setValue(e.target.value); setError(false) }}
+            onChange={e => { setValue(e.target.value); setError(null) }}
             autoFocus
             placeholder="Password"
             style={{
@@ -68,7 +76,7 @@ export function AccessGate({ onUnlock }: { onUnlock: () => void }) {
           />
           {error && (
             <p style={{ margin: '0 0 12px', fontSize: 13, color: '#c0392b' }}>
-              Incorrect password.
+              {error}
             </p>
           )}
           <button

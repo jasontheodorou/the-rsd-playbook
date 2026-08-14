@@ -3,7 +3,7 @@ import { Box, Container, Grid, Paper, Stack, Text, UnstyledButton } from '@manti
 import { TopBar } from '../components/TopBar'
 import { CardView } from '../components/CardView'
 import { ModuleSidebar } from '../components/ModuleSidebar'
-import { getModulesForUser } from '../data/modules'
+import { getPathwayContentSync } from '../lib/content'
 import type { PracticeProfile } from '../components/PracticeForm'
 
 type ModuleViewProps = {
@@ -17,7 +17,7 @@ type ModuleViewProps = {
 }
 
 export function ModuleView({ profile, userEmail, completed, onToggleComplete, onReturnHome, isLoggedIn, onSignOut }: ModuleViewProps) {
-  const modules = getModulesForUser(profile.role, profile.account_id)
+  const modules = getPathwayContentSync(profile.role, profile.account_id)
 
   const [activeModuleId, setActiveModuleId] = useState(modules[0].id)
   const [selectedCardId, setSelectedCardId] = useState(

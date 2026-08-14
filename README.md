@@ -13,10 +13,14 @@ An interactive learning tool for service designers and interaction designers wor
 - Mantine v7 component library (Transform UK brand via Valencia theme)
 - Framer Motion for slide transitions and illustration entry animations
 - localStorage for auth, profile, and progress (V1 demo — no backend required)
+- Zod for content validation
 
 ## Getting started
 
 ```bash
+cp .env.example .env
+# edit .env — at a minimum set VITE_GATE_PASSWORD for a non-dev build
+
 npm install
 npm run dev        # http://localhost:3007
 ```
@@ -30,25 +34,71 @@ npm run dev        # http://localhost:3007
 
 Each account sees a different module set. Account context (HMCTS or DfE) is set during the intake form after sign-in.
 
+## Content
+
+All pathway text lives in one of two places:
+
+- **Pathway 1 (foundations)** — React components in `src/slides/foundations.tsx`. Not currently CMS-editable.
+- **Pathway 2 (modules)** — data in `src/data/modules.ts`. Read via `src/lib/content/`, which is the abstraction layer that will flip to the CMS once it's live.
+
+The SPA reads content through `src/lib/content/client.ts`. Today it returns local data; when `VITE_CMS_URL` is set it fetches from the CMS with timeout, retry, and Zod validation, and fails open to the local copy if the CMS misbehaves. Editors never touch this file.
+
+## Backend / editor workflow (V2 — Payload CMS)
+
+Scaffolded under [`cms/`](./cms). Not yet live.
+
+Once provisioned, editors log in at `/admin`, edit **text only** (illustrations are fixed in V1), preview drafts on the staging URL, and either publish (if they have the publisher role) or click **Request Publish** to email the publishers.
+
+Whitehall Publisher pattern applied to this project:
+
+| Whitehall concept        | Where it lives here                               |
+| ------------------------ | ------------------------------------------------- |
+| Integration environment  | Vercel Preview URL reading `?draft=true`          |
+| Production environment   | Vercel Production URL reading published content   |
+| Managing Editor          | `publisher` role (Payload Users collection)       |
+| Writer                   | `editor` role                                     |
+| "Submit for publication" | POST /api/pathways/request-publish                |
+| "Publish now"            | Payload's built-in Publish action (gated to role) |
+| Preview URL              | Payload Live Preview + `/preview/pathway/:slug`   |
+| Version history          | Payload Versions (unlimited, one-click rollback)  |
+
+### Bringing the CMS live — steps for the human
+
+1. Provision a Postgres database (Vercel Postgres or Neon free tier).
+2. Sign up for Resend and grab an API key.
+3. Copy `cms/.env.example` → `cms/.env` and fill in every var.
+4. `cd cms && npm install && npm run dev` — first login creates the first admin.
+5. `npm run seed` inside `cms/` — imports current `modules.ts` into the CMS.
+6. Set `VITE_CMS_URL` on the SPA (locally in `.env`, and in Vercel).
+7. Deploy the CMS to Vercel (either as a separate project or via the rewrites in `vercel.json`).
+
+Once live, the SPA content path becomes: **modules.ts → CMS → SPA**, with the CMS as source of truth. Adding an editor is a one-click action in the CMS Users collection.
+
+### V1 scope of editability
+
+- ✅ Card titles, minutes, roles
+- ✅ Card content: paragraphs, headings, lists, callouts (variant + body + CTA)
+- ✅ Module titles and descriptions
+- ✅ Drag-and-drop reorder of cards within a module
+- ✅ Save draft → request publish → publisher approves
+- ❌ Illustrations and animations (fixed at build time)
+- ❌ New pathways (must be created by an admin, not an editor)
+
 ## Build and deploy
 
 ```bash
 npm run build      # outputs to dist/
 ```
 
-Deployed on Vercel. The `vercel.json` at the project root includes a catch-all rewrite so all routes resolve to `index.html` — without it, direct URL hits 404 on a static SPA.
+Deployed on Vercel. `vercel.json` includes a catch-all rewrite so all routes resolve to `index.html`.
 
-Add these environment variables in the Vercel dashboard (not currently active in V1, kept for V2):
+## Environment variables
 
-| Variable | Purpose |
-|---|---|
-| `VITE_SUPABASE_URL` | Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Supabase anon key (safe to expose in frontend) |
+See `.env.example` for the SPA and `cms/.env.example` for the CMS.
 
-## Content
+## Resilience patterns applied in V1
 
-All module content lives in `src/data/modules.ts`. Each card has `roles` and `content` fields; `getModulesForUser()` filters by email prefix and injects the correct account intro card. To add a new role or account, extend the routing logic in that function.
-
-## V2 notes
-
-V1 uses localStorage and hardcoded credentials — intentionally simple for a stakeholder demo. V2 will restore Supabase for real user management, with `auth.users`, `profiles`, and `progress` tables (RLS-enabled schema already designed during the V1 build).
+- Fail-closed access gate (`AccessGate` returns false when `VITE_GATE_PASSWORD` is absent in production).
+- Every `localStorage` access is guarded and logs to a single sink (`src/lib/log.ts`) — no silent catches.
+- React `ErrorBoundary` wraps the app tree — a bad content payload or unexpected render error surfaces a fallback rather than a white screen.
+- CMS fetches: 8s timeout, one retry with jitter, Zod validation on read, fail-open to local content.

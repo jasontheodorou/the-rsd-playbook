@@ -1,6 +1,6 @@
 import { Group, Stack, Text, UnstyledButton } from '@mantine/core'
 import { CompleteIndicator, type IndicatorState } from './CompleteIndicator'
-import type { Card } from '../data/modules'
+import type { Card } from '../lib/content'
 
 type ModuleSidebarProps = {
   cards: Card[]

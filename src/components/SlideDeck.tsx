@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Box, Button, Container, Group, Stack, Text, Title, UnstyledButton } from '@mantine/core'
+import { ActionIcon, Box, Container, Group, Stack, Text, Title, UnstyledButton } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { OrangeCircle } from './Transform'
@@ -28,6 +29,10 @@ export function SlideDeck({ slides, trail, onReturnHome, countedSlides, countSta
   const progress = isCounting
     ? (Math.min(displayIndex, counted) / counted) * 100
     : currentIndex < countStart ? 0 : 100
+  const isDesktop = useMediaQuery('(min-width: 760px)') ?? true
+
+  const goPrev = () => setCurrentIndex(i => Math.max(0, i - 1))
+  const goNext = () => setCurrentIndex(i => i + 1)
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' })
@@ -131,76 +136,129 @@ export function SlideDeck({ slides, trail, onReturnHome, countedSlides, countSta
         </motion.div>
       </Box>
 
-      {/* Bottom nav */}
-      <Box
-        component="footer"
-        style={{
-          position: 'sticky',
-          bottom: 0,
-          zIndex: 10,
-          width: '100%',
-          backgroundColor: '#ffffff',
-          borderTop: '1px solid #E6E3DF',
-          boxShadow: '0 -1px 2px rgba(33, 61, 89, 0.04)',
-        }}
-      >
-        <Container size="md" py="md">
-          <Group justify="space-between" align="center" wrap="nowrap" gap="md">
-            <Button
-              onClick={() => setCurrentIndex(i => Math.max(0, i - 1))}
+      {/* Bottom nav — content-flanking buttons on desktop, floating pill on mobile */}
+      {isDesktop ? (
+        <>
+          {/* Left — previous */}
+          <Box
+            component="nav"
+            aria-label="Previous slide"
+            style={{
+              position: 'fixed',
+              left: 'max(100px, calc(50% - 580px))',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 10,
+              opacity: currentIndex === 0 ? 0 : 1,
+              pointerEvents: currentIndex === 0 ? 'none' : 'auto',
+              transition: 'opacity 220ms ease',
+            }}
+          >
+            <ActionIcon
+              onClick={goPrev}
               disabled={currentIndex === 0}
-              variant="outline"
-              color="dark"
-              size="sm"
-              leftSection={<ChevronLeft size={16} aria-hidden />}
+              size={64}
+              radius="xl"
+              variant="transparent"
+              aria-label="Previous slide"
+              className="slide-nav-btn"
             >
-              Previous
-            </Button>
+              <ChevronLeft size={24} strokeWidth={2.5} aria-hidden />
+            </ActionIcon>
+          </Box>
 
-            <Group gap={6} wrap="nowrap" role="tablist" aria-label="Slide indicators">
-              {slides.slice(countStart, countStart + counted).map((s, i) => {
-                const slideIndex = i + countStart
-                return (
-                  <UnstyledButton
-                    key={s.id}
-                    role="tab"
-                    aria-selected={slideIndex === currentIndex}
-                    aria-label={`Go to slide ${i + 1}`}
-                    onClick={() => setCurrentIndex(slideIndex)}
-                    style={{
-                      height: 6,
-                      width: slideIndex === currentIndex ? 24 : 6,
-                      borderRadius: 3,
-                      backgroundColor: slideIndex === currentIndex ? '#213D59' : '#CCC8C4',
-                      transition: 'all 220ms cubic-bezier(0.2, 0.8, 0.2, 1)',
-                    }}
-                  />
-                )
-              })}
-            </Group>
+          {/* Right — next / return home */}
+          <Box
+            component="nav"
+            aria-label={isLast ? 'Return home' : 'Next slide'}
+            style={{
+              position: 'fixed',
+              right: 'max(100px, calc(50% - 580px))',
+              top: '50%',
+              transform: 'translate(50%, -50%)',
+              zIndex: 10,
+            }}
+          >
+            <ActionIcon
+              onClick={isLast ? onReturnHome : goNext}
+              size={64}
+              radius="xl"
+              variant="transparent"
+              aria-label={isLast ? 'Return home' : 'Next slide'}
+              className="slide-nav-btn"
+            >
+              {isLast ? <RotateCcw size={22} strokeWidth={2.5} aria-hidden /> : <ChevronRight size={24} strokeWidth={2.5} aria-hidden />}
+            </ActionIcon>
+          </Box>
+        </>
+      ) : (
+        <Box
+          component="footer"
+          style={{
+            position: 'sticky',
+            bottom: 0,
+            zIndex: 10,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            paddingBlock: 20,
+            pointerEvents: 'none',
+          }}
+        >
+          <Group
+            gap={2}
+            align="center"
+            wrap="nowrap"
+            className="slide-nav-pill"
+            style={{
+              borderRadius: 999,
+              padding: '6px 8px',
+              pointerEvents: 'auto',
+            }}
+            aria-label="Slide navigation"
+          >
+            <ActionIcon
+              onClick={goPrev}
+              disabled={currentIndex === 0}
+              variant="transparent"
+              size="lg"
+              radius="xl"
+              aria-label="Previous slide"
+              className="slide-nav-pill-icon"
+            >
+              <ChevronLeft size={18} strokeWidth={2.5} aria-hidden />
+            </ActionIcon>
 
-            {isLast ? (
-              <Button
-                onClick={onReturnHome}
-                size="sm"
-                variant="outline"
-                color="dark"
-                leftSection={<RotateCcw size={16} aria-hidden />}
+            {isCounting && (
+              <Text
+                size="xs"
+                fw={700}
+                c="#5C5C5C"
+                px={8}
+                style={{
+                  letterSpacing: '0.08em',
+                  minWidth: 46,
+                  textAlign: 'center',
+                  userSelect: 'none',
+                }}
               >
-                Return home
-              </Button>
-            ) : (
-              <Button
-                onClick={() => setCurrentIndex(i => i + 1)}
-                size="sm"
-                rightSection={<ChevronRight size={16} aria-hidden />}
-              >
-                Next
-              </Button>
+                {displayIndex} / {counted}
+              </Text>
             )}
+
+            <ActionIcon
+              onClick={isLast ? onReturnHome : goNext}
+              variant="transparent"
+              size="lg"
+              radius="xl"
+              aria-label={isLast ? 'Return home' : 'Next slide'}
+              className="slide-nav-pill-icon"
+            >
+              {isLast ? <RotateCcw size={18} strokeWidth={2.5} aria-hidden /> : <ChevronRight size={18} strokeWidth={2.5} aria-hidden />}
+            </ActionIcon>
           </Group>
-        </Container>
-      </Box>
+        </Box>
+      )}
 
     </Box>
   )

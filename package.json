@@ -15,8 +15,10 @@
     "@mantine/notifications": "^7.17.8",
     "framer-motion": "^12.43.0",
     "lucide-react": "^1.26.0",
+    "motion": "^13.1.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

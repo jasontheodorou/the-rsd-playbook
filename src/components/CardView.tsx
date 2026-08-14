@@ -1,5 +1,5 @@
 import { Button, Group, Paper, Stack, Text, Title } from '@mantine/core'
-import type { Card, ContentBlock, ResourceGroup, ResourceItem, ResourceTint } from '../data/modules'
+import type { Card, ContentBlock, ResourceGroup, ResourceItem, ResourceTint } from '../lib/content'
 
 const tintColours: Record<ResourceTint, string> = {
   mist: '#E5EDEE',

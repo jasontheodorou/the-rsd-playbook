@@ -1,0 +1,209 @@
+/*
+ * All slides in this experiment use the same "bleed + white card" pattern.
+ * Full-bleed image behind, white card with black text at bottom-left,
+ * orange chapter marker. Scoped to `.p1v2-*`.
+ */
+
+.p1v2-slide {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #FAF4EE;
+}
+
+/* ── Chapter marker ─────────────────────────────────────────────────────── */
+
+.p1v2-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #EC671B;
+}
+
+.p1v2-marker__num {
+  padding: 6px 12px;
+  border: 1.5px solid #EC671B;
+  border-radius: 6px;
+}
+
+.p1v2-marker__rule {
+  display: block;
+  width: 64px;
+  height: 1.5px;
+  background: #EC671B;
+  opacity: 0.7;
+}
+
+/* ── Ambient layer (behind everything) ──────────────────────────────────── */
+
+.p1v2-bleed__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Bleed image behind ─────────────────────────────────────────────────── */
+
+.p1v2-bleed__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p1v2-bleed__bg .v-mask,
+.p1v2-bleed__bg .v-mask__item {
+  width: 100%;
+  height: 100%;
+}
+
+.p1v2-bleed__bg .v-mask__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Illustration mode (default) — image sits inset, cream padding shows. */
+.p1v2-bleed__bg img,
+.p1v2-bleed__bg svg {
+  max-width: 78%;
+  max-height: 78%;
+  width: auto;
+  height: auto;
+  opacity: 0.92;
+}
+
+/* Photo mode — image fills the slide edge-to-edge (for real photography). */
+.p1v2-bleed__bg--photo img,
+.p1v2-bleed__bg--photo svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
+
+/* Slight scrim over photos to keep the white card readable no matter what. */
+.p1v2-bleed__bg--photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.18) 100%);
+  pointer-events: none;
+}
+
+/* ── White card — shared styles ─────────────────────────────────────────── */
+
+.p1v2-bleed__card {
+  position: absolute;
+  padding: 40px 44px 44px;
+  background: #ffffff;
+  color: #333333;
+  border-radius: 8px;
+  box-shadow:
+    0 30px 60px rgba(33, 61, 89, 0.16),
+    0 8px 20px rgba(33, 61, 89, 0.08);
+  z-index: 2;
+  max-width: min(620px, 48vw);
+}
+
+/* ── Layout variants (position + size only, everything else identical) ─── */
+
+.p1v2-bleed__card--bl {
+  left: 6vw;
+  bottom: 112px;          /* clears the nav pill */
+}
+
+.p1v2-bleed__card--br {
+  right: 6vw;
+  bottom: 112px;
+}
+
+.p1v2-bleed__card--tl {
+  left: 6vw;
+  top: 40px;              /* below the top bar */
+}
+
+.p1v2-bleed__card--center {
+  left: 0;
+  right: 0;
+  bottom: 112px;
+  margin-inline: auto;
+  max-width: min(860px, 66vw);
+  text-align: left;
+}
+
+.p1v2-bleed__headline {
+  margin: 22px 0 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  color: #111111;
+  font-size: clamp(34px, 3.8vw, 52px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.p1v2-bleed__body {
+  margin: 0;
+  color: #333333;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+.p1v2-bleed__body + .p1v2-bleed__body {
+  margin-top: 14px;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .p1v2-bleed__bg img,
+  .p1v2-bleed__bg svg {
+    max-width: 88%;
+    max-height: 42%;
+  }
+
+  .p1v2-bleed__bg--photo img,
+  .p1v2-bleed__bg--photo svg {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .p1v2-bleed__card,
+  .p1v2-bleed__card--bl,
+  .p1v2-bleed__card--br,
+  .p1v2-bleed__card--tl,
+  .p1v2-bleed__card--center {
+    left: 20px;
+    right: 20px;
+    top: auto;
+    bottom: 128px;
+    margin-inline: 0;
+    max-width: none;
+    padding: 22px 24px 26px;
+  }
+
+  .p1v2-bleed__headline {
+    font-size: 28px;
+    line-height: 1.15;
+    margin: 16px 0 12px;
+  }
+
+  .p1v2-bleed__body {
+    font-size: 15px;
+  }
+}

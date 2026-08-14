@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { AccessGate, isGateOpen } from './components/AccessGate'
 import { getSession, signOut, getProfile, saveProfile, getProgress, saveProgress } from './lib/auth'
 import { HomePage } from './components/HomePage'
-import { SlideDeck } from './components/SlideDeck'
 import { PracticeForm, type PracticeProfile } from './components/PracticeForm'
 import { SignIn } from './pages/SignIn'
 import { ModuleView } from './pages/ModuleView'
 import { LayoutPreview } from './pages/LayoutPreview'
-import { createFoundationSlides } from './slides/foundations'
+import { PastePage } from './pages/PastePage'
+import { Pathway1 } from './pathway1/Pathway1'
 
 type View =
   | { type: 'home' }
@@ -24,6 +24,9 @@ export default function App() {
   const [completed, setCompleted] = useState<Set<string>>(() => getProgress())
 
   if (!gateOpen) return <AccessGate onUnlock={() => setGateOpen(true)} />
+
+  const isPasteRoute = typeof window !== 'undefined' && window.location.pathname === '/paste'
+  if (isPasteRoute) return <PastePage />
 
   const goHome = () => setView({ type: 'home' })
 
@@ -81,18 +84,7 @@ export default function App() {
   }
 
   if (view.type === 'foundations') {
-    return (
-      <SlideDeck
-        slides={createFoundationSlides({
-          onReturnHome: goHome,
-          onNextPathway: handlePracticeClick,
-        })}
-        trail="Explore the foundations"
-        onReturnHome={goHome}
-        countedSlides={10}
-        countStart={1}
-      />
-    )
+    return <Pathway1 onReturnHome={goHome} />
   }
 
   if (view.type === 'practice-form') {
