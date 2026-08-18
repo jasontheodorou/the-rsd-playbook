@@ -1,181 +1,241 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ActionIcon, Box, Container, Group, Text, Title, UnstyledButton } from '@mantine/core'
-import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react'
-import { OrangeCircle } from '../components/Transform'
-import { createDummySlides } from './slides'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence, useReducedMotion, useScroll } from 'framer-motion'
+import { PILOT_PAGES, PILOT_CHAPTERS, chapterIndexForPage } from './pages'
+import { PageExpansion } from './expansions'
+import './Pathway1.css'
+
+const GROW_TRANSITION = { duration: 0.55, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
 
 /**
- * Pathway 1 — the RSD Playbook foundations deck.
- *
- * 13 slides. Each is a bleed layout: full-slide illustration behind a white
- * card at bottom-left / bottom-right / top-left / centre.
+ * Pathway1 — the foundations module as a click-through of vertical pages.
+ * Mounted inside the RSD Playbook shell, so it doesn't render its own home
+ * affordance — the persistent TopBar owns wordmark + navigation.
  */
 export function Pathway1({ onReturnHome }: { onReturnHome: () => void }) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const slides = createDummySlides({ onJump: setCurrentIndex })
-  const slide = slides[currentIndex]
-  const isLast = currentIndex === slides.length - 1
+  const [index, setIndex] = useState(0)
+  const [chaptersOpen, setChaptersOpen] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion()
 
-  const goPrev = () => setCurrentIndex(i => Math.max(0, i - 1))
-  const goNext = () => setCurrentIndex(i => i + 1)
+  const page = PILOT_PAGES[index]
+  const isLast = index === PILOT_PAGES.length - 1
+  const activeChapter = chapterIndexForPage(index)
+
+  // Drives the vertical bar — grows top-to-bottom as the current page scrolls.
+  const { scrollYProgress } = useScroll({ container: scrollRef })
+
+  const advance = () => {
+    if (isLast) return onReturnHome()
+    setIndex((i) => Math.min(PILOT_PAGES.length - 1, i + 1))
+  }
+
+  const jumpToChapter = (chapterIdx: number) => {
+    setIndex(PILOT_CHAPTERS[chapterIdx].startIndex)
+    setChaptersOpen(false)
+  }
+
+  const resetScroll = () => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0
+  }
 
   useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      const target = e.target as HTMLElement
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return
-      if (e.key === 'ArrowRight' && currentIndex < slides.length - 1) setCurrentIndex(i => i + 1)
-      else if (e.key === 'ArrowLeft' && currentIndex > 0) setCurrentIndex(i => i - 1)
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
-  }, [currentIndex, slides.length])
+    resetScroll()
+  }, [index])
 
-  const progress = ((currentIndex + 1) / slides.length) * 100
+  useEffect(() => {
+    if (!chaptersOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setChaptersOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [chaptersOpen])
+
+  const accent = page.accent ?? '#D8B4A3'
+  const accentHover = page.accentHover ?? '#C69A87'
+  const accentTrack = page.accentTrack ?? 'rgba(216, 180, 163, 0.28)'
+
+  // Unified background across all chapters — the Head, Heart, Hands
+  // butter cream reads warm without swinging tone chapter-to-chapter.
+  const bg = '#FDFAF2'
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      {/* Top bar */}
-      <Box
-        component="header"
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 10,
-          width: '100%',
-          backgroundColor: '#ffffff',
-          borderBottom: '1px solid #E6E3DF',
-          boxShadow: '0 1px 2px rgba(33, 61, 89, 0.04)',
-        }}
-      >
-        <Container size="lg" py="md" px="md">
-          <Group justify="space-between" align="center" wrap="nowrap">
-            <UnstyledButton onClick={onReturnHome} aria-label="Return to home">
-              <Group gap="sm" align="center" wrap="nowrap">
-                <OrangeCircle size={12} />
-                <Title order={1} fz={15} fw={700} c="#333333" lh={1}>
-                  The RSD Playbook
-                </Title>
-                <Text fz={13} c="#5C5C5C" lh={1} ml={4}>
-                  / Explore the foundations
-                </Text>
-              </Group>
-            </UnstyledButton>
-            <Text size="xs" fw={700} tt="uppercase" c="#5C5C5C" style={{ letterSpacing: '0.08em' }}>
-              {currentIndex + 1} / {slides.length}
-            </Text>
-          </Group>
-        </Container>
-
-        <Box
-          role="progressbar"
-          aria-valuenow={Math.round(progress)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label="Progress"
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 3,
-            backgroundColor: '#E6E3DF',
-            overflow: 'hidden',
-            pointerEvents: 'none',
-          }}
-        >
-          <Box
-            style={{
-              height: '100%',
-              width: '100%',
-              transformOrigin: 'left center',
-              transform: `scaleX(${progress / 100})`,
-              backgroundColor: '#213D59',
-              transition: 'transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1)',
-              willChange: 'transform',
-            }}
+    <motion.div
+      className="pilot-root"
+      initial={reduce ? false : { scale: 0.32, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={reduce ? { opacity: 0 } : { scale: 0.32, opacity: 0 }}
+      transition={reduce ? { duration: 0.2 } : GROW_TRANSITION}
+      style={{
+        position: 'absolute',
+        inset: 0,
+        transformOrigin: 'calc(50% - 190px) 50%',
+        ['--pilot-accent' as string]: accent,
+        ['--pilot-accent-hover' as string]: accentHover,
+        ['--pilot-accent-track' as string]: accentTrack,
+        background: bg,
+      } as React.CSSProperties}
+    >
+      {/* Full-bleed background video (welcome page only) — sits at root
+          level so it extends behind the rail and hamburger. */}
+      {page.video && (
+        <>
+          <video
+            key={`bg-${page.id}`}
+            className="pilot-bg-video"
+            src={page.video}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
           />
-        </Box>
-      </Box>
+          <div className="pilot-bg-scrim" aria-hidden="true" />
+        </>
+      )}
 
-      {/* Slide content */}
-      <Box component="main" style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-        <motion.div
-          key={slide.id}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
-          style={{ height: '100%' }}
-        >
-          {slide.content}
-        </motion.div>
-      </Box>
-
-      {/* Bottom-centre pill — the only nav for the experiment.
-          Sits below the slide, out of any content's way. */}
-      <Box
-        style={{
-          position: 'fixed',
-          bottom: 24,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 20,
-        }}
+      {/* Chapter hamburger — small orange square on the left edge. */}
+      <button
+        type="button"
+        className="pilot-hamburger"
+        aria-label={chaptersOpen ? 'Close chapters' : 'Open chapters'}
+        aria-expanded={chaptersOpen}
+        onClick={() => setChaptersOpen((v) => !v)}
       >
-        <Group
-          gap={2}
-          align="center"
-          wrap="nowrap"
-          style={{
-            backgroundColor: 'rgba(33, 61, 89, 0.90)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            borderRadius: 999,
-            padding: '6px 8px',
-            boxShadow: '0 10px 30px rgba(33, 61, 89, 0.22)',
-          }}
-          aria-label="Slide navigation"
-        >
-          <ActionIcon
-            onClick={goPrev}
-            disabled={currentIndex === 0}
-            variant="transparent"
-            size="lg"
-            radius="xl"
-            aria-label="Previous slide"
-            style={{ color: '#ffffff' }}
-          >
-            <ChevronLeft size={18} strokeWidth={2.5} aria-hidden />
-          </ActionIcon>
+        <span className="pilot-hamburger__lines" data-open={chaptersOpen ? 'true' : 'false'} aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+      </button>
 
-          <Text
-            size="xs"
-            fw={700}
-            c="#ffffff"
-            px={10}
-            style={{
-              letterSpacing: '0.1em',
-              minWidth: 52,
-              textAlign: 'center',
-              userSelect: 'none',
-              opacity: 0.9,
-            }}
-          >
-            {currentIndex + 1} / {slides.length}
-          </Text>
+      <AnimatePresence>
+        {chaptersOpen && (
+          <>
+            <motion.div
+              key="scrim"
+              className="pilot-chapscrim"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setChaptersOpen(false)}
+            />
+            <motion.aside
+              key="panel"
+              className="pilot-chappanel"
+              role="dialog"
+              aria-label="Chapters"
+              initial={reduce ? { opacity: 0 } : { x: -32, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={reduce ? { opacity: 0 } : { x: -32, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.65, 0, 0.45, 1] }}
+            >
+              <div className="pilot-chappanel__label">Chapters</div>
+              <ol className="pilot-chappanel__list">
+                {PILOT_CHAPTERS.map((chapter, i) => {
+                  const isCurrent = i === activeChapter
+                  return (
+                    <li key={chapter.id}>
+                      <button
+                        type="button"
+                        className="pilot-chappanel__item"
+                        aria-current={isCurrent}
+                        onClick={() => jumpToChapter(i)}
+                      >
+                        <span className="pilot-chappanel__num">{chapter.num}</span>
+                        <span className="pilot-chappanel__name">{chapter.name}</span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ol>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
 
-          <ActionIcon
-            onClick={isLast ? onReturnHome : goNext}
-            variant="transparent"
-            size="lg"
-            radius="xl"
-            aria-label={isLast ? 'Return home' : 'Next slide'}
-            style={{ color: '#ffffff' }}
+      {/* Left rail — progress bar on the left, hairline divider on the right. */}
+      <div className="pilot-rail" aria-hidden="true">
+        <div className="pilot-vribbon">
+          <motion.div
+            className="pilot-vribbon__fill"
+            style={{ scaleY: scrollYProgress, transformOrigin: 'top' }}
+          />
+        </div>
+      </div>
+
+      <div ref={scrollRef} className="pilot-scroll">
+        <AnimatePresence mode="wait" initial={false} onExitComplete={resetScroll}>
+          <motion.article
+            key={page.id}
+            className={`pilot-page ${page.video ? 'pilot-page--video' : ''}`}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
+            transition={{ duration: 0.45, ease: [0.65, 0, 0.45, 1] }}
           >
-            {isLast ? <RotateCcw size={18} strokeWidth={2.5} aria-hidden /> : <ChevronRight size={18} strokeWidth={2.5} aria-hidden />}
-          </ActionIcon>
-        </Group>
-      </Box>
-    </Box>
+            {page.video ? (
+              <div className="pilot-page__card">
+                <span className="pilot-marker">
+                  <span className="pilot-marker__num">{page.num}</span>
+                  <span className="pilot-marker__rule" aria-hidden="true" />
+                  <span>{page.section}</span>
+                </span>
+                <h1 className="pilot-page__headline">{page.headline}</h1>
+                <p className="pilot-page__lede">{page.body[0]}</p>
+                <p className="pilot-page__lede">{page.body[1]}</p>
+                <button type="button" className="pilot-next" onClick={advance}>
+                  <span className="pilot-next__label">
+                    {isLast ? 'Finish' : 'Continue'}
+                  </span>
+                  <span className="pilot-next__meta">
+                    {isLast ? 'Return home' : `Next · ${PILOT_PAGES[index + 1].section}`}
+                  </span>
+                  <span className="pilot-next__arrow" aria-hidden="true">→</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                <header className="pilot-page__head">
+                  <span className="pilot-marker">
+                    <span className="pilot-marker__num">{page.num}</span>
+                    <span className="pilot-marker__rule" aria-hidden="true" />
+                    <span>{page.section}</span>
+                  </span>
+                </header>
+
+                <div className="pilot-page__body">
+                  <div className="pilot-page__text">
+                    <h1 className="pilot-page__headline">{page.headline}</h1>
+                    <p className="pilot-page__lede">{page.body[0]}</p>
+                    <p className="pilot-page__lede">{page.body[1]}</p>
+                  </div>
+
+                  <div className="pilot-page__art">
+                    <img src={page.image} alt="" />
+                  </div>
+                </div>
+
+                <PageExpansion pageId={page.id} />
+
+                <footer className="pilot-page__foot">
+                  <button type="button" className="pilot-next" onClick={advance}>
+                    <span className="pilot-next__label">
+                      {isLast ? 'Finish' : 'Continue'}
+                    </span>
+                    <span className="pilot-next__meta">
+                      {isLast ? 'Return home' : `Next · ${PILOT_PAGES[index + 1].section}`}
+                    </span>
+                    <span className="pilot-next__arrow" aria-hidden="true">→</span>
+                  </button>
+                </footer>
+              </>
+            )}
+          </motion.article>
+        </AnimatePresence>
+      </div>
+    </motion.div>
   )
 }

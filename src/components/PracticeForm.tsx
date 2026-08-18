@@ -1,7 +1,6 @@
 import { Box, Button, Container, Group, Select, Stack, Text, Title } from '@mantine/core'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
-import { TopBar } from './TopBar'
 import { OrangeCircle } from './Transform'
 
 export type PracticeProfile = {
@@ -30,7 +29,7 @@ export function PracticeForm({ onReturnHome, onSubmit }: PracticeFormProps) {
   const canSubmit = role && accountId && selectedAccount
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+    <Box style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', position: 'relative', overflow: 'hidden' }}>
       <a className="skip-link" href="#form-content">Skip to main content</a>
 
       <OrangeCircle
@@ -38,8 +37,6 @@ export function PracticeForm({ onReturnHome, onSubmit }: PracticeFormProps) {
         opacity={0.08}
         style={{ position: 'absolute', top: -80, right: -100, pointerEvents: 'none' }}
       />
-
-      <TopBar onHome={onReturnHome} />
 
       <Box
         component="main"

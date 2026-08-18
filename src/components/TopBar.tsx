@@ -1,4 +1,5 @@
 import { Box, Button, Container, Group, Text, Title } from '@mantine/core'
+import { AnimatePresence, motion } from 'framer-motion'
 import { OrangeCircle } from './Transform'
 
 type TopBarProps = {
@@ -7,6 +8,8 @@ type TopBarProps = {
   userEmail?: string
   onSignIn?: () => void
   onSignOut?: () => void
+  /** Optional trail text shown after the wordmark, e.g. "Explore the foundations". */
+  trail?: string
 }
 
 function roleFromEmail(email: string): { initials: string; label: string; colour: string } {
@@ -16,13 +19,28 @@ function roleFromEmail(email: string): { initials: string; label: string; colour
   return { initials: 'ID', label: 'Interaction designer', colour: '#EC671B' }
 }
 
-export function TopBar({ onHome, isLoggedIn, userEmail, onSignIn, onSignOut }: TopBarProps) {
+export function TopBar({ onHome, isLoggedIn, userEmail, onSignIn, onSignOut, trail }: TopBarProps) {
   const wordmark = (
     <Group gap="sm" align="center" wrap="nowrap" style={{ cursor: onHome ? 'pointer' : 'default' }} onClick={onHome}>
       <OrangeCircle size={12} />
       <Title order={1} fz={15} fw={700} c="#333333" lh={1}>
         The RSD Playbook
       </Title>
+      <AnimatePresence mode="wait">
+        {trail && (
+          <motion.span
+            key={trail}
+            initial={{ opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -6 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, whiteSpace: 'nowrap' }}
+          >
+            <span style={{ color: '#CCC8C4', fontSize: 15, lineHeight: 1 }}>/</span>
+            <Text component="span" fz={13} c="#5C5C5C" lh={1}>{trail}</Text>
+          </motion.span>
+        )}
+      </AnimatePresence>
     </Group>
   )
 

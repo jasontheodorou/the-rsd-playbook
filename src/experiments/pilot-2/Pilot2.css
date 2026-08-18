@@ -1,0 +1,421 @@
+/*
+ * Pilot 2 — layout catalogue. Ten variants, one visual family.
+ * Palette + typography match the Foundations experience.
+ * Scoped to `.p2-*`.
+ */
+
+.p2-root {
+  background: #FAF8F6;
+  color: #111;
+  font-family: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.p2-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.p2-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Section frame ──────────────────────────────────────────────────────── */
+
+.p2-section {
+  position: relative;
+  padding: clamp(4rem, 9vw, 8rem) 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.p2-section--bleed {
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.p2-section__tag {
+  position: absolute;
+  top: 20px;
+  left: clamp(1.5rem, 5vw, 5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #B8B4B0;
+  z-index: 1;
+}
+
+.p2-section__tag span:nth-child(1) { color: #EC671B; }
+
+/* ── Intro ──────────────────────────────────────────────────────────────── */
+
+.p2-intro {
+  padding: clamp(4rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5rem);
+}
+
+.p2-eyebrow {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #EC671B;
+  margin-bottom: clamp(1.25rem, 2vw, 2rem);
+}
+
+.p2-intro__title {
+  margin: 0 0 clamp(1.25rem, 2vw, 2rem);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #111;
+  max-width: 18ch;
+}
+
+.p2-intro__lede {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.55;
+  color: #4A4A4E;
+  max-width: 40rem;
+}
+
+/* ── Shared type ────────────────────────────────────────────────────────── */
+
+.p2-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #EC671B;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.p2-marker--centered {
+  justify-content: center;
+  display: flex;
+}
+
+.p2-marker__num {
+  padding: 5px 10px;
+  border: 1.5px solid #EC671B;
+  border-radius: 5px;
+}
+
+.p2-marker__rule {
+  display: block;
+  width: 44px;
+  height: 1.5px;
+  background: #EC671B;
+  opacity: 0.7;
+}
+
+.p2-h2 {
+  margin: 0 0 clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.6vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #111;
+  max-width: 22ch;
+}
+
+.p2-h2 em {
+  font-style: normal;
+  color: #C9C4BE;
+  font-weight: 800;
+}
+
+.p2-h2 sup {
+  color: #EC671B;
+  font-size: 0.5em;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+.p2-h2--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+.p2-display {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  color: #111;
+}
+
+.p2-display em {
+  font-style: normal;
+  color: #C9C4BE;
+}
+
+.p2-display--sm {
+  font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+  line-height: 1.0;
+}
+
+.p2-body {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.7;
+  color: #3A3A3E;
+  max-width: 36rem;
+}
+
+.p2-body--wide { max-width: 44rem; }
+.p2-body--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+/* ── Text blocks ────────────────────────────────────────────────────────── */
+
+.p2-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.p2-text--right { text-align: left; }
+
+/* ── Grid variants ──────────────────────────────────────────────────────── */
+
+.p2-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* text-left / portrait-right */
+.p2-grid--tr { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); }
+/* media-left / text-right */
+.p2-grid--ml { grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); }
+/* pull-quote left plane / text right */
+.p2-grid--pq { grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); }
+/* text left / triptych right */
+.p2-grid--tri { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+/* text + inset */
+.p2-grid--inset { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); align-items: end; }
+
+@media (max-width: 900px) {
+  .p2-grid,
+  .p2-grid--tr,
+  .p2-grid--ml,
+  .p2-grid--pq,
+  .p2-grid--tri,
+  .p2-grid--inset {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 03 · Hero display ─────────────────────────────────────────────────── */
+
+.p2-hero {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.p2-hero--after-bleed {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.p2-hero .p2-placeholder { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+
+/* ── 04 · Numbered pillars grid ────────────────────────────────────────── */
+
+.p2-pillars__head {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  max-width: 44rem;
+}
+
+.p2-pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.p2-pillars__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.p2-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* ── 05 · Callout plane ─────────────────────────────────────────────────── */
+
+.p2-callout {
+  position: relative;
+  padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  min-height: 340px;
+  justify-content: space-between;
+}
+
+.p2-callout--peach { background: #E8B39E; color: #111; }
+.p2-callout--sand  { background: #EDE1D2; color: #111; }
+
+.p2-callout__quote-mark {
+  font-family: Georgia, serif;
+  font-size: 44px;
+  line-height: 1;
+  color: #111;
+  align-self: flex-start;
+}
+
+.p2-callout__quote {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 18ch;
+}
+
+.p2-callout__body {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.55;
+  color: #3A2E24;
+  max-width: 32ch;
+}
+
+.p2-callout__attribution {
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+/* ── 06 · Full-bleed ───────────────────────────────────────────────────── */
+
+.p2-fullbleed {
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+}
+
+/* ── 07 · Triptych ─────────────────────────────────────────────────────── */
+
+.p2-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+@media (max-width: 640px) {
+  .p2-triptych {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 08 · Statement + inset ────────────────────────────────────────────── */
+
+.p2-inset {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.p2-inset .p2-placeholder {
+  max-width: 260px;
+  width: 100%;
+}
+
+/* ── 09 · Card overlay ─────────────────────────────────────────────────── */
+
+.p2-overlay {
+  position: relative;
+}
+
+.p2-overlay__card {
+  position: absolute;
+  bottom: clamp(1.5rem, 3vw, 2.5rem);
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 560px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow:
+    0 20px 40px rgba(33, 61, 89, 0.14),
+    0 4px 12px rgba(33, 61, 89, 0.06);
+}
+
+/* ── 10 · Prose ─────────────────────────────────────────────────────────── */
+
+.p2-prose {
+  max-width: 780px;
+  text-align: center;
+}
+
+.p2-prose .p2-placeholder {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+/* ── Placeholders (graphic slots) ───────────────────────────────────────── */
+
+.p2-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 17, 17, 0.03);
+  border: 1px dashed rgba(17, 17, 17, 0.14);
+  color: rgba(17, 17, 17, 0.32);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.p2-placeholder--soft {
+  background: rgba(216, 180, 163, 0.14);
+  border-color: rgba(216, 180, 163, 0.4);
+  color: rgba(101, 74, 61, 0.55);
+}
+
+.p2-placeholder--portrait { aspect-ratio: 4 / 5; }
+.p2-placeholder--landscape { aspect-ratio: 3 / 2; }
+.p2-placeholder--landscape-wide { aspect-ratio: 21 / 9; }
+.p2-placeholder--square { aspect-ratio: 1 / 1; }
+.p2-placeholder--fullbleed { aspect-ratio: 21 / 9; }
+
+/* ── Endstop ────────────────────────────────────────────────────────────── */
+
+.p2-endstop {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #B8B4B0;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}

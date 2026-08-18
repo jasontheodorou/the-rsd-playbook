@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Box, Container, Grid, Paper, Stack, Text, UnstyledButton } from '@mantine/core'
-import { TopBar } from '../components/TopBar'
 import { CardView } from '../components/CardView'
 import { ModuleSidebar } from '../components/ModuleSidebar'
 import { getPathwayContentSync } from '../lib/content'
@@ -16,7 +15,7 @@ type ModuleViewProps = {
   onSignOut?: () => void
 }
 
-export function ModuleView({ profile, userEmail, completed, onToggleComplete, onReturnHome, isLoggedIn, onSignOut }: ModuleViewProps) {
+export function ModuleView({ profile, completed, onToggleComplete }: ModuleViewProps) {
   const modules = getPathwayContentSync(profile.role, profile.account_id)
 
   const [activeModuleId, setActiveModuleId] = useState(modules[0].id)
@@ -47,9 +46,8 @@ export function ModuleView({ profile, userEmail, completed, onToggleComplete, on
   }
 
   return (
-    <Box style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      <TopBar onHome={onReturnHome} isLoggedIn={isLoggedIn} userEmail={userEmail} onSignOut={onSignOut} />
 
       <Box component="main" id="main-content" style={{ flex: 1 }}>
         <Container size="xl" py={32}>

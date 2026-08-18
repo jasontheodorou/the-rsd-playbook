@@ -29,3 +29,6 @@ yarn-error.log*
 .cache/
 journal/
 .claude/
+
+# Playwright screenshots (local dev feedback loop)
+.playwright-shots/
