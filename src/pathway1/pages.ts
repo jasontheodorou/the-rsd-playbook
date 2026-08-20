@@ -1,7 +1,7 @@
 /**
- * Pathway 1 content — extracted verbatim from `main` `src/pathway1/slides.tsx`.
- * 13 pages that each become a vertical page in the pilot.
- * The 13 pages are grouped into 6 chapters for chapter-level navigation.
+ * Pathway 1 content — one welcome page + 12 vertical body pages.
+ * Body pages use the p1v2 layout-and-spacing grammar (hero + single-flow body).
+ * Grouped into 7 chapters for chapter-level navigation.
  */
 
 export type PilotPage = {
@@ -175,13 +175,13 @@ export const PILOT_PAGES: PilotPage[] = [
 ]
 
 export const PILOT_CHAPTERS: PilotChapter[] = [
-  { id: 'welcome',      num: 'I',   name: 'Welcome',                startIndex: 0 },
-  { id: 'north-star',   num: 'II',  name: 'Our north star',         startIndex: 1 },
-  { id: 'why-matters',  num: 'III', name: 'Why it matters',         startIndex: 2 },
-  { id: 'enabling',     num: 'IV',  name: 'What enables good design', startIndex: 5 },
-  { id: 'skills',       num: 'V',   name: 'The skills we bring',    startIndex: 7 },
-  { id: 'hhh',          num: 'VI',  name: 'Head, Heart and Hands',  startIndex: 8 },
-  { id: 'participation',num: 'VII', name: 'Participation',          startIndex: 12 },
+  { id: 'welcome',       num: 'I',   name: 'Welcome',                  startIndex: 0 },
+  { id: 'north-star',    num: 'II',  name: 'Our north star',           startIndex: 1 },
+  { id: 'why-matters',   num: 'III', name: 'Why it matters',           startIndex: 2 },
+  { id: 'enabling',      num: 'IV',  name: 'What enables good design', startIndex: 5 },
+  { id: 'skills',        num: 'V',   name: 'The skills we bring',      startIndex: 7 },
+  { id: 'hhh',           num: 'VI',  name: 'Head, Heart and Hands',    startIndex: 8 },
+  { id: 'participation', num: 'VII', name: 'Participation',            startIndex: 12 },
 ]
 
 /** Returns the index of the chapter that contains the given page index. */

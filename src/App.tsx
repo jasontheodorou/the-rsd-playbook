@@ -72,7 +72,8 @@ export default function App() {
   const [gateOpen, setGateOpen] = useState(() => isGateOpen())
   const [view, setView] = useState<View>(() => {
     if (typeof window !== 'undefined') {
-      if (window.location.pathname === '/experiments/pilot')   return { type: 'foundations' }
+      if (window.location.pathname === '/foundations' ||
+          window.location.pathname === '/experiments/pilot')   return { type: 'foundations' }
       if (window.location.pathname === '/experiments/pilot-2') return { type: 'pilot-2' }
       if (window.location.pathname === '/experiments/pilot-3') return { type: 'pilot-3' }
       if (window.location.pathname === '/experiments/runbook-pilot') return { type: 'runbook-pilot' }

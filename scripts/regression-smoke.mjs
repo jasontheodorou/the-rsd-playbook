@@ -2,7 +2,7 @@ import { chromium } from 'playwright'
 
 const routes = [
   '/',
-  '/experiments/pilot',
+  '/foundations',
   '/experiments/pilot-2',
   '/experiments/pilot-3',
   '/experiments/runbook-pilot',

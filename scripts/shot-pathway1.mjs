@@ -18,7 +18,7 @@ page.on('console', (msg) => {
 })
 
 // Legacy /experiments/pilot should redirect to foundations content
-await page.goto('http://localhost:3011/experiments/pilot', { waitUntil: 'networkidle' })
+await page.goto('http://localhost:3011/foundations', { waitUntil: 'networkidle' })
 await page.waitForTimeout(500)
 await page.screenshot({ path: resolve(outDir, 'via-pilot-url.png') })
 
