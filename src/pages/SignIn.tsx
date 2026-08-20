@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Box, Button, Container, Group, Stack, Text, TextInput, PasswordInput, Title } from '@mantine/core'
 import { ArrowRight } from 'lucide-react'
-import { TopBar } from '../components/TopBar'
 import { Pebble } from '../components/Pebble'
 import { signIn, validateCredentials } from '../lib/auth'
 
@@ -28,13 +27,11 @@ export function SignIn({ onReturnHome, onSignedIn }: SignInProps) {
   }
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+    <Box style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', position: 'relative', overflow: 'hidden' }}>
       <a className="skip-link" href="#sign-in-content">Skip to main content</a>
 
       <Pebble variant={6} size={200} rotate={-15} opacity={0.55} style={{ top: 60, left: 60 }} visibleFrom="lg" />
       <Pebble variant={4} size={180} rotate={20} opacity={0.45} style={{ bottom: 60, right: 60 }} visibleFrom="lg" />
-
-      <TopBar onHome={onReturnHome} />
 
       <Box
         component="main"

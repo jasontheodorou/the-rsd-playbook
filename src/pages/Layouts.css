@@ -1,0 +1,1678 @@
+/*
+ * Layouts — combined catalogue of all layouts from pilot-2 + pilot-3.
+ * Each layout preceded by a simple dark interstitial banner naming it.
+ * Scoped to `.ly-*`.
+ */
+
+.ly-root {
+  background: #FAF8F6;
+  color: #111;
+  font-family: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ly-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.ly-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Interstitial banner ────────────────────────────────────────────────── */
+
+.ly-banner {
+  background: #111;
+  color: #FAF8F6;
+  padding: 18px 0;
+}
+
+.ly-banner__inner {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ly-banner__num {
+  color: #EC671B;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ly-banner__name {
+  color: #FAF8F6;
+}
+
+/* ── Section frame ──────────────────────────────────────────────────────── */
+
+.ly-section {
+  position: relative;
+  padding: clamp(4rem, 9vw, 8rem) 0;
+}
+
+.ly-section--bleed {
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* ── Shared type ────────────────────────────────────────────────────────── */
+
+.ly-h2 {
+  margin: 0 0 clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.6vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #111;
+  max-width: 22ch;
+}
+
+.ly-h2--intro {
+  max-width: 30ch;
+  margin-bottom: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+.ly-h2 em {
+  font-style: normal;
+  color: #C9C4BE;
+  font-weight: 800;
+}
+
+.ly-h2--centered {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ly-h3 {
+  display: block;
+  font-weight: 800;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #111;
+}
+
+.ly-display {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  color: #111;
+}
+
+.ly-display em {
+  font-style: normal;
+  color: #C9C4BE;
+}
+
+.ly-display--sm {
+  font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+  line-height: 1.0;
+}
+
+.ly-body {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.7;
+  color: #3A3A3E;
+  max-width: 36rem;
+}
+
+.ly-body--wide { max-width: 44rem; }
+.ly-body--intro { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.ly-body--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+/* ── Text blocks ────────────────────────────────────────────────────────── */
+
+.ly-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+/* ── Grid variants ──────────────────────────────────────────────────────── */
+
+.ly-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.ly-grid--tr { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); }
+.ly-grid--ml { grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); }
+.ly-grid--pq { grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); align-items: stretch; }
+.ly-grid--tri { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+.ly-grid--inset { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); align-items: end; }
+
+@media (max-width: 900px) {
+  .ly-grid,
+  .ly-grid--tr,
+  .ly-grid--ml,
+  .ly-grid--pq,
+  .ly-grid--tri,
+  .ly-grid--inset {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── L03 · Hero display ────────────────────────────────────────────────── */
+
+.ly-hero {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.ly-hero--after-bleed {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.ly-hero .ly-placeholder { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+
+/* ── L04 · Numbered pillars grid ───────────────────────────────────────── */
+
+.ly-pillars__head {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  max-width: 44rem;
+}
+
+.ly-pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.ly-pillars__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ly-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* ── Callout plane ─────────────────────────────────────────────────────── */
+
+.ly-callout {
+  position: relative;
+  padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  min-height: 320px;
+  justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.ly-callout--peach { background: #E8B39E; color: #111; }
+
+.ly-callout__quote {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 18ch;
+}
+
+.ly-callout__body {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.55;
+  color: #3A2E24;
+  max-width: 32ch;
+}
+
+/* ── L06 · Full-bleed ──────────────────────────────────────────────────── */
+
+.ly-fullbleed {
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+}
+
+/* ── Triptych ──────────────────────────────────────────────────────────── */
+
+.ly-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.ly-triptych--labelled {
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.ly-triptych__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .ly-triptych {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Inset ─────────────────────────────────────────────────────────────── */
+
+.ly-inset {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.ly-inset .ly-placeholder {
+  max-width: 260px;
+  width: 100%;
+}
+
+/* ── L09 · Card overlay ────────────────────────────────────────────────── */
+
+.ly-overlay {
+  position: relative;
+}
+
+.ly-overlay__card {
+  position: absolute;
+  bottom: clamp(1.5rem, 3vw, 2.5rem);
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 560px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow:
+    0 20px 40px rgba(33, 61, 89, 0.14),
+    0 4px 12px rgba(33, 61, 89, 0.06);
+}
+
+/* ── Prose column ──────────────────────────────────────────────────────── */
+
+.ly-prose {
+  max-width: 780px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  text-align: center;
+}
+
+.ly-prose .ly-placeholder {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+/* ── L12 · Contrast pair ───────────────────────────────────────────────── */
+
+.ly-contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 700px) {
+  .ly-contrast {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── L14 · Numbered steps ──────────────────────────────────────────────── */
+
+.ly-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.ly-steps__item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.ly-steps__num {
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1;
+  color: #EC671B;
+}
+
+.ly-steps__title {
+  font-weight: 800;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.15;
+  color: #111;
+}
+
+@media (max-width: 800px) { .ly-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .ly-steps { grid-template-columns: 1fr; } }
+
+/* ── L15 · Specimen grid ───────────────────────────────────────────────── */
+
+.ly-specimen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+}
+
+@media (max-width: 800px) { .ly-specimen { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .ly-specimen { grid-template-columns: 1fr; } }
+
+.ly-specimen__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── L18 · Timeline sequence ───────────────────────────────────────────── */
+
+.ly-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+  align-items: start;
+}
+
+.ly-timeline__step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 22px;
+}
+
+.ly-timeline__marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 12px;
+}
+
+.ly-timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #EC671B;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.ly-timeline__line {
+  position: absolute;
+  left: 10px;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(236, 103, 27, 0.3);
+  transform: translateY(-50%);
+}
+
+@media (max-width: 800px) {
+  .ly-timeline { grid-template-columns: 1fr 1fr; }
+  .ly-timeline__line { display: none; }
+}
+
+@media (max-width: 500px) {
+  .ly-timeline { grid-template-columns: 1fr; }
+}
+
+/* ── L21 · Asymmetric display + inset ──────────────────────────────────── */
+
+.ly-asymm {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: stretch;
+}
+
+.ly-asymm .ly-display {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+  margin-bottom: 0;
+  align-self: end;
+}
+
+.ly-asymm__side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+  min-height: 100%;
+}
+
+.ly-asymm__side .ly-placeholder {
+  max-width: 180px;
+  margin-left: auto;
+}
+
+.ly-asymm__side .ly-body {
+  max-width: 28rem;
+}
+
+@media (max-width: 900px) {
+  .ly-asymm {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .ly-asymm .ly-display { align-self: start; }
+  .ly-asymm__side { justify-content: start; }
+  .ly-asymm__side .ly-placeholder {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Stealthy body-forward layouts (L24–L33)
+   No hero titles. Body copy leads. Graphics = small accent boxouts.
+   ══════════════════════════════════════════════════════════════════════ */
+
+.ly-section--sm {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+/* Shared: narrower body copy for these layouts */
+.ly-section--sm .ly-body {
+  font-size: clamp(0.98rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  max-width: 34rem;
+}
+
+.ly-section--sm .ly-body + .ly-body {
+  margin-top: 1em;
+}
+
+/* ── L24 · Body + margin note ──────────────────────────────────────────── */
+
+.ly-note {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.ly-note__side {
+  padding: 6px 0 6px 20px;
+  border-left: 2px solid #EC671B;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #4A4A4E;
+  max-width: 20rem;
+}
+
+.ly-note__label {
+  display: block;
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #EC671B;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 800px) {
+  .ly-note { grid-template-columns: 1fr; }
+}
+
+/* ── L25 · Prose with inline pull-highlight ────────────────────────────── */
+
+.ly-prose-narrow {
+  max-width: 42rem;
+}
+
+.ly-mark {
+  background: linear-gradient(180deg, transparent 55%, rgba(236, 103, 27, 0.28) 55%);
+  color: inherit;
+  padding: 0 2px;
+  font-weight: 700;
+}
+
+/* ── L26 · Two-column body with vertical rule ──────────────────────────── */
+
+.ly-twocol {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.ly-twocol__col .ly-body { max-width: none; }
+
+.ly-twocol__rule {
+  width: 1px;
+  align-self: stretch;
+  background: #EC671B;
+  opacity: 0.6;
+}
+
+@media (max-width: 800px) {
+  .ly-twocol { grid-template-columns: 1fr; }
+  .ly-twocol__rule { display: none; }
+}
+
+/* ── L27 · Body + aside card (top-right) ───────────────────────────────── */
+
+.ly-aside {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.ly-aside__card {
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  border: 1px solid #EC671B;
+  background: rgba(236, 103, 27, 0.05);
+}
+
+.ly-aside__eyebrow {
+  display: block;
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #EC671B;
+  margin-bottom: 10px;
+}
+
+.ly-aside__body-copy {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #3A3A3E;
+}
+
+@media (max-width: 800px) {
+  .ly-aside { grid-template-columns: 1fr; }
+}
+
+/* ── L28 · Definition strip ────────────────────────────────────────────── */
+
+.ly-defn {
+  max-width: 42rem;
+}
+
+.ly-defn__strip {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(236, 103, 27, 0.08);
+  border-left: 3px solid #EC671B;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.ly-defn__term {
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #111;
+}
+
+.ly-defn__glyph {
+  color: #EC671B;
+  font-weight: 700;
+}
+
+.ly-defn__meaning {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #3A3A3E;
+}
+
+@media (max-width: 640px) {
+  .ly-defn__strip {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .ly-defn__glyph { display: none; }
+}
+
+/* ── L29 · Body + stat trio ────────────────────────────────────────────── */
+
+.ly-stats {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.ly-stats__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.ly-stats__cell {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.ly-stats__num {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #EC671B;
+  min-width: 44px;
+}
+
+.ly-stats__label {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.005em;
+  color: #111;
+}
+
+@media (max-width: 800px) {
+  .ly-stats { grid-template-columns: 1fr; }
+}
+
+/* ── L30 · Prose with numbered footnotes ───────────────────────────────── */
+
+.ly-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.ly-sup {
+  font-size: 0.6em;
+  color: #EC671B;
+  font-weight: 700;
+  vertical-align: super;
+  margin-left: 1px;
+}
+
+.ly-foot__notes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.ly-foot__notes li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #4A4A4E;
+}
+
+.ly-foot__num {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #EC671B;
+  min-width: 18px;
+}
+
+@media (max-width: 800px) {
+  .ly-foot { grid-template-columns: 1fr; }
+}
+
+/* ── L31 · Tinted panel ────────────────────────────────────────────────── */
+
+.ly-panel {
+  padding: clamp(2rem, 4vw, 3rem);
+  max-width: 44rem;
+  border-left: 3px solid #EC671B;
+}
+
+.ly-panel--sand { background: #EDE1D2; }
+.ly-panel--peach { background: rgba(232, 179, 158, 0.28); }
+
+.ly-panel__eyebrow {
+  display: block;
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #EC671B;
+  margin-bottom: 16px;
+}
+
+.ly-panel__body {
+  margin: 0;
+  font-size: clamp(0.98rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: #3A2E24;
+  max-width: 34rem;
+}
+
+.ly-panel__body + .ly-panel__body { margin-top: 1em; }
+
+/* ── L32 · Boxout with corner tab ──────────────────────────────────────── */
+
+.ly-tabbed {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.ly-tabbed__box {
+  position: relative;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  background: #FDFBF8;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  box-shadow: 0 4px 14px rgba(33, 61, 89, 0.06);
+}
+
+.ly-tabbed__tab {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  width: 32px;
+  height: 14px;
+  background: #EC671B;
+}
+
+.ly-tabbed__label {
+  display: block;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.ly-tabbed__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.ly-tabbed__list li {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #3A3A3E;
+  padding-left: 16px;
+  position: relative;
+}
+
+.ly-tabbed__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  background: #EC671B;
+}
+
+@media (max-width: 800px) {
+  .ly-tabbed { grid-template-columns: 1fr; }
+}
+
+/* ── L33 · Prose + accent glyph strip ──────────────────────────────────── */
+
+.ly-glyph {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 4fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.ly-glyph__badge {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.ly-glyph__square {
+  display: block;
+  width: 44px;
+  height: 44px;
+  background: #EC671B;
+}
+
+.ly-glyph__square--peach { background: #E8B39E; }
+.ly-glyph__square--blue { background: #213D59; }
+
+@media (max-width: 800px) {
+  .ly-glyph { grid-template-columns: 1fr; }
+  .ly-glyph__badge {
+    flex-direction: row;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Media + accent layouts (L34–L39)
+   16:9 or square media with offset accent planes behind + boxouts.
+   Palette: blue #619CBA · warm grey #CCC8C4 · terracotta #D8B4A3
+            yellow #F1D46E · pale blue-grey #CBD9DA
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Layered media (offset accent plane behind) ────────────────────────── */
+
+.ly-layered {
+  position: relative;
+  isolation: isolate;
+}
+
+.ly-layered__plane {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Any .ly-media directly inside layered wrapper sits above the plane */
+.ly-layered > .ly-media {
+  position: relative;
+  z-index: 0;
+}
+
+/* Offset directions — applied to the FIRST plane via container modifier */
+.ly-layered--tl > .ly-layered__plane:first-of-type { top: -22px; left: -22px; }
+.ly-layered--tr > .ly-layered__plane:first-of-type { top: -22px; right: -22px; }
+.ly-layered--br > .ly-layered__plane:first-of-type { bottom: -22px; right: -22px; }
+.ly-layered--bl > .ly-layered__plane:first-of-type { bottom: -22px; left: -22px; }
+
+/* Additional plane offsets via per-plane modifier (for double-plane layouts) */
+.ly-layered__plane--tl { top: -22px; left: -22px; }
+.ly-layered__plane--tr { top: -22px; right: -22px; }
+.ly-layered__plane--br { bottom: -22px; right: -22px; }
+.ly-layered__plane--bl { bottom: -22px; left: -22px; }
+
+/* Container-level accent colour applies to the first plane */
+.ly-layered--blue       > .ly-layered__plane:first-of-type { background: #619CBA; }
+.ly-layered--warmgrey   > .ly-layered__plane:first-of-type { background: #CCC8C4; }
+.ly-layered--terracotta > .ly-layered__plane:first-of-type { background: #D8B4A3; }
+.ly-layered--yellow     > .ly-layered__plane:first-of-type { background: #F1D46E; }
+.ly-layered--paleblue   > .ly-layered__plane:first-of-type { background: #CBD9DA; }
+
+/* Per-plane colour modifiers (for double-plane layouts) */
+.ly-layered__plane--blue       { background: #619CBA; }
+.ly-layered__plane--warmgrey   { background: #CCC8C4; }
+.ly-layered__plane--terracotta { background: #D8B4A3; }
+.ly-layered__plane--yellow     { background: #F1D46E; }
+.ly-layered__plane--paleblue   { background: #CBD9DA; }
+
+/* Rotated plane — casual "pinned" feel (L50) */
+.ly-layered--rotate > .ly-layered__plane:first-of-type {
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+
+/* L52 · Ribbon plane — same height as image, extends sideways only */
+.ly-layered--ribbon > .ly-layered__plane:first-of-type {
+  top: 22px;
+  bottom: 22px;
+  left: -36px;
+  right: -36px;
+  width: auto;
+  height: auto;
+}
+
+/* L54 · Circular plane — plane larger than square image, offset TL,
+   with border-radius forming a disk. */
+.ly-layered--circleplane > .ly-layered__plane:first-of-type {
+  top: -18%;
+  left: -18%;
+  width: 130%;
+  height: 130%;
+  border-radius: 50%;
+}
+
+/* L56 · Split-colour diagonal plane */
+.ly-layered--split > .ly-layered__plane:first-of-type {
+  background: linear-gradient(135deg, #619CBA 0%, #619CBA 50%, #D8B4A3 50%, #D8B4A3 100%);
+}
+
+
+/* ── 16:9 placeholder ──────────────────────────────────────────────────── */
+
+.ly-placeholder--16-9 { aspect-ratio: 16 / 9; }
+
+/* ── Boxout (accent-filled panel) ──────────────────────────────────────── */
+
+.ly-boxout {
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.ly-boxout--yellow      { background: #F1D46E; color: #111; }
+.ly-boxout--terracotta  { background: #D8B4A3; color: #111; }
+.ly-boxout--warmgrey    { background: #CCC8C4; color: #111; }
+.ly-boxout--blue        { background: #619CBA; color: #FAF8F6; }
+.ly-boxout--paleblue    { background: #CBD9DA; color: #111; }
+
+.ly-boxout__label {
+  display: block;
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.ly-boxout__body {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.5;
+  color: inherit;
+  max-width: 32ch;
+}
+
+.ly-boxout--blue .ly-boxout__body { max-width: 32ch; }
+.ly-boxout--wide .ly-boxout__body { max-width: 60ch; }
+
+/* ── Real image slots (Media component) ────────────────────────────────── */
+
+.ly-media {
+  position: relative;
+  overflow: hidden;
+  background: rgba(17, 17, 17, 0.04);
+  width: 100%;
+}
+
+.ly-media__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ly-media--16-9 { aspect-ratio: 16 / 9; }
+.ly-media--21-9 { aspect-ratio: 21 / 9; }
+.ly-media--square { aspect-ratio: 1 / 1; }
+.ly-media--landscape { aspect-ratio: 3 / 2; }
+.ly-media--portrait { aspect-ratio: 4 / 5; }
+.ly-media--portrait-tall { aspect-ratio: 2 / 3; }
+.ly-media--circle { aspect-ratio: 1 / 1; border-radius: 50%; }
+.ly-media--circle .ly-media__img { border-radius: 50%; }
+
+/* ── L34/L36/L39 · Single-column simple stack ──────────────────────────── */
+
+.ly-simple {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ly-simple--narrow {
+  max-width: 560px;
+}
+
+.ly-simple__caption {
+  max-width: 44rem;
+}
+
+/* ── L43 · Twin 16:9 row ───────────────────────────────────────────────── */
+
+.ly-twin169 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .ly-twin169 { grid-template-columns: 1fr; }
+}
+
+/* ── L47 · Asymmetric pair (portrait-tall + square/caption) ────────────── */
+
+.ly-asympair {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.ly-asympair__side {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 800px) {
+  .ly-asympair { grid-template-columns: 1fr; }
+}
+
+/* ── L48 · Circle avatar + 16:9 context row ────────────────────────────── */
+
+.ly-avatarrow {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.ly-avatarrow__avatar {
+  max-width: 200px;
+  width: 100%;
+}
+
+.ly-avatarrow__context {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+@media (max-width: 800px) {
+  .ly-avatarrow { grid-template-columns: 1fr; }
+}
+
+/* ── L51 · Caption plane (accent extends below image) ──────────────────── */
+
+.ly-caption-plane {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.ly-caption-plane .ly-media {
+  position: relative;
+  z-index: 1;
+}
+
+.ly-caption-plane__foot {
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.25rem, 2.5vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #111;
+}
+
+.ly-caption-plane--terracotta .ly-caption-plane__foot { background: #D8B4A3; }
+.ly-caption-plane--yellow     .ly-caption-plane__foot { background: #F1D46E; }
+.ly-caption-plane--blue       .ly-caption-plane__foot { background: #619CBA; color: #FAF8F6; }
+.ly-caption-plane--paleblue   .ly-caption-plane__foot { background: #CBD9DA; }
+.ly-caption-plane--warmgrey   .ly-caption-plane__foot { background: #CCC8C4; }
+
+.ly-caption-plane__label {
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.ly-caption-plane__text {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.5;
+  max-width: 32ch;
+}
+
+/* ── L53 · Overlapping image pair (portrait + landscape) ───────────────── */
+
+.ly-overlap-pair {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  align-items: start;
+  gap: 0;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.ly-overlap-pair__a {
+  z-index: 1;
+  margin-right: -12%;
+  align-self: start;
+}
+
+.ly-overlap-pair__b {
+  z-index: 2;
+  margin-left: -12%;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  align-self: start;
+  box-shadow: -12px -12px 0 #F1D46E;
+}
+
+.ly-overlap-pair__caption {
+  grid-column: 1 / -1;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  max-width: 44rem;
+}
+
+@media (max-width: 700px) {
+  .ly-overlap-pair {
+    grid-template-columns: 1fr;
+  }
+  .ly-overlap-pair__a,
+  .ly-overlap-pair__b {
+    margin: 0;
+    margin-top: 0;
+  }
+  .ly-overlap-pair__b {
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+  }
+}
+
+/* ── L55 · Nested inset — 21:9 base with small square inset overlapping ── */
+
+.ly-nest {
+  position: relative;
+  padding-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.ly-nest__inset {
+  position: absolute;
+  bottom: clamp(1rem, 3vw, 2rem);
+  left: clamp(1rem, 3vw, 2rem);
+  width: clamp(140px, 22vw, 220px);
+  z-index: 2;
+}
+
+.ly-nest__caption {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  margin-left: clamp(180px, 25vw, 260px);
+  max-width: 42rem;
+}
+
+@media (max-width: 700px) {
+  .ly-nest__inset {
+    position: static;
+    width: clamp(120px, 40vw, 180px);
+    margin-top: -32px;
+    margin-left: 16px;
+  }
+  .ly-nest__caption {
+    margin-left: 0;
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+/* ── L57 · Filmstrip · three landscapes on a shared plane ──────────────── */
+
+.ly-filmstrip {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.ly-filmstrip__plane {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -20px;
+  right: -20px;
+  z-index: -1;
+}
+
+.ly-filmstrip--paleblue   .ly-filmstrip__plane { background: #CBD9DA; }
+.ly-filmstrip--warmgrey   .ly-filmstrip__plane { background: #CCC8C4; }
+.ly-filmstrip--yellow     .ly-filmstrip__plane { background: #F1D46E; }
+.ly-filmstrip--terracotta .ly-filmstrip__plane { background: #D8B4A3; }
+.ly-filmstrip--blue       .ly-filmstrip__plane { background: #619CBA; }
+
+.ly-filmstrip__cells {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.ly-filmstrip__caption {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  max-width: 44rem;
+}
+
+@media (max-width: 800px) {
+  .ly-filmstrip__cells { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Typography-first layouts (L58–L63)
+   Big display quotes, speech-mark motifs, mixed weight/scale.
+   ══════════════════════════════════════════════════════════════════════ */
+
+.ly-section--sm .ly-qblock,
+.ly-section--sm .ly-bookend,
+.ly-section--sm .ly-stacked,
+.ly-section--sm .ly-twoq,
+.ly-section--sm .ly-qcard,
+.ly-section--sm .ly-qbg {
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+  padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* ── L58 · Oversized speech mark + adjacent quote ──────────────────────── */
+
+.ly-qblock {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ly-qblock__mark {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(6rem, 14vw, 12rem);
+  line-height: 0.7;
+  font-weight: 700;
+  margin-top: -0.05em;
+}
+
+.ly-qblock__mark--terracotta { color: #D8B4A3; }
+.ly-qblock__mark--blue       { color: #619CBA; }
+.ly-qblock__mark--yellow     { color: #F1D46E; }
+.ly-qblock__mark--warmgrey   { color: #CCC8C4; }
+
+.ly-qblock__body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.ly-qblock__text {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.8vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  color: #111;
+}
+
+.ly-qblock__attribution {
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #D8B4A3;
+}
+
+@media (max-width: 600px) {
+  .ly-qblock { grid-template-columns: 1fr; }
+  .ly-qblock__mark { font-size: clamp(4rem, 20vw, 6rem); }
+}
+
+/* ── L59 · Bookended speech marks ──────────────────────────────────────── */
+
+.ly-bookend {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ly-bookend__open,
+.ly-bookend__close {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.7;
+  color: #619CBA;
+}
+
+.ly-bookend__close {
+  align-self: end;
+  margin-bottom: -0.15em;
+}
+
+.ly-bookend__text {
+  margin: 0;
+  padding-top: 0.35em;
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #111;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .ly-bookend { grid-template-columns: 1fr; text-align: center; }
+  .ly-bookend__close { justify-self: end; align-self: start; }
+  .ly-bookend__open { justify-self: start; }
+}
+
+/* ── L60 · Faint mega speech-mark backdrop ─────────────────────────────── */
+
+.ly-qbg {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+  max-width: 900px;
+  margin: 0 auto;
+  isolation: isolate;
+}
+
+.ly-qbg__mark {
+  position: absolute;
+  top: -1.5rem;
+  left: -0.8rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(12rem, 28vw, 24rem);
+  line-height: 0.75;
+  color: #D8B4A3;
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ly-qbg__text {
+  position: relative;
+  margin: 0 0 clamp(0.75rem, 1.5vw, 1rem);
+  font-size: clamp(1.5rem, 3.6vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #111;
+  max-width: 22ch;
+}
+
+.ly-qbg__attribution {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #D8B4A3;
+}
+
+/* ── L61 · Multi-line stacked display ──────────────────────────────────── */
+
+.ly-stacked {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ly-stacked p {
+  margin: 0;
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: #111;
+}
+
+.ly-stacked em {
+  font-style: normal;
+  color: #D8B4A3;
+}
+
+.ly-stacked__attribution {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #D8B4A3;
+}
+
+/* ── L62 · Quote card with speech-mark corner ──────────────────────────── */
+
+.ly-qcard {
+  padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem) clamp(1.75rem, 3.5vw, 2.5rem);
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+.ly-qcard--yellow     { background: #F1D46E; color: #111; }
+.ly-qcard--terracotta { background: #D8B4A3; color: #111; }
+.ly-qcard--paleblue   { background: #CBD9DA; color: #111; }
+.ly-qcard--warmgrey   { background: #CCC8C4; color: #111; }
+.ly-qcard--blue       { background: #619CBA; color: #FAF8F6; }
+
+/* Georgia's " sits in the upper ~40% of the em box, so a normal line-height
+   leaves a huge empty strip below the glyph. We clip that with a fixed height
+   and overflow: hidden — the mark reads tight, and the quote text below sits
+   right up against its baseline. */
+.ly-qcard__mark {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(5rem, 10vw, 7rem);
+  line-height: 1;
+  height: 0.55em;
+  overflow: hidden;
+  color: currentColor;
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+}
+
+.ly-qcard__text {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 26ch;
+  color: currentColor;
+}
+
+.ly-qcard__attribution {
+  display: block;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: currentColor;
+  opacity: 0.65;
+}
+
+/* ── L63 · Twin quotes side-by-side ────────────────────────────────────── */
+
+.ly-twoq {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.ly-twoq__cell {
+  margin: 0;
+  padding: clamp(1rem, 2vw, 1.5rem) 0 0;
+  border-top: 3px solid;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+.ly-twoq__cell:nth-child(1) { border-color: #619CBA; }
+.ly-twoq__cell:nth-child(2) { border-color: #D8B4A3; }
+
+.ly-twoq__mark {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 0.8;
+}
+
+.ly-twoq__cell:nth-child(1) .ly-twoq__mark { color: #619CBA; }
+.ly-twoq__cell:nth-child(2) .ly-twoq__mark { color: #D8B4A3; }
+
+.ly-twoq__text {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: #111;
+}
+
+.ly-twoq__attribution {
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.ly-twoq__cell:nth-child(1) .ly-twoq__attribution { color: #619CBA; }
+.ly-twoq__cell:nth-child(2) .ly-twoq__attribution { color: #D8B4A3; }
+
+@media (max-width: 700px) {
+  .ly-twoq { grid-template-columns: 1fr; }
+}
+
+/* ── L37 · Set (caption + media block) ─────────────────────────────────── */
+
+.ly-mediaset {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ly-mediaset__caption {
+  max-width: 44rem;
+}
+
+/* ── L35 · Square media · Text right (and other side-by-side rows) ─────── */
+
+.ly-mediarow {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.ly-mediarow--sq       { grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); }
+.ly-mediarow--wide     { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+.ly-mediarow--split    { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.ly-mediarow--portrait { grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); }
+.ly-mediarow--flip     { grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); }
+
+.ly-mediarow__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+@media (max-width: 800px) {
+  .ly-mediarow--sq,
+  .ly-mediarow--wide,
+  .ly-mediarow--split,
+  .ly-mediarow--portrait,
+  .ly-mediarow--flip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── L37 · Twin squares row ────────────────────────────────────────────── */
+
+.ly-twinsq {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .ly-twinsq { grid-template-columns: 1fr; }
+}
+
+/* ── L38 · Media stack (16:9 + boxout stacked) ─────────────────────────── */
+
+.ly-mediastack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+/* ── L39 · Overlapping boxout corner ───────────────────────────────────── */
+
+.ly-overhang {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.ly-overhang__media {
+  width: 100%;
+}
+
+.ly-overhang__box {
+  position: absolute;
+  right: clamp(-8px, -1vw, 24px);
+  bottom: clamp(3rem, 5vw, 4rem);
+  max-width: 320px;
+  z-index: 2;
+  box-shadow: 0 10px 24px rgba(33, 61, 89, 0.14);
+}
+
+.ly-overhang__caption {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  max-width: 44rem;
+}
+
+@media (max-width: 800px) {
+  .ly-overhang__box {
+    position: static;
+    max-width: none;
+    margin-top: -32px;
+    margin-left: clamp(1rem, 3vw, 2rem);
+    margin-right: clamp(1rem, 3vw, 2rem);
+    box-shadow: 0 4px 14px rgba(33, 61, 89, 0.1);
+  }
+}
+
+/* ── Placeholders (graphic slots) ──────────────────────────────────────── */
+
+.ly-placeholder {
+  width: 100%;
+  background: rgba(17, 17, 17, 0.03);
+  border: 1px dashed rgba(17, 17, 17, 0.14);
+  box-sizing: border-box;
+}
+
+.ly-placeholder--soft {
+  background: rgba(216, 180, 163, 0.14);
+  border-color: rgba(216, 180, 163, 0.4);
+}
+
+.ly-placeholder--portrait { aspect-ratio: 4 / 5; }
+.ly-placeholder--landscape { aspect-ratio: 3 / 2; }
+.ly-placeholder--landscape-wide { aspect-ratio: 21 / 9; }
+.ly-placeholder--square { aspect-ratio: 1 / 1; }
+.ly-placeholder--fullbleed { aspect-ratio: 21 / 9; }

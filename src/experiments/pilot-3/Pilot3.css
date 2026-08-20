@@ -1,0 +1,411 @@
+/*
+ * Pilot 3 — follow-on layouts. Simplified: headline · two sentences · graphic.
+ * Backgrounds cycle through three barely-perceptible cream tones.
+ * Scoped to `.p3-*`.
+ */
+
+.p3-root {
+  background: #FAF8F6;
+  color: #111;
+  font-family: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.p3-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.p3-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Tone rotation — very close cream family ────────────────────────────── */
+
+[data-tone='base'] { background: #FAF8F6; }
+[data-tone='airy'] { background: #FDFBF8; }
+[data-tone='warm'] { background: #F6F2EC; }
+/* Cool break — muted blue-grey cream. Reads as "totally different" from the
+   warm cream family but stays quiet enough to belong. */
+[data-tone='cool'] { background: #E8EDEE; }
+
+/* ── Section frame ──────────────────────────────────────────────────────── */
+
+.p3-section {
+  padding: clamp(4rem, 9vw, 8rem) 0;
+}
+
+/* ── Intro ──────────────────────────────────────────────────────────────── */
+
+.p3-intro {
+  padding: clamp(4rem, 10vw, 9rem) 0 clamp(3rem, 6vw, 5rem);
+}
+
+.p3-intro__title {
+  margin: 0 0 clamp(1.25rem, 2vw, 2rem);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #111;
+  max-width: 18ch;
+}
+
+.p3-intro__lede {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.55;
+  color: #4A4A4E;
+  max-width: 44rem;
+}
+
+/* ── Shared type ────────────────────────────────────────────────────────── */
+
+.p3-h2 {
+  margin: 0 0 clamp(1rem, 1.8vw, 1.5rem);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #111;
+  max-width: 24ch;
+}
+
+.p3-h2--intro {
+  max-width: 30ch;
+}
+
+.p3-h2--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+.p3-h3 {
+  display: block;
+  font-weight: 800;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #111;
+}
+
+.p3-body {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.7;
+  color: #3A3A3E;
+  max-width: 36rem;
+}
+
+.p3-body--intro { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.p3-body--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+/* ── Text blocks ────────────────────────────────────────────────────────── */
+
+.p3-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+}
+
+/* ── Grid variants ──────────────────────────────────────────────────────── */
+
+.p3-grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.p3-grid--tr { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); }
+.p3-grid--ml { grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); }
+.p3-grid--pq { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); align-items: stretch; }
+.p3-grid--inset { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); align-items: end; }
+
+@media (max-width: 900px) {
+  .p3-grid,
+  .p3-grid--tr,
+  .p3-grid--ml,
+  .p3-grid--pq,
+  .p3-grid--inset {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 02 · Contrast pair ────────────────────────────────────────────────── */
+
+.p3-contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 700px) {
+  .p3-contrast {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 03 · Three-part triptych ──────────────────────────────────────────── */
+
+.p3-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.p3-triptych__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .p3-triptych {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 04 · Numbered steps ───────────────────────────────────────────────── */
+
+.p3-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.p3-steps__item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.p3-steps__num {
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1;
+  color: #EC671B;
+}
+
+.p3-steps__title {
+  font-weight: 800;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.15;
+  color: #111;
+}
+
+@media (max-width: 800px) {
+  .p3-steps { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 500px) {
+  .p3-steps { grid-template-columns: 1fr; }
+}
+
+/* ── 05 · Specimen grid ────────────────────────────────────────────────── */
+
+.p3-specimen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+}
+
+@media (max-width: 800px) {
+  .p3-specimen { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .p3-specimen { grid-template-columns: 1fr; }
+}
+
+.p3-specimen__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── 06 · Pull-quote plane ─────────────────────────────────────────────── */
+
+.p3-callout {
+  position: relative;
+  padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  background: #E8B39E;
+  color: #111;
+  min-height: 320px;
+  justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* When the callout sits in a pull-quote grid alongside a tall portrait media,
+   let the portrait column align its media to the top so the two blocks share
+   the same top edge. */
+.p3-grid--pq .p3-text {
+  justify-content: flex-start;
+}
+
+.p3-callout__quote {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 20ch;
+}
+
+.p3-callout__body {
+  margin: 0;
+  font-size: clamp(1rem, 1.15vw, 1.1rem);
+  line-height: 1.55;
+  color: #3A2E24;
+  max-width: 32ch;
+}
+
+/* ── 08 · Timeline sequence ────────────────────────────────────────────── */
+
+.p3-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+  align-items: start;
+}
+
+.p3-timeline__step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 22px;
+}
+
+.p3-timeline__marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 12px;
+}
+
+.p3-timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #EC671B;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.p3-timeline__line {
+  position: absolute;
+  left: 10px;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(236, 103, 27, 0.3);
+  transform: translateY(-50%);
+}
+
+@media (max-width: 800px) {
+  .p3-timeline { grid-template-columns: 1fr 1fr; }
+  .p3-timeline__line { display: none; }
+}
+
+@media (max-width: 500px) {
+  .p3-timeline { grid-template-columns: 1fr; }
+}
+
+/* ── 09 · Inset ────────────────────────────────────────────────────────── */
+
+.p3-inset {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 260px;
+  margin-left: auto;
+}
+
+/* ── 11 · Asymmetric display + inset ───────────────────────────────────── */
+
+.p3-asymm {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: stretch;
+}
+
+.p3-asymm .p3-display {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+  margin-bottom: 0;
+  align-self: end;
+}
+
+/* Side column: placeholder anchors top-right, body drops to bottom so it
+   aligns with the last line of the display headline. */
+.p3-asymm__side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+  min-height: 100%;
+}
+
+.p3-asymm__side .p3-placeholder {
+  max-width: 180px;
+  margin-left: auto;
+}
+
+.p3-asymm__side .p3-body {
+  max-width: 28rem;
+}
+
+@media (max-width: 900px) {
+  .p3-asymm {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .p3-asymm .p3-display {
+    align-self: start;
+  }
+  .p3-asymm__side {
+    justify-content: start;
+  }
+  .p3-asymm__side .p3-placeholder {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
+/* ── 13 · Wide media + prose ───────────────────────────────────────────── */
+
+.p3-prose {
+  max-width: 780px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+}
+
+/* ── Placeholders ──────────────────────────────────────────────────────── */
+
+.p3-placeholder {
+  width: 100%;
+  background: rgba(17, 17, 17, 0.03);
+  border: 1px dashed rgba(17, 17, 17, 0.14);
+  box-sizing: border-box;
+}
+
+.p3-placeholder--portrait { aspect-ratio: 4 / 5; }
+.p3-placeholder--landscape { aspect-ratio: 3 / 2; }
+.p3-placeholder--landscape-wide { aspect-ratio: 21 / 9; }
+.p3-placeholder--square { aspect-ratio: 1 / 1; }

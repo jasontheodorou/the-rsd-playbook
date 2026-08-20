@@ -1,22 +1,23 @@
 import { ArrowRight, ArrowUpRight, BookOpen, Sparkles } from 'lucide-react'
 import { Box, Button, Container, SimpleGrid, Stack, Text, Title, UnstyledButton } from '@mantine/core'
 import { HighlightedHeadline, OrangeCircle } from './Transform'
-import { TopBar } from './TopBar'
 import type { LucideIcon } from 'lucide-react'
 
 type HomePageProps = {
   onFoundations: () => void
   onPractice: () => void
-  isLoggedIn?: boolean
-  onSignIn?: () => void
-  onSignOut?: () => void
 }
 
-export function HomePage({ onFoundations, onPractice, isLoggedIn, onSignIn, onSignOut }: HomePageProps) {
+export function HomePage({ onFoundations, onPractice }: HomePageProps) {
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+    <Box style={{
+      position: 'absolute',
+      inset: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'auto',
+    }}>
       <a className="skip-link" href="#home-content">Skip to main content</a>
-      <TopBar isLoggedIn={isLoggedIn} onSignIn={onSignIn} onSignOut={onSignOut}  />
 
       {/* Decorative orange circle — large, off-canvas, low opacity */}
       <OrangeCircle
