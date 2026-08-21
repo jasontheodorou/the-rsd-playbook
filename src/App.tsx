@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { AccessGate, isGateOpen } from './components/AccessGate'
 import { getSession, signOut, getProfile, saveProfile, getProgress, saveProgress } from './lib/auth'
 import { HomePage } from './components/HomePage'
 import { PracticeForm, type PracticeProfile } from './components/PracticeForm'
@@ -69,7 +68,6 @@ function Pathway2Shell({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
-  const [gateOpen, setGateOpen] = useState(() => isGateOpen())
   const [view, setView] = useState<View>(() => {
     if (typeof window !== 'undefined') {
       if (window.location.pathname === '/foundations' ||
@@ -84,7 +82,6 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!getSession())
   const [completed, setCompleted] = useState<Set<string>>(() => getProgress())
 
-  if (!gateOpen) return <AccessGate onUnlock={() => setGateOpen(true)} />
 
   const isPasteRoute = typeof window !== 'undefined' && window.location.pathname === '/paste'
   if (isPasteRoute) return <PastePage />
