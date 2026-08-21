@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { useRef, type ReactNode } from 'react'
+import { useRef } from 'react'
 import { ImageCoverRevealBoxed } from '../experiments/pilot-3/patterns/ImageCoverRevealBoxed'
 import './Layouts.css'
 
