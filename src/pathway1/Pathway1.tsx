@@ -349,7 +349,7 @@ function V2s3(p: V2Props) {
       </p>
       <div className="p1v2__media">
         <img
-          src="https://picsum.photos/seed/rsd-p3-bridge/1600/900"
+          src="/photos/welcome-office.png"
           alt="A researcher and designer working alongside the people a service is meant to reach"
           loading="lazy"
         />
@@ -598,7 +598,7 @@ function V2s10(p: V2Props) {
       <div className="p1v2__cinema">
         <div className="ly-layered ly-layered--tl ly-layered--paleblue">
           <span className="ly-layered__plane" aria-hidden="true" />
-          <Media shape="21-9" seed="rsd-p10-system" />
+          <Media shape="21-9" src="/photos/hhh-build.png" alt="A whole-system view of a service in build — teams, artefacts and interactions laid out end to end." />
         </div>
       </div>
       <aside className="p1v2__card">
@@ -672,7 +672,7 @@ function V2s12(p: V2Props) {
         <div className="ly-layered ly-layered--tl ly-layered--blue">
           <span className="ly-layered__plane" aria-hidden="true" />
           <span className="ly-layered__plane ly-layered__plane--yellow ly-layered__plane--br" aria-hidden="true" />
-          <Media shape="landscape" seed="rsd-p12-hands" />
+          <Media shape="landscape" src="/photos/hands-assembly.png" alt="Hands assembling a service — turning ideas into a working, testable thing." />
         </div>
       </div>
       <aside className="p1v2__card">
@@ -718,7 +718,7 @@ function V2s13(p: V2Props) {
             <Media shape="portrait" seed="rsd-p13-a" />
           </div>
           <div className="ly-overlap-pair__b">
-            <Media shape="landscape" seed="rsd-p13-b" />
+            <Media shape="landscape" src="/photos/participation-people.png" alt="Participants and designers working together — participation as active contribution, not consultation." />
           </div>
         </div>
       </div>

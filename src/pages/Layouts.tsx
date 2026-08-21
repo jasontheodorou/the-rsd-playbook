@@ -1074,13 +1074,27 @@ const SHAPE_DIMS: Record<MediaShape, [number, number]> = {
 }
 
 /**
- * Real placeholder image via picsum.photos, deterministic by seed.
+ * Image slot with a fixed aspect shape. If `src` is passed, uses that
+ * (with `alt` for accessibility); otherwise falls back to a deterministic
+ * picsum.photos URL keyed by `seed`.
  * `bare` skips the wrapper so it can sit inside an existing layered/aspect box.
  */
-export function Media({ shape, seed, bare = false }: { shape: MediaShape; seed: string; bare?: boolean }) {
+export function Media({
+  shape,
+  seed,
+  src,
+  alt = '',
+  bare = false,
+}: {
+  shape: MediaShape
+  seed?: string
+  src?: string
+  alt?: string
+  bare?: boolean
+}) {
   const [w, h] = SHAPE_DIMS[shape]
-  const src = `https://picsum.photos/seed/${seed}/${w}/${h}`
-  const img = <img src={src} alt="" className="ly-media__img" loading="lazy" />
+  const resolvedSrc = src ?? `https://picsum.photos/seed/${seed ?? 'placeholder'}/${w}/${h}`
+  const img = <img src={resolvedSrc} alt={alt} className="ly-media__img" loading="lazy" />
   if (bare) return img
   return <div className={`ly-media ly-media--${shape}`}>{img}</div>
 }
