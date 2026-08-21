@@ -1,6 +1,5 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "//": "Once the CMS is deployed as a separate Vercel project, add a rewrite here mapping /admin/* and /api/pathways/* to that project's URL. Example: { \"source\": \"/admin/:path*\", \"destination\": \"https://rsd-manual-cms.vercel.app/admin/:path*\" }"
+  ]
 }
