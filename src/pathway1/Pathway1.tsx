@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion, useScroll } from 'framer-motion'
 import { PILOT_PAGES, PILOT_CHAPTERS, chapterIndexForPage } from './pages'
 import { Media } from '../pages/Layouts'
+import { ImagesReveal } from './ImagesReveal'
 import '../pages/Layouts.css'
 import './Pathway1.css'
 
@@ -342,6 +343,15 @@ function V2s3(p: V2Props) {
   ]
   return (
     <V2Shell {...p} tightSrc="/illustrations/gooddesignearnstrust-tight.svg" widestBodyIs="photo">
+      <ImagesReveal
+        images={[
+          { src: 'https://picsum.photos/seed/rsd-good-workshop/800/800', alt: 'Community members and designers gathered around a workshop table.' },
+          { src: 'https://picsum.photos/seed/rsd-good-service/800/800',  alt: 'A citizen consulting a public-service kiosk.' },
+          { src: 'https://picsum.photos/seed/rsd-good-sketch/800/800',   alt: 'Frontline staff and researchers sketching a service journey together.' },
+          { src: 'https://picsum.photos/seed/rsd-good-testing/800/800',  alt: 'A user testing a paper prototype with a designer taking notes.' },
+          { src: 'https://picsum.photos/seed/rsd-good-review/800/800',   alt: 'A team reviewing findings pinned to a wall of user quotes.' },
+        ]}
+      />
       <p className="p1v2__prose">
         Researchers and designers act as a bridge between citizens and institutions. Done well,
         human-centred design builds trust in the final service as something created with people,

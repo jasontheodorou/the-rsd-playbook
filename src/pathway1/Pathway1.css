@@ -485,7 +485,8 @@
   .p1v2__paired,
   .p1v2__card,
   .p1v2__pullquote,
-  .p1v2__triad
+  .p1v2__triad,
+  .p1v2__reveal
 ) {
   margin-block-start: clamp(2.5rem, 4vw, 3rem);          /* 40 → 48 @1440 */
 }
@@ -496,7 +497,8 @@
   .p1v2__paired,
   .p1v2__card,
   .p1v2__pullquote,
-  .p1v2__triad
+  .p1v2__triad,
+  .p1v2__reveal
 ) + .p1v2__prose {
   margin-block-start: clamp(3rem, 5vw, 4rem);            /* 48 → 64 @1440 */
 }
@@ -507,14 +509,16 @@
   .p1v2__paired,
   .p1v2__card,
   .p1v2__pullquote,
-  .p1v2__triad
+  .p1v2__triad,
+  .p1v2__reveal
 ) + :is(
   .p1v2__media,
   .p1v2__cinema,
   .p1v2__paired,
   .p1v2__card,
   .p1v2__pullquote,
-  .p1v2__triad
+  .p1v2__triad,
+  .p1v2__reveal
 ) {
   margin-block-start: clamp(2.75rem, 4.5vw, 3.5rem);     /* 44 → 56 @1440 */
 }
