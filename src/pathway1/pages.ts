@@ -10,7 +10,9 @@ export type PilotPage = {
   section: string
   headline: string
   body: [string, string]
-  image: string
+  /** Omit to suppress the hero artwork — s13 shows part2.svg interactively
+   *  in the body instead, so a hero copy would duplicate it. */
+  image?: string
   /** Optional full-bleed background video (welcome page). Overrides the image. */
   video?: string
   /** Page-specific accent for rail + hamburger. Defaults to terracotta. */
@@ -115,7 +117,9 @@ export const PILOT_PAGES: PilotPage[] = [
       'Great design comes from designing together, building shared understanding and ownership along the way.',
       'By involving people directly, we turn ideas into tested solutions that create lasting change.',
     ],
-    image: '/illustrations/part2.svg',
+    // part2.svg now appears interactively in the body, so the hero carries
+    // its own graphic rather than a duplicate of it.
+    image: '/illustrations/convo.svg',
   },
 ]
 

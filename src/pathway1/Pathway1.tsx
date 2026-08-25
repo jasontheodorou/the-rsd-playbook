@@ -10,6 +10,7 @@ import { KenBurnsImage } from './KenBurnsImage'
 import { PinnedPhoto } from './PinnedPhoto'
 import { ImageCoverRevealBoxed } from '../experiments/pilot-3/patterns/ImageCoverRevealBoxed'
 import { TShapedTabs } from '../pages/patterns/TShapedTabs'
+import { ParticipationModel } from './ParticipationModel'
 
 /** Exposes Pathway1's nested scroll container to any descendant that needs
  *  a `useScroll` container (e.g. L23 reveal, framer-motion viewport hooks). */
@@ -263,12 +264,14 @@ function V2Shell({
           <p className="p1v2__lede">{page.body[0]}</p>
           <p className="p1v2__lede">{page.body[1]}</p>
         </div>
-        <div className="p1v2__hero-art">
-          <picture>
-            {tightSrc && <source media="(max-width: 56.25rem)" srcSet={tightSrc} />}
-            <img src={page.image} alt="" />
-          </picture>
-        </div>
+        {page.image && (
+          <div className="p1v2__hero-art">
+            <picture>
+              {tightSrc && <source media="(max-width: 56.25rem)" srcSet={tightSrc} />}
+              <img src={page.image} alt="" />
+            </picture>
+          </div>
+        )}
       </section>
 
       {belowHero}
@@ -800,29 +803,29 @@ function V2s13(p: V2Props) {
     <V2Shell {...p} widestBodyIs="photo">
       <p className="p1v2__prose">That is why participatory design is our default.</p>
       <p className="p1v2__prose">
-        We want our work to be embedded into the culture of a project, programme and organisation,
-        so it can live on and create positive change that everyone wants to sustain.
+        Our participation model demonstrates value and builds knowledge through doing.
       </p>
-      <p className="p1v2__prose">
-        Our participation model demonstrates value and builds knowledge through doing. We invite
-        and guide participants to experience the process themselves.
-      </p>
-      <GoodDesignCollab />
+      <ParticipationModel />
       <aside className="p1v2__card">
         <span className="p1v2__card-label">That might mean</span>
         <ul className="p1v2__card-list">
           {items.map((s) => <li key={s}>{s}</li>)}
         </ul>
       </aside>
+      <p className="p1v2__prose">Participation isn&rsquo;t simply consultation.</p>
       <p className="p1v2__prose">
-        Participation isn&rsquo;t simply consultation. It&rsquo;s about people becoming active
-        contributors to the design process.
+        It&rsquo;s about people becoming active contributors to the design process.
       </p>
       <p className="p1v2__prose">
         By working openly and building knowledge through doing, we create greater shared
-        understanding and ownership. The aim is not only to create a better service, but to
-        strengthen the capability of the people and organisations who will continue to shape it.
+        understanding and ownership.
       </p>
+      <p className="p1v2__prose">The aim is not only to create a better service.</p>
+      <p className="p1v2__prose">
+        It is to strengthen the capability of the people and organisations who will continue to
+        shape it.
+      </p>
+      <GoodDesignCollab />
     </V2Shell>
   )
 }
