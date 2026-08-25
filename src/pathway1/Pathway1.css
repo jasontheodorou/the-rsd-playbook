@@ -499,6 +499,7 @@
   .p1v2__reveal,
   .p1v2__qcard,
   .gdc,
+  .ly-panel,
   .north-star-pattern,
   .hhh-pattern
 ) + .p1v2__subhead {
@@ -507,6 +508,19 @@
 
 .p1v2__body .p1v2__subhead + :is(.p1v2__prose, .p1v2__card) {
   margin-block-start: var(--sp-4);                       /* 16 — tight to its section */
+}
+
+/* Object-position override — shifts the crop of a square-framed photo
+   toward its left edge so a left-of-frame subject (e.g. the office
+   cabinet on V2s6) stays in view rather than being cropped out. */
+.p1v2__crop--left .ly-media__img {
+  object-position: left center;
+}
+
+/* Lighter sand tint for the specialists panel on V2s8. Layouts-gallery
+   default (#EDE1D2) reads too dark against Pathway 1's cream page bg. */
+.p1v2__body .ly-panel--sand {
+  background: #F5EFE3;
 }
 
 /* ── Body boundary adjacencies (one owner per boundary) ─────────────
@@ -525,6 +539,7 @@
   .p1v2__reveal,
   .p1v2__qcard,
   .gdc,
+  .ly-panel,
   .north-star-pattern,
   .hhh-pattern
 ) {
@@ -541,6 +556,7 @@
   .p1v2__reveal,
   .p1v2__qcard,
   .gdc,
+  .ly-panel,
   .north-star-pattern,
   .hhh-pattern
 ) + .p1v2__prose {
@@ -557,6 +573,7 @@
   .p1v2__reveal,
   .p1v2__qcard,
   .gdc,
+  .ly-panel,
   .north-star-pattern,
   .hhh-pattern
 ) + :is(
@@ -569,6 +586,7 @@
   .p1v2__reveal,
   .p1v2__qcard,
   .gdc,
+  .ly-panel,
   .north-star-pattern,
   .hhh-pattern
 ) {

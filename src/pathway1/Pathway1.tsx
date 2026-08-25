@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useRef, useState, type RefObject } from 'react'
 import { motion, AnimatePresence, useReducedMotion, useScroll } from 'framer-motion'
-import { PILOT_PAGES, PILOT_CHAPTERS, chapterIndexForPage } from './pages'
+import { PILOT_PAGES } from './pages'
 import { Media } from '../pages/Layouts'
 import { ImagesReveal } from './ImagesReveal'
 import { GoodDesignCollab } from './GoodDesignCollab'
 import HeadHeartHandsPattern from './HeadHeartHandsPattern'
 import { QuoteCard } from './QuoteCard'
+import { KenBurnsImage } from './KenBurnsImage'
+import { PinnedPhoto } from './PinnedPhoto'
 import { ImageCoverRevealBoxed } from '../experiments/pilot-3/patterns/ImageCoverRevealBoxed'
 
 /** Exposes Pathway1's nested scroll container to any descendant that needs
@@ -29,7 +31,6 @@ export function Pathway1({ onReturnHome }: { onReturnHome: () => void }) {
 
   const page = PILOT_PAGES[index]
   const isLast = index === PILOT_PAGES.length - 1
-  const activeChapter = chapterIndexForPage(index)
 
   // Drives the vertical bar — grows top-to-bottom as the current page scrolls.
   const { scrollYProgress } = useScroll({ container: scrollRef })
@@ -39,8 +40,8 @@ export function Pathway1({ onReturnHome }: { onReturnHome: () => void }) {
     setIndex((i) => Math.min(PILOT_PAGES.length - 1, i + 1))
   }
 
-  const jumpToChapter = (chapterIdx: number) => {
-    setIndex(PILOT_CHAPTERS[chapterIdx].startIndex)
+  const jumpToPage = (pageIdx: number) => {
+    setIndex(pageIdx)
     setChaptersOpen(false)
   }
 
@@ -137,26 +138,26 @@ export function Pathway1({ onReturnHome }: { onReturnHome: () => void }) {
               key="panel"
               className="pilot-chappanel"
               role="dialog"
-              aria-label="Chapters"
+              aria-label="Pages"
               initial={reduce ? { opacity: 0 } : { x: -32, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={reduce ? { opacity: 0 } : { x: -32, opacity: 0 }}
               transition={{ duration: 0.28, ease: [0.65, 0, 0.45, 1] }}
             >
-              <div className="pilot-chappanel__label">Chapters</div>
+              <div className="pilot-chappanel__label">Pages</div>
               <ol className="pilot-chappanel__list">
-                {PILOT_CHAPTERS.map((chapter, i) => {
-                  const isCurrent = i === activeChapter
+                {PILOT_PAGES.map((p, i) => {
+                  const isCurrent = i === index
                   return (
-                    <li key={chapter.id}>
+                    <li key={p.id}>
                       <button
                         type="button"
                         className="pilot-chappanel__item"
                         aria-current={isCurrent}
-                        onClick={() => jumpToChapter(i)}
+                        onClick={() => jumpToPage(i)}
                       >
-                        <span className="pilot-chappanel__num">{chapter.num}</span>
-                        <span className="pilot-chappanel__name">{chapter.name}</span>
+                        <span className="pilot-chappanel__num">{p.num}</span>
+                        <span className="pilot-chappanel__name">{p.section}</span>
                       </button>
                     </li>
                   )
@@ -369,11 +370,11 @@ function V2s3(p: V2Props) {
     <V2Shell {...p} tightSrc="/illustrations/gooddesignearnstrust-tight.svg" widestBodyIs="photo">
       <ImagesReveal
         images={[
-          { src: '/photos/wall-of-quotes.jpg',      alt: 'A team gathered at a wall of insights, pointing to a specific sticky note.' },
-          { src: '/photos/problem-framing.jpg',     alt: 'A small group framing a problem together with hand-drawn prompts.' },
-          { src: '/photos/journey-map-group.jpg',   alt: 'A diverse group sharing a hand-drawn journey map.' },
-          { src: '/photos/board-review.jpg',        alt: 'Four colleagues studying a shared board together.' },
-          { src: '/photos/window-conversation.jpg', alt: 'Two colleagues in one-to-one conversation by a window.' },
+          { src: '/photos/lego-raised.png',           alt: 'A colleague holding up a completed Lego build for the room to see.' },
+          { src: '/photos/three-way-conversation.png', alt: 'Three colleagues in an animated small-group conversation.' },
+          { src: '/photos/team-meeting.png',          alt: 'Five colleagues gathered at a bright meeting table with laptops.' },
+          { src: '/photos/lego-show-and-tell.png',    alt: 'Two colleagues sharing a small Lego build together.' },
+          { src: '/photos/lego-trees.png',            alt: 'Hands placing green Lego "trees" into a shared build.' },
         ]}
       />
       <p className="p1v2__prose">
@@ -384,10 +385,11 @@ function V2s3(p: V2Props) {
         with people, not to them.
       </p>
       <div className="p1v2__media">
-        <img
-          src="/photos/workshop-teaching.jpg"
-          alt="A researcher leading a mixed group through a workshop, screen visible behind."
-          loading="lazy"
+        <KenBurnsImage
+          src="/photos/hands-many-lego.png"
+          alt="Many hands reaching into a shared pile of Lego bricks — creating with people, not to them."
+          focal="center"
+          duration={8}
         />
       </div>
       <p className="p1v2__prose">
@@ -455,8 +457,8 @@ function V2s4(p: V2Props) {
 
       <div className="p1v2__media">
         <img
-          src="/photos/focused-work.jpg"
-          alt="A colleague working head-down at a laptop, headphones on."
+          src="/photos/worksheet-writing.png"
+          alt="A colleague filling in a worksheet by hand — solo desk work rather than shared inquiry."
           loading="lazy"
         />
       </div>
@@ -487,15 +489,15 @@ function V2s4(p: V2Props) {
         It burns credibility with the teams and stakeholders we most need on our side.
       </p>
 
+      <p className="p1v2__prose">
+        The two failures point to the same discipline — stay close to the people, and hold
+        every artefact to a real outcome.
+      </p>
       <QuoteCard
         text="Both failure modes lose sight of the same thing — the people the work is for."
         attribution="Watch for both"
         tone="terracotta"
       />
-      <p className="p1v2__prose">
-        The two failures point to the same discipline — stay close to the people, and hold
-        every artefact to a real outcome.
-      </p>
     </V2Shell>
   )
 }
@@ -522,23 +524,20 @@ function V2s6(p: V2Props) {
         level of decision-making.
       </p>
       <p className="p1v2__prose">
-        For design to thrive, it needs to be embedded into the DNA of an organisation. Leadership
-        and culture need to value experimentation, learning and human-centred decision-making,
-        rather than treating design as something peripheral to delivery.
+        For design to thrive, it needs to be embedded into the DNA of an organisation.
+      </p>
+      <p className="p1v2__prose">
+        Leadership and culture need to value experimentation, learning and human-centred
+        decision-making.
+      </p>
+      <p className="p1v2__prose">
+        Design cannot be treated as something peripheral to delivery.
       </p>
       <div className="p1v2__paired">
-        <div className="ly-asympair">
-          <div className="ly-layered ly-layered--tl ly-layered--blue">
-            <span className="ly-layered__plane" aria-hidden="true" />
-            <Media shape="portrait-tall" src="/photos/focused-work.jpg" alt="A colleague working intently at a laptop, headphones on, Transform prototype on-screen." />
-          </div>
-          <div className="ly-asympair__side">
-            <div className="ly-layered ly-layered--br ly-layered--yellow">
-              <span className="ly-layered__plane" aria-hidden="true" />
-              <Media shape="square" src="/photos/lego-prototyping.jpg" alt="A group building together with Lego bricks — hands-on collaboration." />
-            </div>
-          </div>
-        </div>
+        <PinnedPhoto
+          src="/photos/eunice-tracey.jpg"
+          alt="Eunice and Tracey — a moment from the practice."
+        />
       </div>
       <aside className="p1v2__card">
         <span className="p1v2__card-label">Four important conditions</span>
@@ -555,11 +554,6 @@ function V2s6(p: V2Props) {
         We call it connective creativity — a way of approaching problem-solving, not just a
         style for the outcome.
       </p>
-      <QuoteCard
-        text="Making sense of complex problems, and creating solutions that are desirable, feasible, viable and sustainable."
-        attribution="Great design"
-        tone="paleblue"
-      />
       <p className="p1v2__prose">
         Researchers and designers bridge these elements — connecting insight, delivery and
         decision-making.
@@ -571,9 +565,16 @@ function V2s6(p: V2Props) {
         </ul>
       </aside>
       <p className="p1v2__prose">
-        Through creativity, evidence and participation, our work delivers outcomes, de-risks
-        implementation, and builds legitimacy and value.
+        Through creativity, evidence and participation, our work delivers outcomes.
       </p>
+      <p className="p1v2__prose">
+        It de-risks implementation and builds legitimacy and value.
+      </p>
+      <QuoteCard
+        text="Making sense of complex problems, and creating solutions that are desirable, feasible, viable and sustainable."
+        attribution="Great design"
+        tone="paleblue"
+      />
     </V2Shell>
   )
 }
@@ -596,17 +597,20 @@ function V2s8(p: V2Props) {
   return (
     <V2Shell {...p} widestBodyIs="photo">
       <p className="p1v2__prose">
-        It takes highly skilled, empathetic researchers, creative experimenters, strategic
-        collaborators and ethical stewards of change.
+        It takes empathetic researchers, creative experimenters, strategic collaborators and
+        ethical stewards of change.
       </p>
       <p className="p1v2__prose">
         Our researchers&rsquo; and designers&rsquo; expertise is built not just on what they
-        design, but on how they enable others to see, understand and adapt to the needs of those
-        who experience their products and services.
+        design.
       </p>
       <p className="p1v2__prose">
-        We think of these people as T-shaped specialists. They bring deep disciplinary expertise,
-        while also being able to work across a wider set of human-centred transformation skills.
+        It is built on how they enable others to see, understand and adapt to real user needs.
+      </p>
+      <p className="p1v2__prose">We think of these people as T-shaped specialists.</p>
+      <p className="p1v2__prose">
+        They bring deep disciplinary expertise, while also working across a wider set of
+        human-centred transformation skills.
       </p>
       <aside className="p1v2__card">
         <span className="p1v2__card-label">Skills across the practice</span>
@@ -614,6 +618,16 @@ function V2s8(p: V2Props) {
           {items.map((s) => <li key={s}>{s}</li>)}
         </ul>
       </aside>
+      <p className="p1v2__prose">
+        These are the ingredients. The value comes from how they combine.
+      </p>
+      <p className="p1v2__prose">
+        A researcher who thinks in service flows, a service designer with policy instincts, a
+        UX designer who cares about content.
+      </p>
+      <p className="p1v2__prose">
+        The mix is deliberate — no individual holds all of these skills, and none has to.
+      </p>
       <div className="p1v2__reveal">
         <ImageCoverRevealBoxed
           imageUrl="/photos/board-review.jpg"
@@ -622,29 +636,43 @@ function V2s8(p: V2Props) {
           height={480}
         />
       </div>
-      <p className="p1v2__prose">Different specialists contribute in different ways.</p>
+      <div className="ly-panel ly-panel--sand">
+        <span className="ly-panel__eyebrow">The specialists</span>
+        <p className="ly-panel__body"><strong>Researchers</strong> provide the foundation.</p>
+        <p className="ly-panel__body">
+          They help us understand needs, motivations and systems through the eyes of users.
+        </p>
+        <p className="ly-panel__body">
+          They frame problems, create hypotheses, and test ideas before implementation.
+        </p>
+        <p className="ly-panel__body">
+          <strong>Service designers</strong> are the bridge between research, UX, technology,
+          operations, business and policy.
+        </p>
+        <p className="ly-panel__body">
+          They make visible how services function across front and back stage, creating shared
+          understanding.
+        </p>
+        <p className="ly-panel__body">
+          <strong>UX and interaction designers</strong> make digital interactions clear,
+          inclusive and evidence-driven.
+        </p>
+        <p className="ly-panel__body">
+          That means people can use products and services easily, safely and with confidence.
+        </p>
+        <p className="ly-panel__body">
+          <strong>Content designers</strong> translate complexity into plain language.
+        </p>
+        <p className="ly-panel__body">
+          They structure information so services are understandable, useful and accessible to
+          all.
+        </p>
+      </div>
       <p className="p1v2__prose">
-        <strong>Researchers</strong> provide the foundation. They help us understand needs, wants,
-        motivations, barriers and systems through the eyes of users. They frame problems, create
-        hypotheses, test and evidence ideas before implementation.
+        Designing best-in-class, future-facing products and services is a team sport.
       </p>
       <p className="p1v2__prose">
-        <strong>Service designers</strong> are the bridge between research, UX, technology,
-        operations, business and policy. They make visible how services function across the front
-        and back stage, creating shared understanding.
-      </p>
-      <p className="p1v2__prose">
-        <strong>UX and interaction designers</strong> make digital interactions clear, inclusive
-        and evidence-driven, ensuring people can use products and services easily, safely and with
-        confidence.
-      </p>
-      <p className="p1v2__prose">
-        <strong>Content designers</strong> translate complexity into plain language and structure
-        information so services are understandable, useful and accessible to all.
-      </p>
-      <p className="p1v2__prose">
-        Designing best-in-class, future-facing products and services is a team sport. The value
-        comes from bringing these capabilities together in collaborative, multidisciplinary teams.
+        The value comes from bringing these capabilities together in multidisciplinary teams.
       </p>
     </V2Shell>
   )
@@ -697,7 +725,7 @@ function V2s9(p: V2Props) {
       <div className="p1v2__cinema">
         <div className="ly-layered ly-layered--tl ly-layered--paleblue">
           <span className="ly-layered__plane" aria-hidden="true" />
-          <Media shape="21-9" src="/photos/audience-hands.jpg" alt="A large audience with hands raised at a Transform session — a whole-system view of a service in build." />
+          <Media shape="21-9" src="/photos/head-flipchart.png" alt="Three colleagues sketching a diagram together at a flipchart — thinking made visible." />
         </div>
       </div>
       <aside className="p1v2__card">

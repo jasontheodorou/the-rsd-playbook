@@ -20,8 +20,8 @@ const PANELS: Panel[] = [
   {
     key: 'head',
     title: 'Head',
-    image: '/photos/board-review.jpg',
-    alt: 'Four colleagues studying a shared board together — thinking deeply.',
+    image: '/photos/head-flipchart.png',
+    alt: 'Three colleagues sketching a diagram together at a flipchart — thinking made visible.',
     icon: '/photos/hhh/head-icon.png',
   },
   {
