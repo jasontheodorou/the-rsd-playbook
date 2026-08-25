@@ -17,8 +17,8 @@ const PRACTICES: Practice[] = [
     tab: 'Service',
     sub: 'The bridge between disciplines',
     body: [
-      'Service designers connect research, UX, technology, operations, business and policy.',
-      'They make visible how services function across front and back stage, creating shared understanding.',
+      'Service designers connect research, UX, technology, operations and policy.',
+      'They make visible how a service works across front and back stage.',
     ],
   },
   {
@@ -26,8 +26,8 @@ const PRACTICES: Practice[] = [
     tab: 'Content',
     sub: 'Complexity made plain',
     body: [
-      'Content designers translate complexity into plain language.',
-      'They structure information so services are understandable, useful and accessible to all.',
+      'Content designers turn complexity into plain language.',
+      'They structure information so services stay understandable and accessible.',
     ],
   },
   {
@@ -36,7 +36,7 @@ const PRACTICES: Practice[] = [
     sub: 'Interfaces people can trust',
     body: [
       'UX and interaction designers make digital interactions clear, inclusive and evidence-driven.',
-      'That means people can use products and services easily, safely and with confidence.',
+      'People can then use a service easily, safely and with confidence.',
     ],
   },
   {
@@ -44,9 +44,8 @@ const PRACTICES: Practice[] = [
     tab: 'Research',
     sub: 'Where the work begins',
     body: [
-      'Researchers provide the foundation.',
-      'They help us understand needs, motivations and systems through the eyes of users.',
-      'They frame problems, create hypotheses, and test ideas before implementation.',
+      'Researchers understand needs, motivations and systems through the eyes of users.',
+      'They frame problems and test ideas before anything gets built.',
     ],
   },
 ]

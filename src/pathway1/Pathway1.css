@@ -500,6 +500,7 @@
   .p1v2__qcard,
   .gdc,
   .ly-panel,
+  .p1v2__tabs,
   .north-star-pattern,
   .hhh-pattern
 ) + .p1v2__subhead {
@@ -523,6 +524,13 @@
   background: #F5EFE3;
 }
 
+/* V2s8 specialists — the tabbed practice pattern that replaced the tinted
+   panel. Same column width so the page rhythm is unchanged. */
+.p1v2__body .p1v2__tabs {
+  margin: 0;
+  max-width: 44rem;
+}
+
 /* ── Body boundary adjacencies (one owner per boundary) ─────────────
    Every heavy-block ↔ neighbour transition is set on the *following*
    element's `margin-block-start`. All heavy blocks carry `margin: 0`
@@ -540,6 +548,7 @@
   .p1v2__qcard,
   .gdc,
   .ly-panel,
+  .p1v2__tabs,
   .north-star-pattern,
   .hhh-pattern
 ) {
@@ -557,6 +566,7 @@
   .p1v2__qcard,
   .gdc,
   .ly-panel,
+  .p1v2__tabs,
   .north-star-pattern,
   .hhh-pattern
 ) + .p1v2__prose {
@@ -574,6 +584,7 @@
   .p1v2__qcard,
   .gdc,
   .ly-panel,
+  .p1v2__tabs,
   .north-star-pattern,
   .hhh-pattern
 ) + :is(
@@ -587,6 +598,7 @@
   .p1v2__qcard,
   .gdc,
   .ly-panel,
+  .p1v2__tabs,
   .north-star-pattern,
   .hhh-pattern
 ) {

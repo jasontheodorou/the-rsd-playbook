@@ -9,6 +9,7 @@ import { QuoteCard } from './QuoteCard'
 import { KenBurnsImage } from './KenBurnsImage'
 import { PinnedPhoto } from './PinnedPhoto'
 import { ImageCoverRevealBoxed } from '../experiments/pilot-3/patterns/ImageCoverRevealBoxed'
+import { TShapedTabs } from '../pages/patterns/TShapedTabs'
 
 /** Exposes Pathway1's nested scroll container to any descendant that needs
  *  a `useScroll` container (e.g. L23 reveal, framer-motion viewport hooks). */
@@ -636,37 +637,9 @@ function V2s8(p: V2Props) {
           height={480}
         />
       </div>
-      <div className="ly-panel ly-panel--sand">
+      <div className="p1v2__tabs">
         <span className="ly-panel__eyebrow">The specialists</span>
-        <p className="ly-panel__body"><strong>Researchers</strong> provide the foundation.</p>
-        <p className="ly-panel__body">
-          They help us understand needs, motivations and systems through the eyes of users.
-        </p>
-        <p className="ly-panel__body">
-          They frame problems, create hypotheses, and test ideas before implementation.
-        </p>
-        <p className="ly-panel__body">
-          <strong>Service designers</strong> are the bridge between research, UX, technology,
-          operations, business and policy.
-        </p>
-        <p className="ly-panel__body">
-          They make visible how services function across front and back stage, creating shared
-          understanding.
-        </p>
-        <p className="ly-panel__body">
-          <strong>UX and interaction designers</strong> make digital interactions clear,
-          inclusive and evidence-driven.
-        </p>
-        <p className="ly-panel__body">
-          That means people can use products and services easily, safely and with confidence.
-        </p>
-        <p className="ly-panel__body">
-          <strong>Content designers</strong> translate complexity into plain language.
-        </p>
-        <p className="ly-panel__body">
-          They structure information so services are understandable, useful and accessible to
-          all.
-        </p>
+        <TShapedTabs variant="pill" />
       </div>
       <p className="p1v2__prose">
         Designing best-in-class, future-facing products and services is a team sport.
