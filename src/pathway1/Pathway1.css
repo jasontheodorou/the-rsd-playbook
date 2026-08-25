@@ -525,10 +525,11 @@
 }
 
 /* V2s8 specialists — the tabbed practice pattern that replaced the tinted
-   panel. Same column width so the page rhythm is unchanged. */
+   panel. Matches the body working region (== the photograph/reveal max)
+   so it lines up with the "Depth in one discipline" box above it. */
 .p1v2__body .p1v2__tabs {
   margin: 0;
-  max-width: 44rem;
+  max-width: var(--w-body);
 }
 
 /* ── Body boundary adjacencies (one owner per boundary) ─────────────

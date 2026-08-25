@@ -45,6 +45,65 @@
 
 .tst__body + .tst__body { margin-top: 0.85em; }
 
+/* ── Prose + bullets ─────────────────────────────────────────────────────
+   Single column by default. Once the panel itself is wide enough the two
+   sit side by side, so a wide box doesn't stretch prose to an unreadable
+   measure or make the panel unnecessarily tall. Keyed to the panel width
+   (container query) rather than the viewport, because this pattern appears
+   at several widths: 800px in Pathway 1, full-container on /layouts. */
+
+.tst__cols {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+@container (min-width: 560px) {
+  .tst__cols {
+    grid-template-columns: 1.08fr 1fr;
+    gap: clamp(1.75rem, 4cqi, 3rem);
+    align-items: start;
+  }
+}
+
+.tst__prose .tst__body { max-width: 46ch; }
+
+.tst__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.tst__list li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: clamp(0.875rem, 1.05vw, 0.9688rem);
+  line-height: 1.5;
+  color: #55524E;
+}
+
+/* Orange dot, matching the pathway's existing card lists. */
+.tst__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #EC671B;
+}
+
+/* A hairline between the columns once they're side by side. */
+@container (min-width: 560px) {
+  .tst__list {
+    padding-left: clamp(1.5rem, 3.5cqi, 2.5rem);
+    border-left: 1px solid #E6E3DF;
+  }
+}
+
 /* ── Shared tab primitives ───────────────────────────────────────────────── */
 
 .tst__tabs {
@@ -114,6 +173,11 @@
   min-height: 168px;
 }
 
+/* Establish the query containers the .tst__cols rules above key off. */
+.tst__panel,
+.tst__cell,
+.tst__sizer { container-type: inline-size; }
+
 /* ══ T02 · Morphing pill ════════════════════════════════════════════════ */
 
 .tst--pill {
@@ -149,7 +213,16 @@
 
 .tst__panel--pill {
   padding: clamp(1.5rem, 3vw, 2.25rem);
-  min-height: 178px;
+}
+
+/* All children share one grid cell, so the row takes the height of the
+   tallest — the height reservation the panel relies on. */
+.tst__stage { display: grid; }
+.tst__stage > * { grid-area: 1 / 1; }
+
+.tst__reserve {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* ══ T03 · Filmstrip rail ═══════════════════════════════════════════════ */

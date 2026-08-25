@@ -9,6 +9,7 @@ type Practice = {
   tab: string
   sub: string
   body: string[]
+  bullets: string[]
 }
 
 const PRACTICES: Practice[] = [
@@ -19,6 +20,12 @@ const PRACTICES: Practice[] = [
     body: [
       'Service designers connect research, UX, technology, operations and policy.',
       'They make visible how a service works across front and back stage.',
+      'That shared picture is what lets a team see the whole, not just their own part of it.',
+    ],
+    bullets: [
+      'Map journeys end to end, across every channel and team',
+      'Expose the back-stage processes that shape the front-stage experience',
+      'Build shared understanding so decisions hold across a programme',
     ],
   },
   {
@@ -28,6 +35,12 @@ const PRACTICES: Practice[] = [
     body: [
       'Content designers turn complexity into plain language.',
       'They structure information so services stay understandable and accessible.',
+      'The words are part of the design, not a layer applied once the work is finished.',
+    ],
+    bullets: [
+      'Write in plain English, tested with the people who need it',
+      'Structure content around user tasks, not internal teams',
+      'Treat accessibility as the floor rather than the target',
     ],
   },
   {
@@ -37,6 +50,12 @@ const PRACTICES: Practice[] = [
     body: [
       'UX and interaction designers make digital interactions clear, inclusive and evidence-driven.',
       'People can then use a service easily, safely and with confidence.',
+      'Every pattern is tested with real users before it reaches production.',
+    ],
+    bullets: [
+      'Design for the least confident user, not the most capable',
+      'Reach for established patterns before inventing new ones',
+      'Settle decisions with usability testing, not preference',
     ],
   },
   {
@@ -46,6 +65,12 @@ const PRACTICES: Practice[] = [
     body: [
       'Researchers understand needs, motivations and systems through the eyes of users.',
       'They frame problems and test ideas before anything gets built.',
+      'Their evidence is what stops a team solving the wrong problem well.',
+    ],
+    bullets: [
+      'Talk to users early, and keep talking to them',
+      'Frame the problem before proposing a solution',
+      'Test assumptions while they are still cheap to change',
     ],
   },
 ]
@@ -75,7 +100,16 @@ function Body({ p }: { p: Practice }) {
   return (
     <>
       <h4 className="tst__sub">{p.sub}</h4>
-      {p.body.map((line) => <p key={line} className="tst__body">{line}</p>)}
+      {/* Two columns once the panel is wide enough — see the container query.
+          Keeps the measure readable instead of stretching prose to the box. */}
+      <div className="tst__cols">
+        <div className="tst__prose">
+          {p.body.map((line) => <p key={line} className="tst__body">{line}</p>)}
+        </div>
+        <ul className="tst__list">
+          {p.bullets.map((b) => <li key={b}>{b}</li>)}
+        </ul>
+      </div>
     </>
   )
 }
@@ -167,18 +201,28 @@ function Pill() {
       </div>
 
       <div className="tst__panel tst__panel--pill" role="tabpanel">
-        <AnimatePresence mode="wait" initial={false} custom={dir}>
-          <motion.div
-            key={p.id}
-            custom={dir}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, x: dir * 44 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, x: dir * -44 }}
-            transition={{ duration: reduce ? 0.15 : 0.4, ease: EASE }}
-          >
-            <Body p={p} />
-          </motion.div>
-        </AnimatePresence>
+        {/* Every practice is laid into the same grid cell, so the panel is
+            always as tall as the longest one and switching tabs never
+            shifts the content below it. Only the live one is visible. */}
+        <div className="tst__stage">
+          {PRACTICES.map((ghost) => (
+            <div key={ghost.id} className="tst__reserve" aria-hidden="true">
+              <Body p={ghost} />
+            </div>
+          ))}
+          <AnimatePresence mode="wait" initial={false} custom={dir}>
+            <motion.div
+              key={p.id}
+              custom={dir}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, x: dir * 44 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, x: dir * -44 }}
+              transition={{ duration: reduce ? 0.15 : 0.4, ease: EASE }}
+            >
+              <Body p={p} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   )
