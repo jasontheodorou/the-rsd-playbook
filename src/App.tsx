@@ -10,6 +10,7 @@ import { ModuleView } from './pages/ModuleView'
 import { LayoutPreview } from './pages/LayoutPreview'
 import { Layouts } from './pages/Layouts'
 import { TabLayouts } from './pages/TabLayouts'
+import { SuperpowerTest } from './pages/SuperpowerTest'
 import { PastePage } from './pages/PastePage'
 import { DemoPage } from './pages/DemoPage'
 import { Pathway1 } from './pathway1/Pathway1'
@@ -104,6 +105,10 @@ function AppInner() {
 
   const isDemoRoute = typeof window !== 'undefined' && window.location.pathname === '/demo'
   if (isDemoRoute) return <DemoPage />
+
+  const isSuperpowerRoute =
+    typeof window !== 'undefined' && window.location.pathname === '/superpower-test'
+  if (isSuperpowerRoute) return <SuperpowerTest />
 
   const goHome = () => setView({ type: 'home' })
 
