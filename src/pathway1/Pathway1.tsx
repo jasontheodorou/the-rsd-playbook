@@ -94,13 +94,15 @@ export function Pathway1({ onReturnHome }: { onReturnHome: () => void }) {
           level so it extends behind the rail and hamburger. */}
       {page.video && (
         <>
+          {/* Deliberately not looping: it plays once and holds on its last
+              frame. A video with no `loop` keeps the final frame painted, so
+              the freeze is the browser's own behaviour, not a still swapped in. */}
           <video
             key={`bg-${page.id}`}
             className="pilot-bg-video"
             src={page.video}
             autoPlay
             muted
-            loop
             playsInline
             preload="auto"
             aria-hidden="true"
