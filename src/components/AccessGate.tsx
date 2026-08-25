@@ -2,10 +2,9 @@ import { useState, type FormEvent } from 'react'
 import { logError } from '../lib/log'
 
 const GATE_KEY = 'rsd_gate'
-const PASSWORD = import.meta.env.VITE_GATE_PASSWORD as string | undefined
+const PASSWORD = 'transf0rmRSD2026!'
 
 export function isGateOpen(): boolean {
-  if (!PASSWORD) return import.meta.env.DEV
   try {
     return localStorage.getItem(GATE_KEY) === PASSWORD
   } catch (err) {

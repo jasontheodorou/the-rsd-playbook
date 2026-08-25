@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { getSession, signOut, getProfile, saveProfile, getProgress, saveProgress } from './lib/auth'
+import { AccessGate, isGateOpen } from './components/AccessGate'
 import { HomePage } from './components/HomePage'
 import { PracticeForm, type PracticeProfile } from './components/PracticeForm'
 import { TopBar } from './components/TopBar'
@@ -68,6 +69,13 @@ function Pathway2Shell({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
+  const [gateOpen, setGateOpen] = useState<boolean>(() => isGateOpen())
+  if (!gateOpen) return <AccessGate onUnlock={() => setGateOpen(true)} />
+
+  return <AppInner />
+}
+
+function AppInner() {
   const [view, setView] = useState<View>(() => {
     if (typeof window !== 'undefined') {
       if (window.location.pathname === '/foundations' ||
