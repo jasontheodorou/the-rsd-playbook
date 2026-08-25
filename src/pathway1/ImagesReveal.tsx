@@ -7,6 +7,8 @@ export type ImageRevealItem = {
   alt: string
   /** Rotation in degrees. Falls back to a default alternating pattern. */
   angle?: number
+  /** Short label rendered in the polaroid's white bottom strip. */
+  caption?: string
 }
 
 export type ImagesRevealProps = {
@@ -74,7 +76,12 @@ export function ImagesReveal({ images, title }: ImagesRevealProps) {
               whileFocus={reduce ? undefined : STRAIGHTEN}
               whileTap={reduce ? undefined : STRAIGHTEN}
             >
-              <img src={img.src} alt={img.alt} loading="lazy" draggable={false} />
+              <figure className="p1v2__reveal-photo">
+                <img src={img.src} alt={img.alt} loading="lazy" draggable={false} />
+              </figure>
+              {img.caption && (
+                <figcaption className="p1v2__reveal-caption">{img.caption}</figcaption>
+              )}
             </motion.li>
           )
         })}

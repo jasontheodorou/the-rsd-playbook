@@ -407,7 +407,7 @@
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
   gap: 48px;
-  align-items: center;
+  align-items: start;
 }
 
 .p1v2__hero-text {
@@ -443,7 +443,7 @@
 }
 .p1v2__hero-art img {
   width: 100%;
-  max-height: 420px;
+  max-height: 260px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 20px 40px rgba(33, 61, 89, 0.08));
@@ -456,7 +456,7 @@
 
 .p1v2__body {
   max-width: var(--w-body);
-  margin-top: var(--sp-16);                             /* illustration → prose 1: 64 */
+  margin-top: var(--sp-4);                              /* illustration → prose 1: 16 (matches para-to-para) */
 }
 
 .p1v2__body .p1v2__prose {
@@ -473,6 +473,42 @@
   margin-block-start: var(--sp-4);                       /* 16 */
 }
 
+/* ── Subhead ─────────────────────────────────────────────────────────
+   Section title inside the body. Distinct from the hero H1 (smaller,
+   ink not display weight). Introduces the block(s) that follow. */
+.p1v2__subhead {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);            /* 22 → 28px */
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #111;
+  max-width: 65ch;
+}
+
+/* Subhead sits tightly above the content it introduces (16px below),
+   with heavy-block-style space above so it reads as a new section. */
+.p1v2__body :is(
+  .p1v2__prose,
+  .p1v2__media,
+  .p1v2__cinema,
+  .p1v2__paired,
+  .p1v2__card,
+  .p1v2__pullquote,
+  .p1v2__triad,
+  .p1v2__reveal,
+  .p1v2__qcard,
+  .gdc,
+  .north-star-pattern,
+  .hhh-pattern
+) + .p1v2__subhead {
+  margin-block-start: clamp(2.5rem, 4vw, 3rem);          /* 40 → 48 */
+}
+
+.p1v2__body .p1v2__subhead + :is(.p1v2__prose, .p1v2__card) {
+  margin-block-start: var(--sp-4);                       /* 16 — tight to its section */
+}
+
 /* ── Body boundary adjacencies (one owner per boundary) ─────────────
    Every heavy-block ↔ neighbour transition is set on the *following*
    element's `margin-block-start`. All heavy blocks carry `margin: 0`
@@ -486,7 +522,11 @@
   .p1v2__card,
   .p1v2__pullquote,
   .p1v2__triad,
-  .p1v2__reveal
+  .p1v2__reveal,
+  .p1v2__qcard,
+  .gdc,
+  .north-star-pattern,
+  .hhh-pattern
 ) {
   margin-block-start: clamp(2.5rem, 4vw, 3rem);          /* 40 → 48 @1440 */
 }
@@ -498,9 +538,13 @@
   .p1v2__card,
   .p1v2__pullquote,
   .p1v2__triad,
-  .p1v2__reveal
+  .p1v2__reveal,
+  .p1v2__qcard,
+  .gdc,
+  .north-star-pattern,
+  .hhh-pattern
 ) + .p1v2__prose {
-  margin-block-start: clamp(3rem, 5vw, 4rem);            /* 48 → 64 @1440 */
+  margin-block-start: clamp(2.5rem, 4vw, 3rem);          /* 40 → 48 @1440 (symmetric with prose→heavy) */
 }
 
 .p1v2__body :is(
@@ -510,7 +554,11 @@
   .p1v2__card,
   .p1v2__pullquote,
   .p1v2__triad,
-  .p1v2__reveal
+  .p1v2__reveal,
+  .p1v2__qcard,
+  .gdc,
+  .north-star-pattern,
+  .hhh-pattern
 ) + :is(
   .p1v2__media,
   .p1v2__cinema,
@@ -518,7 +566,11 @@
   .p1v2__card,
   .p1v2__pullquote,
   .p1v2__triad,
-  .p1v2__reveal
+  .p1v2__reveal,
+  .p1v2__qcard,
+  .gdc,
+  .north-star-pattern,
+  .hhh-pattern
 ) {
   margin-block-start: clamp(2.75rem, 4.5vw, 3.5rem);     /* 44 → 56 @1440 */
 }
@@ -671,12 +723,6 @@
   display: flex;
   align-items: baseline;
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
-  padding-bottom: var(--sp-5);
-  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
-}
-.p1v2__triad li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
 }
 .p1v2__triad-term {
   font-weight: 800;
@@ -740,14 +786,11 @@
    flex-end` puts the CTA on the same right edge as the photograph. */
 
 /* Closing-navigation row. Full row width matches the photograph
-   (var(--w-body) = 800). A subtle top rule spans the row so the CTA
-   is anchored to a shared alignment, not floating. Panel → row spacing
-   is measured to the rule (i.e., to `.p1v2__foot`'s top border). */
+   (var(--w-body) = 800). Divider rule removed — CTA is anchored by
+   its right-edge alignment and the existing spacing rhythm. */
 .p1v2__foot {
-  margin-top: var(--sp-20);                              /* panel → rule: 80 desktop */
+  margin-top: clamp(2.5rem, 4vw, 3rem);                  /* content → CTA: 40 → 48 (matches heavy-block rhythm) */
   max-width: var(--w-body);
-  padding-top: var(--sp-6);                              /* rule → CTA: 24 */
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
   display: flex;
   justify-content: flex-end;
 }
@@ -781,8 +824,8 @@
     max-width: clamp(180px, 30vw, 230px);
     max-height: none;
   }
-  .p1v2__body { margin-top: var(--sp-16); }              /* illustration → prose 1: 64 */
-  .p1v2__foot { margin-top: var(--sp-16); }              /* panel → CTA: 64 */
+  .p1v2__body { margin-top: var(--sp-4); }               /* illustration → prose 1: 16 (matches para-to-para) */
+  .p1v2__foot { margin-top: var(--sp-8); }               /* content → CTA: 32 stacked */
 }
 
 @media (max-width: 40rem) {

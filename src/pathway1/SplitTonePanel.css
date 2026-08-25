@@ -1,0 +1,21 @@
+.split-tone-panel {
+  max-width: 65ch;
+}
+
+.split-tone-panel__band {
+  background: #CBD9DA;
+  padding: 12px 24px;
+}
+
+.split-tone-panel__label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #213D59;
+}
+
+.split-tone-panel__body {
+  background: #F4F0E8;
+  padding: 20px 24px 24px;
+}

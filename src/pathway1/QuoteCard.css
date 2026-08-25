@@ -1,0 +1,55 @@
+/* ── QuoteCard · L62 port ──────────────────────────────────────────────
+   Tinted plane with a Georgia speech-mark corner, bold display quote,
+   and small uppercase attribution. Margins are 0 — the enclosing
+   sibling-adjacency rules on `.p1v2__body` own the top/bottom spacing. */
+
+.p1v2__qcard {
+  margin: 0;
+  max-width: var(--w-panel);                              /* 720px — matches .p1v2__card */
+  padding: var(--sp-8);                                   /* 32px — matches .p1v2__card */
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+.p1v2__qcard--yellow     { background: #F1D46E; color: #111; }
+.p1v2__qcard--terracotta { background: #D8B4A3; color: #111; }
+.p1v2__qcard--paleblue   { background: #CBD9DA; color: #111; }
+.p1v2__qcard--warmgrey   { background: #CCC8C4; color: #111; }
+.p1v2__qcard--blue       { background: #619CBA; color: #FAF8F6; }
+
+/* Georgia's " sits in the upper ~40% of the em box, so a normal line-height
+   leaves a huge empty strip below the glyph. We clip that with a fixed height
+   and overflow: hidden — the mark reads tight, and the quote text below
+   sits right up against its baseline. */
+.p1v2__qcard-mark {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(4rem, 8vw, 5.5rem);                    /* toned for 720px frame */
+  line-height: 1;
+  height: 0.55em;
+  overflow: hidden;
+  color: currentColor;
+  margin: 0 0 var(--sp-4);                                /* 16px */
+}
+
+.p1v2__qcard-text {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);             /* 20 → 26px — sits between .p1v2__prose and the old L62 display */
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  max-width: 30ch;
+  color: currentColor;
+}
+
+.p1v2__qcard-attribution {
+  display: block;
+  margin-top: var(--sp-5);                                /* 20px — matches .p1v2__card label→list rhythm */
+  font-weight: 700;
+  font-size: 11px;                                        /* matches .p1v2__card-label */
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: currentColor;
+  opacity: 0.65;
+}

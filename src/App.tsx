@@ -14,7 +14,6 @@ import { Pathway1 } from './pathway1/Pathway1'
 import { Pilot2 } from './experiments/pilot-2/Pilot2'
 import { Pilot3 } from './experiments/pilot-3/Pilot3'
 import { RunbookPilot } from './experiments/runbook-pilot/RunbookPilot'
-import { IdeasPreview } from './ideas/IdeasPreview'
 
 type View =
   | { type: 'home' }
@@ -27,7 +26,6 @@ type View =
   | { type: 'modules'; profile: PracticeProfile }
   | { type: 'layout-preview' }
   | { type: 'layouts' }
-  | { type: 'ideas-preview' }
 
 const GROW_TRANSITION = { duration: 0.55, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
 
@@ -42,7 +40,6 @@ function getTrail(view: View): string | undefined {
     case 'modules':       return 'Master your practice'
     case 'layout-preview':return 'Layout preview'
     case 'layouts':       return 'Layout catalogue'
-    case 'ideas-preview': return 'Ideas · text-only treatments'
     default:              return undefined
   }
 }
@@ -79,7 +76,6 @@ export default function App() {
       if (window.location.pathname === '/experiments/pilot-3') return { type: 'pilot-3' }
       if (window.location.pathname === '/experiments/runbook-pilot') return { type: 'runbook-pilot' }
       if (window.location.pathname === '/layouts') return { type: 'layouts' }
-      if (window.location.pathname === '/ideas') return { type: 'ideas-preview' }
     }
     return { type: 'home' }
   })
@@ -175,10 +171,6 @@ export default function App() {
 
           {view.type === 'layouts' && (
             <Layouts key="layouts" onReturnHome={goHome} />
-          )}
-
-          {view.type === 'ideas-preview' && (
-            <IdeasPreview key="ideas-preview" onReturnHome={goHome} />
           )}
 
           {view.type === 'sign-in' && (

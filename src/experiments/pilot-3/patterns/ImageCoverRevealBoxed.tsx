@@ -1,5 +1,5 @@
 import { useRef, type RefObject } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 
 /**
  * Cribbed from jasontheodorou/valencia-pattern-library
@@ -34,7 +34,7 @@ export function ImageCoverRevealBoxed({
   imageUrl,
   heading,
   height = 480,
-  bgColor = '#FAF8F6',
+  bgColor = '#FCFBF8',
   inkColor = '#111',
   scrollContainer,
 }: Props) {
@@ -43,18 +43,27 @@ export function ImageCoverRevealBoxed({
   const { scrollYProgress } = useScroll({
     target: boxRef,
     container: scrollContainer,
-    // Reveal completes when the box is fully in view (bottom edge reaches
-    // viewport bottom) rather than the Valencia default (bottom at centre).
-    // Guarantees the reveal always finishes even if the box lives at the
-    // bottom of the scroll container.
-    offset: ['start end', 'end end'],
+    // Reveal spans a full viewport-height of scroll: it starts as the box
+    // enters at the bottom and completes when the box's top reaches the
+    // viewport top. Slower than "bottom-at-bottom", so the covered state is
+    // readable before the wipe begins and the wipe itself lasts long enough
+    // to feel like an event.
+    offset: ['start end', 'start start'],
+  })
+
+  // Track the maximum progress ever reached — the reveal is one-way, so
+  // scrolling back up must NOT un-reveal the image. `peak` is a motion
+  // value that only ratchets upward; the clip-path is driven from it.
+  const peak = useMotionValue(0)
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    if (v > peak.get()) peak.set(v)
   })
 
   // Cover clips from the right (right-inset 0% → 100%). The ink heading is
   // a child of the cover, so both are clipped by the same operation — no
   // sub-pixel drift is possible between the cream mask and the ink text.
   const coverClip = useTransform(
-    scrollYProgress,
+    peak,
     [0, 1],
     ['inset(0 0% 0 0)', 'inset(0 100% 0 0)']
   )
@@ -85,7 +94,7 @@ export function ImageCoverRevealBoxed({
   return (
     <div
       ref={boxRef}
-      style={{ position: 'relative', height, overflow: 'hidden', borderRadius: 2 }}
+      style={{ position: 'relative', height, overflow: 'hidden', borderRadius: 0 }}
     >
       {/* Image */}
       <img

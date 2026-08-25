@@ -63,30 +63,19 @@ export const PILOT_PAGES: PilotPage[] = [
     image: '/illustrations/gooddesignearnstrust.svg',
   },
   {
-    id: 's4-design-wrong',
+    id: 's4-process-wrong',
     num: '04',
     section: 'When it fails',
-    headline: 'When design gets it wrong.',
+    headline: 'When the process goes wrong.',
     body: [
-      'Human-centred design can fail too when its purpose is unclear, overly performative or stuck in endless loops.',
-      'Good design needs clarity, discipline and real-world delivery, not just workshops, research and rituals.',
+      'The way we work can fail in two distinct ways.',
+      'Sometimes design is absent. Sometimes it is present but hollow. Both leave services that fail people.',
     ],
     image: '/illustrations/whenserviceslosepeople.svg',
   },
   {
-    id: 's5-services-wrong',
-    num: '05',
-    section: 'When it fails',
-    headline: 'When services go wrong.',
-    body: [
-      'Without human-centred design, services are built around systems and constraints instead of real lives.',
-      'Design, learning and adaptability get pushed aside, leading to rigid decisions and services that fail people.',
-    ],
-    image: '/illustrations/whenserviceslosepeople2.svg',
-  },
-  {
     id: 's6-enabling',
-    num: '06',
+    num: '05',
     section: 'Making it work',
     headline: 'Enabling good design.',
     body: [
@@ -96,19 +85,8 @@ export const PILOT_PAGES: PilotPage[] = [
     image: '/illustrations/ecosystem_001.png',
   },
   {
-    id: 's7-connective',
-    num: '07',
-    section: 'The craft',
-    headline: 'Connective creativity.',
-    body: [
-      'Great design turns complex problems into solutions that work for people, organisations and the long term.',
-      'Researchers and designers connect evidence, creativity and real voices to reduce risk, build trust and create lasting value.',
-    ],
-    image: '/illustrations/designisconnectivecreativity.svg',
-  },
-  {
     id: 's8-tshaped',
-    num: '08',
+    num: '06',
     section: 'The people',
     headline: 'T-shaped skills.',
     body: [
@@ -119,7 +97,7 @@ export const PILOT_PAGES: PilotPage[] = [
   },
   {
     id: 's9-hhh-framework',
-    num: '09',
+    num: '07',
     section: 'Our philosophy',
     headline: 'Head, heart and hands.',
     body: [
@@ -129,41 +107,8 @@ export const PILOT_PAGES: PilotPage[] = [
     image: '/illustrations/head_heart_hands.png',
   },
   {
-    id: 's10-head',
-    num: '10',
-    section: 'Head',
-    headline: 'Understand deeply.',
-    body: [
-      'We start by understanding your people, needs and wider context, because no service exists in isolation.',
-      'From there, we use human-centred thinking to reimagine services and tackle the deeper factors that shape their success.',
-    ],
-    image: '/illustrations/turninguncertaintyintopossibility.svg',
-  },
-  {
-    id: 's11-heart',
-    num: '11',
-    section: 'Heart',
-    headline: 'Driven by impact.',
-    body: [
-      'We’re driven by impact: solving the right problems, working closely together and keeping people at the centre.',
-      'It’s how we create better services, adapt faster and make a meaningful difference.',
-    ],
-    image: '/illustrations/gooddesignearnstrust.svg',
-  },
-  {
-    id: 's12-hands',
-    num: '12',
-    section: 'Hands',
-    headline: 'Make it real.',
-    body: [
-      'We bring the right skills and methods to turn ideas into real services, focusing on what creates the most value.',
-      'We test, learn and adapt as we go, changing direction when the evidence tells us to.',
-    ],
-    image: '/illustrations/makepossiblereal.svg',
-  },
-  {
     id: 's13-participation',
-    num: '13',
+    num: '08',
     section: 'Closing',
     headline: 'Participation is our superpower.',
     body: [
@@ -178,10 +123,10 @@ export const PILOT_CHAPTERS: PilotChapter[] = [
   { id: 'welcome',       num: 'I',   name: 'Welcome',                  startIndex: 0 },
   { id: 'north-star',    num: 'II',  name: 'Our north star',           startIndex: 1 },
   { id: 'why-matters',   num: 'III', name: 'Why it matters',           startIndex: 2 },
-  { id: 'enabling',      num: 'IV',  name: 'What enables good design', startIndex: 5 },
-  { id: 'skills',        num: 'V',   name: 'The skills we bring',      startIndex: 7 },
-  { id: 'hhh',           num: 'VI',  name: 'Head, Heart and Hands',    startIndex: 8 },
-  { id: 'participation', num: 'VII', name: 'Participation',            startIndex: 12 },
+  { id: 'enabling',      num: 'IV',  name: 'What enables good design', startIndex: 4 },
+  { id: 'skills',        num: 'V',   name: 'The skills we bring',      startIndex: 5 },
+  { id: 'hhh',           num: 'VI',  name: 'Head, Heart and Hands',    startIndex: 6 },
+  { id: 'participation', num: 'VII', name: 'Participation',            startIndex: 7 },
 ]
 
 /** Returns the index of the chapter that contains the given page index. */
