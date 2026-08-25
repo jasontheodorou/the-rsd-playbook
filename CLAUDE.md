@@ -1,5 +1,19 @@
 # rsd-manual — working agreement
 
+## Git identity (required)
+
+Commits in this repo **must** be authored as
+`Jason Alfredos <jay.alfredos.labs@gmail.com>`.
+
+Vercel hosts this project under the "Jay Alfredos' projects" team and refuses
+to build a commit whose author lacks access to it. Committing with the work
+identity (`jason.theodorou@transformuk.com`) pushes to GitHub fine but the
+deploy fails with *"Git author staging-002 must have access to the project on
+Vercel to create deployments"* — and production silently stays on the previous
+commit.
+
+A repo-local `git config user.email` is set for this reason. Check it with
+`git config user.email` before committing on a new machine.
 
 <!-- scribe-block-begin -->
 ## Auto-journal (managed by scribe)
