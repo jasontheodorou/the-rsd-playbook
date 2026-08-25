@@ -1,0 +1,260 @@
+/* ── /ecosystem-test · interactive ecosystem_001.png ────────────────────── */
+
+.eco {
+  min-height: 100vh;
+  background: #FAF8F6;
+  color: #3A3A3E;
+  font-family: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
+  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(4rem, 9vw, 8rem);
+}
+.eco *, .eco *::before, .eco *::after { box-sizing: border-box; }
+
+.eco__inner { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* ── Head ────────────────────────────────────────────────────────────────── */
+
+.eco__brand {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 13px; font-weight: 700; margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+.eco__brand i { width: 9px; height: 9px; border-radius: 50%; background: #EC671B; }
+
+.eco__title {
+  margin: 0 0 0.6em; font-size: clamp(1.75rem, 4.4vw, 2.625rem); font-weight: 800;
+  line-height: 1.12; letter-spacing: -0.022em; color: #1F1F23; max-width: 24ch;
+}
+.eco__lede {
+  margin: 0; max-width: 68ch; font-size: clamp(1rem, 1.35vw, 1.0938rem);
+  line-height: 1.6; color: #55524E;
+}
+.eco__lede + .eco__lede { margin-top: 0.85em; }
+.eco__lede code {
+  font-size: 0.94em; padding: 1px 5px; border-radius: 3px;
+  background: #EFEBE6; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ── Case frame ──────────────────────────────────────────────────────────── */
+
+.eco__case { margin-top: clamp(3rem, 7vw, 5.5rem); }
+.eco__caseHead { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+.eco__caseNum { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; color: #EC671B; }
+.eco__caseName { margin: 0; font-size: clamp(1.0625rem, 1.7vw, 1.25rem); font-weight: 700; color: #1F1F23; }
+.eco__caseNote {
+  margin: 0 0 clamp(1.25rem, 2.6vw, 1.75rem); max-width: 72ch;
+  font-size: clamp(0.9063rem, 1.1vw, 0.9688rem); line-height: 1.55; color: #6E6A65;
+}
+
+/* ── The plate ───────────────────────────────────────────────────────────── */
+
+.eco-case { width: 100%; }
+
+/* aspect-ratio is set inline from the real file dimensions, so every overlay
+   percentage lines up regardless of rendered width. */
+.eco-frame { position: relative; width: 100%; }
+.eco-frame--clip { overflow: hidden; }
+.eco-frame--pins { overflow: visible; }
+
+.eco-plate {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none; -webkit-user-drag: none;
+}
+
+.eco-plate--drained { filter: saturate(0.15) opacity(0.28); }
+.eco-plate--lit { transition: opacity 0.3s ease; pointer-events: none; }
+
+.eco-zoomer { position: absolute; inset: 0; }
+
+/* ── Hit targets — invisible; the drawing is the interface ───────────────── */
+
+.eco-hot {
+  position: absolute; appearance: none; margin: 0; padding: 0; cursor: pointer;
+  background: transparent; border: 0; border-radius: 10px; z-index: 3;
+}
+.eco-hot:focus-visible { outline: 2px solid #EC671B; outline-offset: 2px; }
+
+.eco-hot__pin {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 12px; font-weight: 800; color: #3A3A3E;
+  background: rgba(255, 255, 255, 0.92); border: 1.5px solid #D6D1CB;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.eco-hot:hover .eco-hot__pin { border-color: #EC671B; transform: translate(-50%, -50%) scale(1.12); }
+
+/* ── E01 ripple ──────────────────────────────────────────────────────────── */
+
+.eco-ripple { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+
+.eco-rail {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  padding-top: clamp(1rem, 2vw, 1.25rem);
+  border-top: 1px solid #E6E3DF;
+}
+.eco-rail__step {
+  appearance: none; border: 0; background: none; cursor: pointer; font: inherit;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 13px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 600; color: #77726C;
+  transition: background 0.22s ease, color 0.22s ease;
+}
+.eco-rail__step:hover { color: #3A3A3E; }
+.eco-rail__step.is-active { background: #FFFFFF; color: #213D59; font-weight: 700; }
+.eco-rail__dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #D6D1CB;
+  transition: background 0.25s ease;
+}
+
+/* ── Copy blocks ─────────────────────────────────────────────────────────── */
+
+.eco-copy--under { margin-top: clamp(1.25rem, 2.6vw, 1.75rem); min-height: 132px; }
+
+.eco-copy__label {
+  display: block; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px;
+}
+.eco-copy__title { margin: 0 0 9px; font-size: clamp(1.0625rem, 1.7vw, 1.25rem); font-weight: 700; color: #1F1F23; }
+.eco-copy__body { margin: 0; max-width: 66ch; font-size: 0.9688rem; line-height: 1.6; color: #55524E; }
+.eco-copy__body + .eco-copy__body { margin-top: 0.6em; }
+.eco-copy__idle { margin: 0; font-size: 0.9688rem; line-height: 1.6; color: #A29C95; }
+
+/* ── E02 spotlight flag ──────────────────────────────────────────────────── */
+
+/* Anchors do the positioning with a plain CSS transform, so Motion never
+   has to interpolate a percentage translate — that was what wedged every
+   animation on this page. Motion only fades the card inside. */
+.eco-anchor {
+  position: absolute; z-index: 5;
+  transform: translate(-50%, 30px);
+  pointer-events: none;
+}
+.eco-anchor--end { transform: translate(-90%, 30px); }
+.eco-anchor--flag { transform: translate(-50%, -26px); }
+.eco-anchor--flag.eco-anchor--end { transform: translate(-88%, -26px); }
+
+.eco-flag {
+  display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;
+  padding: 7px 13px 7px 7px; border-radius: 999px;
+  background: #1F1F23; color: #FFFFFF;
+  font-size: 12.5px; font-weight: 700;
+}
+.eco-flag__n {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 800; color: #1F1F23;
+}
+
+/* ── E03 zoom ────────────────────────────────────────────────────────────── */
+
+.eco-split { display: grid; gap: clamp(1.5rem, 3.5vw, 2.5rem); align-items: center; }
+@media (min-width: 940px) { .eco-split { grid-template-columns: 1.6fr 1fr; } }
+
+.eco-panel {
+  padding: clamp(1.25rem, 2.6vw, 1.75rem);
+  background: #FFFFFF; border: 1px solid #E6E3DF; border-radius: 5px;
+  border-left: 3px solid #EC671B; min-height: 200px;
+}
+.eco-panel__back {
+  appearance: none; border: 0; background: none; cursor: pointer; font: inherit;
+  margin-top: 16px; padding: 0; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; color: #EC671B;
+}
+
+/* ── E04 pins ────────────────────────────────────────────────────────────── */
+
+.eco-pin {
+  position: absolute; z-index: 4; appearance: none; cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #FFFFFF; border: 2px solid #D6D1CB;
+  font-size: 12px; font-weight: 800;
+  box-shadow: 0 3px 10px rgba(31, 31, 35, 0.12);
+}
+.eco-pin.is-active { box-shadow: 0 5px 18px rgba(31, 31, 35, 0.2); }
+.eco-pin:focus-visible { outline: 2px solid #EC671B; outline-offset: 3px; }
+
+.eco-callout {
+  width: min(330px, 76vw);
+  padding: 15px 17px 17px;
+  background: #FFFFFF; border: 1px solid #E6E3DF; border-radius: 6px;
+  box-shadow: 0 14px 38px rgba(31, 31, 35, 0.14);
+}
+.eco-callout__rule { display: block; width: 30px; height: 4px; border-radius: 2px; margin-bottom: 11px; }
+.eco-callout .eco-copy__body { font-size: 0.875rem; }
+
+/* ── E05 strata ──────────────────────────────────────────────────────────── */
+
+.eco-scene { position: relative; perspective: 1400px; perspective-origin: 50% 40%; }
+
+.eco-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tips the board while a layer is lifted off it. */
+.eco-tilt[data-active]:not([data-active='']) {
+  transform: rotateX(7deg) scale(0.97);
+}
+
+.eco-pane {
+  position: absolute; z-index: 2; pointer-events: none;
+  border-radius: 8px; border: 1.5px solid;
+  mix-blend-mode: multiply;
+  box-shadow: 0 14px 30px rgba(31, 31, 35, 0.16);
+}
+
+.eco-strata-list {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+.eco-strata {
+  appearance: none; background: #FFFFFF; cursor: pointer; font: inherit;
+  display: inline-flex; align-items: baseline; gap: 9px;
+  padding: 9px 15px; border: 1px solid #E6E3DF;
+  border-left: 3px solid transparent; border-radius: 4px;
+  transition: border-left-color 0.25s ease;
+}
+.eco-strata__n { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; color: #A8A29B; }
+.eco-strata__label { font-size: 13px; font-weight: 600; color: #55524E; }
+.eco-strata.is-active .eco-strata__label { color: #213D59; font-weight: 700; }
+
+/* ── Foot ────────────────────────────────────────────────────────────────── */
+
+.eco__foot {
+  margin-top: clamp(4rem, 9vw, 7rem); padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid #E6E3DF;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: #A8A29B;
+}
+
+
+
+/* ── Entrances ───────────────────────────────────────────────────────────
+   CSS keyframes rather than Motion. Conditionally-mounted Motion elements
+   on this page never advanced past their `initial` value, whatever the
+   target or transition; a keyframe on mount is reliable and needs no
+   presence bookkeeping to go wrong. */
+
+@keyframes eco-rise {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes eco-lift {
+  from { opacity: 0; transform: translateY(0); }
+  to   { opacity: 0.28; transform: translateY(-26px); }
+}
+
+.eco-flag,
+.eco-callout { animation: eco-rise 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.eco-pane    { animation: eco-lift 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-flag, .eco-callout { animation-duration: 0.01ms; }
+  .eco-pane { animation: none; opacity: 0.28; }
+  .eco-tilt { transition: none; transform: none !important; }
+}

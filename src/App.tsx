@@ -11,6 +11,7 @@ import { LayoutPreview } from './pages/LayoutPreview'
 import { Layouts } from './pages/Layouts'
 import { TabLayouts } from './pages/TabLayouts'
 import { SuperpowerTest } from './pages/SuperpowerTest'
+import { EcosystemTest } from './pages/EcosystemTest'
 import { PastePage } from './pages/PastePage'
 import { DemoPage } from './pages/DemoPage'
 import { Pathway1 } from './pathway1/Pathway1'
@@ -109,6 +110,10 @@ function AppInner() {
   const isSuperpowerRoute =
     typeof window !== 'undefined' && window.location.pathname === '/superpower-test'
   if (isSuperpowerRoute) return <SuperpowerTest />
+
+  const isEcosystemRoute =
+    typeof window !== 'undefined' && window.location.pathname === '/ecosystem-test'
+  if (isEcosystemRoute) return <EcosystemTest />
 
   const goHome = () => setView({ type: 'home' })
 
