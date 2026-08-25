@@ -22,6 +22,54 @@ export function Layouts({ onReturnHome: _onReturnHome }: { onReturnHome: () => v
     >
       <div ref={scrollRef} className="ly-scroll">
 
+        {/* ── New CTA card variants — image + one-sentence description
+              + button, framed in Transform accent orange. Pick one. ── */}
+
+        <Banner num="N01" name="CTA card · Offset plane behind" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <div className="ly-ctacard-row">
+              <CtaCard variant="offset" />
+            </div>
+          </div>
+        </section>
+
+        <Banner num="N02" name="CTA card · Framed border" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <div className="ly-ctacard-row">
+              <CtaCard variant="framed" />
+            </div>
+          </div>
+        </section>
+
+        <Banner num="N03" name="CTA card · Pinned rotated plane" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <div className="ly-ctacard-row">
+              <CtaCard variant="pinned" />
+            </div>
+          </div>
+        </section>
+
+        <Banner num="N04" name="CTA card · Corner brackets" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <div className="ly-ctacard-row">
+              <CtaCard variant="brackets" />
+            </div>
+          </div>
+        </section>
+
+        <Banner num="N05" name="CTA card · Pill background" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <div className="ly-ctacard-row">
+              <CtaCard variant="pill" />
+            </div>
+          </div>
+        </section>
+
         <Banner num="L01" name="Text left · Portrait right" />
         <section className="ly-section">
           <div className="ly-container ly-grid ly-grid--tr">
@@ -1052,6 +1100,30 @@ function Banner({ num, name }: { num: string; name: string }) {
       <div className="ly-container ly-banner__inner">
         <span className="ly-banner__num">{num}</span>
         <span className="ly-banner__name">{name}</span>
+      </div>
+    </div>
+  )
+}
+
+type CtaVariant = 'offset' | 'framed' | 'pinned' | 'brackets' | 'pill'
+
+function CtaCard({ variant }: { variant: CtaVariant }) {
+  return (
+    <div className={`ly-ctacard ly-ctacard--${variant}`}>
+      <div className="ly-ctacard__inner">
+        <div className="ly-ctacard__image">
+          <img
+            src="/photos/journey-map-group.jpg"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+        <p className="ly-ctacard__desc">
+          A short introduction to how we work at Transform.
+        </p>
+        <a className="ly-ctacard__button" href="#">
+          Explore <span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   )

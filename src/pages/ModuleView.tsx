@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Box, Container, Grid, Paper, Stack, Text, UnstyledButton } from '@mantine/core'
 import { CardView } from '../components/CardView'
+import { MethodView } from '../components/MethodView'
 import { ModuleSidebar } from '../components/ModuleSidebar'
 import { getPathwayContentSync } from '../lib/content'
 import type { PracticeProfile } from '../components/PracticeForm'
@@ -105,14 +106,25 @@ export function ModuleView({ profile, completed, onToggleComplete }: ModuleViewP
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 8 }}>
                 <Box p={32}>
-                  <CardView
-                    key={currentCard.id}
-                    card={currentCard}
-                    cardIndex={currentIndex + 1}
-                    totalCards={cards.length}
-                    isComplete={completed.has(currentCard.id)}
-                    onToggleComplete={handleToggle}
-                  />
+                  {currentCard.kind === 'method' ? (
+                    <MethodView
+                      key={currentCard.id}
+                      method={currentCard}
+                      cardIndex={currentIndex + 1}
+                      totalCards={cards.length}
+                      isComplete={completed.has(currentCard.id)}
+                      onToggleComplete={handleToggle}
+                    />
+                  ) : (
+                    <CardView
+                      key={currentCard.id}
+                      card={currentCard}
+                      cardIndex={currentIndex + 1}
+                      totalCards={cards.length}
+                      isComplete={completed.has(currentCard.id)}
+                      onToggleComplete={handleToggle}
+                    />
+                  )}
                 </Box>
               </Grid.Col>
             </Grid>

@@ -1,6 +1,7 @@
 import type { Card, Module } from '../lib/content/types'
+import { sdOverviewCard, sdMethods } from './methods'
 
-export type { ContentBlock, ResourceTint, ResourceItem, ResourceGroup, Card, Module } from '../lib/content/types'
+export type { ContentBlock, ResourceTint, ResourceItem, ResourceGroup, Card, Method, ModuleItem, Module } from '../lib/content/types'
 
 // ── Account cards (shared across both pathways) ───────────────────────────────
 
@@ -44,6 +45,51 @@ const dfeCard: Card = {
     { type: 'paragraph', text: 'When you work on the DfE account, look beyond a single transaction. Understand how policy, local delivery, professional practice and the learner\'s wider journey connect.' },
     { type: 'paragraph', text: 'DfE expects teams to design accessible, user-centred and secure services using departmental standards and the GOV.UK Service Standard.' },
     { type: 'callout', variant: 'tool', body: 'Check DfE Design, departmental standards and its Service Standard guidance before creating a new pattern or component.', ctaLabel: 'Open DfE design guidance', ctaHref: '#' },
+  ],
+}
+
+/**
+ * Get to know the policies (HMCTS)
+ * Sits immediately after the account card for HMCTS users. GOV.UK-style
+ * explainer of three policies that shape service design in the account.
+ * Kept short: one paragraph per policy, plain English, action-oriented.
+ */
+const hmctsPoliciesCard: Card = {
+  id: 'acct-hmcts-policies',
+  title: 'Get to know the policies',
+  minutes: 6,
+  roles: ['service-designer', 'interaction-designer'],
+  content: [
+    { type: 'paragraph', text: 'Three policies shape how services are designed and delivered in HMCTS. Understand each before you make design decisions.' },
+
+    { type: 'heading', text: 'Reasonable adjustments' },
+    { type: 'paragraph', text: 'HMCTS must make services accessible to disabled people and to those with additional needs. This applies to every service, digital or otherwise.' },
+    { type: 'paragraph', text: 'Design so that users can request an adjustment at any point in the journey — not only at the start. Make it easy to change or cancel an adjustment as circumstances change.' },
+    { type: 'list', items: [
+      'Meet the WCAG 2.2 AA accessibility standard as a minimum',
+      'Offer a non-digital route for anyone who cannot use the digital service',
+      'Test the service with people who use assistive technology',
+    ]},
+
+    { type: 'heading', text: 'Digital by default, not digital only' },
+    { type: 'paragraph', text: 'HMCTS services aim to be digital-first, but must always support people who cannot or do not want to use them online.' },
+    { type: 'paragraph', text: 'When you design a digital service, design the assisted digital and non-digital routes alongside it. Treat them as part of the same service, not as fallbacks.' },
+    { type: 'list', items: [
+      'Provide clear signposting to telephone, paper and face-to-face routes',
+      'Design consistent outcomes across every channel',
+      'Measure take-up and success rates across all channels, not just digital',
+    ]},
+
+    { type: 'heading', text: 'Data protection and privacy' },
+    { type: 'paragraph', text: 'HMCTS handles sensitive personal data — including data about vulnerable people, victims, witnesses and children. All services must comply with the UK GDPR and the Data Protection Act 2018.' },
+    { type: 'paragraph', text: 'Collect the minimum data needed to deliver the service. Be clear with users about what you are collecting, why, and who it will be shared with.' },
+    { type: 'list', items: [
+      'Complete a Data Protection Impact Assessment for new services or significant changes',
+      'Follow the principle of data minimisation at every step',
+      'Design for people to see, correct and — where lawful — delete their data',
+    ]},
+
+    { type: 'callout', variant: 'best-practice', body: 'When in doubt, involve the HMCTS privacy, accessibility or policy team early. Retrofitting a policy check late in delivery is far more costly than designing to the policy from the start.' },
   ],
 }
 
@@ -182,6 +228,15 @@ const sdModules: Module[] = [
     ],
   },
   {
+    id: 'sd-methods',
+    title: 'Methods',
+    description: 'The core methods service designers reach for most often. Each one is a short practical reference — what it is, when to use it, what you do, what you produce, and what good looks like.',
+    cards: [
+      sdOverviewCard,
+      ...sdMethods,
+    ],
+  },
+  {
     id: 'sd-shape',
     title: 'How you shape the work',
     description: 'How senior service designers frame problems, create conditions for design and connect vision to delivery.',
@@ -304,148 +359,6 @@ const sdModules: Module[] = [
           ]},
           { type: 'paragraph', text: 'Share practices, knowledge and evidence across the multidisciplinary team. Build in-house skills so learning and innovation can continue after the project.' },
           { type: 'callout', variant: 'involve', body: 'Include the people who will own, deliver and improve the service after the project.' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'sd-craft',
-    title: 'Your craft in practice',
-    description: 'The methods, tools and disciplines of service design — from mapping to prototyping to strategic direction.',
-    cards: [
-      {
-        id: 'sd-cp-c1',
-        title: 'Bridge the disciplines',
-        minutes: 4,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Service designers bridge research, user experience, technology, operations, business and policy.' },
-          { type: 'paragraph', text: 'We show how services work across frontstage and backstage so teams can build shared understanding. We use:' },
-          { type: 'list', items: [
-            'Visual frameworks and facilitation',
-            'Design sprints and storytelling',
-            'Evaluation to connect human experience with delivery',
-          ]},
-          { type: 'paragraph', text: 'The work is collaborative and multidisciplinary — interweaving the relevant Transform skills to solve complex challenges through iterative, participatory design.' },
-        ],
-      },
-      {
-        id: 'sd-cp-c2',
-        title: 'Read the service landscape',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Start with a complete view of the conditions shaping the service.' },
-          { type: 'paragraph', text: 'You need to understand:' },
-          { type: 'list', items: [
-            'Needs, behaviours and motivations',
-            'Delivery barriers, technology and implementation challenges',
-            'Organisational goals, capability and culture',
-            'Community influence and the wider environment',
-          ]},
-          { type: 'paragraph', text: 'Use research, data and insight to understand where the service is today. This creates the evidence base for designing scalable and sustainable experiences.' },
-          { type: 'callout', variant: 'tool', body: 'Use contextual inquiry, ethnography, desk research, interviews, diary studies and service safaris during discovery.', ctaLabel: 'View research and analysis methods', ctaHref: '#' },
-        ],
-      },
-      {
-        id: 'sd-cp-c3',
-        title: 'Map the system',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'System mapping identifies the actors involved in delivering a service, along with components such as communications, documents, materials and budgets.' },
-          { type: 'paragraph', text: 'Map the connections between them to find where the highest-value exchanges happen.' },
-          { type: 'paragraph', text: 'Ecosystem loops show how stakeholders influence the experience. Positive and negative loops can reveal:' },
-          { type: 'list', items: [
-            'Hidden actors and relationships',
-            'Factors that may affect design decisions',
-            'Where intervention would have the most impact',
-          ]},
-          { type: 'callout', variant: 'tool', body: 'Use system mapping or ecosystem loops when the relationships around the service are part of the problem.', ctaLabel: 'View system mapping methods', ctaHref: '#' },
-        ],
-      },
-      {
-        id: 'sd-cp-c4',
-        title: 'Make experience visible',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Choose the view that helps the team understand and change the service.' },
-          { type: 'list', items: [
-            'Journey maps show the end-to-end experience — stages, touchpoints, moments of delight and points of friction.',
-            'Service blueprints connect that experience to staff, processes and systems — showing the roles and interactions needed to fulfil it.',
-            'Process models help teams design and improve how work moves through the organisation.',
-          ]},
-          { type: 'paragraph', text: 'Each artefact serves a different question. Use them together when the problem spans the whole service.' },
-        ],
-      },
-      {
-        id: 'sd-cp-c5',
-        title: 'Facilitate collaborative design',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Co-design brings subject matter expertise and lived experience together.' },
-          { type: 'paragraph', text: 'There is no single technique. The conditions matter most:' },
-          { type: 'list', items: [
-            'Create a safe environment and share power',
-            'Build trust and support self-directed inquiry',
-            'Use participatory approaches to explore hypotheses and reveal assumptions',
-          ]},
-          { type: 'paragraph', text: 'Design sprints can focus multidisciplinary teams over 3 to 5 days. Service walkthroughs can gather rapid feedback as a concept develops.' },
-          { type: 'callout', variant: 'best-practice', body: 'Make clear what people can shape, how their contribution will be used and what will happen next.' },
-        ],
-      },
-      {
-        id: 'sd-cp-c6',
-        title: 'Prototype the service',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Prototypes make ideas tangible so people can test and validate them.' },
-          { type: 'paragraph', text: 'Choose the approach that answers the question:' },
-          { type: 'list', items: [
-            'A proof of concept tests whether an idea can become a real service or product.',
-            'A prototype simulates an end-to-end journey or one or more touchpoints.',
-            'A pilot mirrors the real environment and uses defined, measurable outcomes for evaluation.',
-          ]},
-          { type: 'paragraph', text: 'Test the riskiest assumptions first. Learn from the result, and pivot when the evidence does not support the direction.' },
-          { type: 'callout', variant: 'tool', body: 'Use proof of concept, prototype or pilot according to the question and the evidence needed.', ctaLabel: 'View prototyping methods', ctaHref: '#' },
-        ],
-      },
-      {
-        id: 'sd-cp-c7',
-        title: 'Set strategic direction',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Product and service strategy brings service actors together to share challenges, opportunities, ambitions and visions.' },
-          { type: 'paragraph', text: 'It connects:' },
-          { type: 'list', items: [
-            'The customer base and pain point',
-            'Commercial benefit and culture',
-            'Capability, organisational change and partnership development',
-          ]},
-          { type: 'paragraph', text: 'Design principles provide a shared vision and direction. Product roadmaps set priorities and progress while remaining responsive to changes in needs and competition.' },
-          { type: 'callout', variant: 'involve', body: 'Bring together service actors, customers, employees and partners when setting the direction of the service.' },
-        ],
-      },
-      {
-        id: 'sd-cp-c8',
-        title: 'Design for long-term value',
-        minutes: 5,
-        roles: ['service-designer'],
-        content: [
-          { type: 'paragraph', text: 'Design should prevent problems before they arise and reduce unnecessary future demand.' },
-          { type: 'paragraph', text: 'Think beyond delivery:' },
-          { type: 'list', items: [
-            'Map intended and unintended consequences',
-            'Design services that can adapt as needs, technology and conditions change',
-            'Start with the end in mind — including reuse, repair, adaptation and responsible retirement',
-          ]},
-          { type: 'paragraph', text: 'Set measurable criteria, monitor performance and establish continuous feedback loops. Look for early warning signs of failure and use evidence to improve the service.' },
-          { type: 'paragraph', text: 'The current manual sets this direction but does not yet contain a complete Transform measurement framework.' },
-          { type: 'callout', variant: 'best-practice', body: 'Agree what will be measured, who will review the evidence and how the service can respond before delivery ends.' },
         ],
       },
     ],
@@ -892,8 +805,12 @@ export function getModulesForUser(role: string, accountId: string): Module[] {
   if (accountId !== 'hmcts' && accountId !== 'dfe') return baseModules
 
   const accountCard = accountId === 'hmcts' ? hmctsCard : dfeCard
+  // HMCTS gets a "Get to know the policies" card slotted straight after
+  // "Get to know the account". DfE has no policy card yet — append only
+  // the account card in that case.
+  const appended = accountId === 'hmcts' ? [accountCard, hmctsPoliciesCard] : [accountCard]
 
   return baseModules.map((mod, i) =>
-    i === 0 ? { ...mod, cards: [...mod.cards, accountCard] } : mod
+    i === 0 ? { ...mod, cards: [...mod.cards, ...appended] } : mod
   )
 }

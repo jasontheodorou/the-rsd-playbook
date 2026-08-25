@@ -1,9 +1,9 @@
 import { Group, Stack, Text, UnstyledButton } from '@mantine/core'
 import { CompleteIndicator, type IndicatorState } from './CompleteIndicator'
-import type { Card } from '../lib/content'
+import type { ModuleItem } from '../lib/content'
 
 type ModuleSidebarProps = {
-  cards: Card[]
+  cards: ModuleItem[]
   selectedCardId: string
   completed: Set<string>
   onSelect: (id: string) => void

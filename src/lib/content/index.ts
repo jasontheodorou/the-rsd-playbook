@@ -4,6 +4,8 @@ export type {
   ResourceItem,
   ResourceGroup,
   Card,
+  Method,
+  ModuleItem,
   Module,
   Pathway,
 } from './types'
