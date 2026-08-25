@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { TShapedTabs, type TShapedVariant } from './patterns/TShapedTabs'
 import './TabLayouts.css'
 
@@ -45,6 +46,16 @@ const OPTIONS: Option[] = [
 ]
 
 export function TabLayouts() {
+  // robots.txt covers crawlers that respect it; this covers the ones that
+  // execute JS. The tag can't live in index.html — every route shares it.
+  useEffect(() => {
+    const meta = document.createElement('meta')
+    meta.name = 'robots'
+    meta.content = 'noindex, nofollow'
+    document.head.appendChild(meta)
+    return () => { meta.remove() }
+  }, [])
+
   return (
     <div className="tabl">
       <div className="tabl__inner">
