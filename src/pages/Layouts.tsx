@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { ImageCoverRevealBoxed } from '../experiments/pilot-3/patterns/ImageCoverRevealBoxed'
+import { TShapedTabs } from './patterns/TShapedTabs'
 import './Layouts.css'
 
 const GROW_TRANSITION = { duration: 0.55, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
@@ -21,6 +22,44 @@ export function Layouts({ onReturnHome: _onReturnHome }: { onReturnHome: () => v
       style={{ position: 'absolute', inset: 0, transformOrigin: '50% 50%' }}
     >
       <div ref={scrollRef} className="ly-scroll">
+
+        {/* ── T-shaped skills · tabbed practice panels. Five treatments to
+              replace the tinted "specialists" box on s8-tshaped. ── */}
+
+        <Banner num="T01" name="T-shaped tabs · Sliding underline" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <TShapedTabs variant="underline" />
+          </div>
+        </section>
+
+        <Banner num="T02" name="T-shaped tabs · Morphing pill + directional slide" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <TShapedTabs variant="pill" />
+          </div>
+        </section>
+
+        <Banner num="T03" name="T-shaped tabs · Filmstrip rail" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <TShapedTabs variant="rail" />
+          </div>
+        </section>
+
+        <Banner num="T04" name="T-shaped tabs · Stacked depth (navy head)" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <TShapedTabs variant="stack" />
+          </div>
+        </section>
+
+        <Banner num="T05" name="T-shaped tabs · Editorial wipe + ghost numeral" />
+        <section className="ly-section ly-section--sm">
+          <div className="ly-container">
+            <TShapedTabs variant="wipe" />
+          </div>
+        </section>
 
         {/* ── New CTA card variants — image + one-sentence description
               + button, framed in Transform accent orange. Pick one. ── */}

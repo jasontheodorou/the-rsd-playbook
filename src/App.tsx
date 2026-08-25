@@ -9,6 +9,7 @@ import { SignIn } from './pages/SignIn'
 import { ModuleView } from './pages/ModuleView'
 import { LayoutPreview } from './pages/LayoutPreview'
 import { Layouts } from './pages/Layouts'
+import { TabLayouts } from './pages/TabLayouts'
 import { PastePage } from './pages/PastePage'
 import { DemoPage } from './pages/DemoPage'
 import { Pathway1 } from './pathway1/Pathway1'
@@ -69,7 +70,14 @@ function Pathway2Shell({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
+  const isTabLayoutsRoute =
+    typeof window !== 'undefined' && window.location.pathname === '/tab-layouts'
   const [gateOpen, setGateOpen] = useState<boolean>(() => isGateOpen())
+
+  // Deliberately ahead of the access gate: /tab-layouts is a shareable review
+  // page, so anyone with the URL can open it without the password.
+  if (isTabLayoutsRoute) return <TabLayouts />
+
   if (!gateOpen) return <AccessGate onUnlock={() => setGateOpen(true)} />
 
   return <AppInner />
