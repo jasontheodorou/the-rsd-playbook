@@ -13,6 +13,7 @@ import { TabLayouts } from './pages/TabLayouts'
 import { SuperpowerTest } from './pages/SuperpowerTest'
 import { EcosystemTest } from './pages/EcosystemTest'
 import { PastePage } from './pages/PastePage'
+import { PatternsLibrary } from './patterns-library/PatternsLibrary'
 import { DemoPage } from './pages/DemoPage'
 import { Pathway1 } from './pathway1/Pathway1'
 import { Pilot2 } from './experiments/pilot-2/Pilot2'
@@ -74,11 +75,18 @@ function Pathway2Shell({ children }: { children: ReactNode }) {
 export default function App() {
   const isTabLayoutsRoute =
     typeof window !== 'undefined' && window.location.pathname === '/tab-layouts'
+  const isPatternsRoute =
+    typeof window !== 'undefined' && window.location.pathname.startsWith('/patterns')
   const [gateOpen, setGateOpen] = useState<boolean>(() => isGateOpen())
 
   // Deliberately ahead of the access gate: /tab-layouts is a shareable review
   // page, so anyone with the URL can open it without the password.
   if (isTabLayoutsRoute) return <TabLayouts />
+
+  // Same reasoning for /patterns — the pattern library exists to be sent to a
+  // colleague, so the URL is the only thing gating it. startsWith, not ===,
+  // because pattern pages are /patterns/<id>.
+  if (isPatternsRoute) return <PatternsLibrary />
 
   if (!gateOpen) return <AccessGate onUnlock={() => setGateOpen(true)} />
 

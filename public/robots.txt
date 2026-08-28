@@ -1,5 +1,6 @@
 # The RSD Playbook is a private internal site behind a password gate.
-# /tab-layouts sits outside that gate so it can be shared by URL, so keep
-# it out of search results explicitly.
+# Two routes sit outside that gate so they can be shared by URL, so keep
+# them out of search results explicitly.
 User-agent: *
 Disallow: /tab-layouts
+Disallow: /patterns

@@ -1,0 +1,774 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   /patterns — the RSD Playbook pattern library.
+
+   Structure borrowed from Symphonia (jasontheodorou/pattern-test): sticky
+   chrome with a pill nav, live-demo cards in tinted tiles, and a wide tinted
+   canvas above a narrow reading column on each pattern page.
+
+   Skinned as Playbook internals, not a separate product: Open Sans, Valencia
+   navy and orange, the cream ground, hairline borders. Softer radii than the
+   pathway uses, because a tool should feel a little more relaxed than the
+   thing it documents.
+
+   Everything is scoped under .pl-root so it cannot reach the pathway
+   components mounted inside the demo tiles.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.pl-root {
+  --pl-navy:   #213D59;
+  --pl-orange: #EC671B;
+  --pl-ink:    #262626;
+  --pl-muted:  #5C5C5C;
+  --pl-border: #E6E3DF;
+  --pl-hair:   rgba(33, 61, 89, 0.08);
+  --pl-ground: #FAF8F6;
+  --pl-card:   #FFFFFF;
+
+  /* Canvas and tile tints, one per category — derived from the pathway's own
+     accent planes, lifted until live patterns read cleanly on top. */
+  --pl-tint-motion:    #DEE7EA;
+  --pl-tint-image:     #EDE5DA;
+  --pl-tint-editorial: #E7E6DF;
+
+  --pl-radius:    10px;
+  --pl-radius-lg: 14px;
+  --pl-page:      24px;
+  --pl-font: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
+
+  min-height: 100dvh;
+  background: var(--pl-ground);
+  color: var(--pl-ink);
+  font-family: var(--pl-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Chrome ─────────────────────────────────────────────────────────────── */
+
+.pl-chrome {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-chrome__header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--pl-card);
+  border-bottom: 1px solid var(--pl-hair);
+}
+
+.pl-chrome__row {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 12px var(--pl-page);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pl-chrome__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pl-chrome__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--pl-orange);
+  flex-shrink: 0;
+}
+
+.pl-chrome__brandname {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pl-navy);
+}
+
+.pl-chrome__tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+  padding: 3px 7px;
+  border: 1px solid var(--pl-border);
+  border-radius: 4px;
+}
+
+.pl-chrome__nav {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.pl-chrome__link {
+  padding: 8px 15px;
+  background: none;
+  border: none;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pl-muted);
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.pl-chrome__link:hover {
+  color: var(--pl-navy);
+  background: var(--pl-ground);
+}
+
+.pl-chrome__link[aria-current='page'],
+.pl-chrome__link[aria-current='page']:hover {
+  color: #fff;
+  background: var(--pl-navy);
+  font-weight: 600;
+}
+
+.pl-chrome__main { flex: 1; }
+
+.pl-chrome__footer {
+  margin-top: 64px;
+  border-top: 1px solid var(--pl-hair);
+  background: var(--pl-card);
+}
+
+.pl-chrome__row--footer { padding-top: 24px; padding-bottom: 24px; }
+
+.pl-chrome__muted { font-size: 13px; color: var(--pl-muted); }
+
+.pl-chrome__out {
+  color: var(--pl-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pl-chrome__out:hover { color: var(--pl-orange); }
+
+/* ── Shared type ────────────────────────────────────────────────────────── */
+
+.pl-display {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--pl-navy);
+}
+
+.pl-lede {
+  margin: 12px 0 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--pl-muted);
+  max-width: 60ch;
+}
+
+.pl-prose {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.62;
+  color: var(--pl-ink);
+  max-width: 66ch;
+}
+
+.pl-prose--quiet { color: var(--pl-muted); font-size: 15.5px; }
+
+.pl-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  color: var(--pl-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.pl-link:hover { color: var(--pl-orange); }
+
+/* ── Index ──────────────────────────────────────────────────────────────── */
+
+.pl-index {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px var(--pl-page) 0;
+}
+
+.pl-index--narrow { max-width: 760px; }
+
+.pl-index__head { max-width: 700px; margin-bottom: 32px; }
+
+.pl-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pl-muted);
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.pl-chip:hover { border-color: var(--pl-navy); color: var(--pl-navy); }
+
+.pl-chip[aria-pressed='true'] {
+  background: var(--pl-navy);
+  border-color: var(--pl-navy);
+  color: #fff;
+  font-weight: 600;
+}
+
+.pl-chip__count {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.62;
+}
+
+.pl-subnav__note {
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  color: var(--pl-muted);
+}
+
+/* ── Groups and grid ────────────────────────────────────────────────────── */
+
+.pl-group { margin-top: 40px; }
+
+.pl-group__head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--pl-border);
+}
+
+.pl-group__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pl-navy);
+}
+
+.pl-group__note { font-size: 13.5px; color: var(--pl-muted); }
+
+.pl-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.pl-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: var(--pl-radius-lg);
+  overflow: hidden;
+  transition: transform 200ms ease, box-shadow 220ms ease;
+}
+
+.pl-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(33, 61, 89, 0.10);
+}
+
+/* The name is the card's only control; its ::after covers the card so the
+   whole tile is clickable without nesting interactive elements. */
+.pl-card__name::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* Focus lands on the name button, so show the ring on the whole card. */
+.pl-card:has(.pl-card__name:focus-visible) {
+  outline: 2px solid var(--pl-orange);
+  outline-offset: 2px;
+}
+
+.pl-card__art {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.pl-card__art--motion    { background: var(--pl-tint-motion); }
+.pl-card__art--image     { background: var(--pl-tint-image); }
+.pl-card__art--editorial { background: var(--pl-tint-editorial); }
+
+/* The tile is a thumbnail: scale the real pattern down and take it out of the
+   interaction and a11y trees, so the card stays one button. */
+.pl-card__scale {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 720px;
+  translate: -50% -50%;
+  transform-origin: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pl-card__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px 20px;
+}
+
+.pl-card__heading { margin: 0; }
+
+.pl-card__name {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--pl-navy);
+  cursor: pointer;
+}
+
+.pl-card__name:focus-visible { outline: none; }
+
+.pl-card:hover .pl-card__name { color: var(--pl-orange); }
+
+.pl-card__desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--pl-muted);
+}
+
+.pl-card__flag {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #8A5A1E;
+  background: #FBF0DE;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ── Pattern page ───────────────────────────────────────────────────────── */
+
+.pl-pp {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px var(--pl-page) 0;
+}
+
+.pl-crumb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+.pl-crumb__sep { color: var(--pl-muted); }
+.pl-crumb__here { color: var(--pl-muted); }
+
+.pl-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  border-radius: var(--pl-radius-lg);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 44px 24px;
+}
+
+.pl-canvas--motion    { background: var(--pl-tint-motion); }
+.pl-canvas--image     { background: var(--pl-tint-image); }
+.pl-canvas--editorial { background: var(--pl-tint-editorial); }
+
+.pl-canvas__stage { width: 100%; }
+
+.pl-canvas__play {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: var(--pl-navy);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.pl-canvas__play:hover {
+  transform: translateY(-1px);
+  background: #17293c;
+}
+
+.pl-pp__body {
+  max-width: 700px;
+  margin: 52px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.pl-pp__head { display: flex; flex-direction: column; gap: 12px; }
+
+.pl-pp__labels { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.pl-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  padding: 4px 9px;
+  border-radius: 4px;
+}
+
+.pl-badge--live {
+  color: #1F5B3E;
+  background: #E4F1E9;
+  border-color: #C9E3D5;
+}
+
+.pl-badge--built {
+  color: #8A5A1E;
+  background: #FBF0DE;
+  border-color: #F0DEC1;
+}
+
+.pl-pp__desc {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--pl-muted);
+}
+
+.pl-pp__section { display: flex; flex-direction: column; gap: 14px; }
+
+.pl-pp__section-title {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+}
+
+/* Orange-dot list — Symphonia's "Use for" list, in Playbook colour. */
+.pl-dots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--pl-ink);
+}
+
+.pl-dots li { position: relative; padding-left: 22px; }
+
+.pl-dots li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--pl-orange);
+}
+
+.pl-ref {
+  margin-left: 10px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12.5px;
+  color: var(--pl-muted);
+}
+
+.pl-pp__footer { padding-top: 8px; }
+
+/* ── Disclosures (developer details, also considered) ───────────────────── */
+
+.pl-fold {
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: var(--pl-radius);
+}
+
+.pl-fold__summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pl-navy);
+  cursor: pointer;
+}
+
+.pl-fold__count {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+}
+
+.pl-fold__body { padding: 0 18px 18px; }
+
+.pl-fold__intro {
+  margin: 0 0 24px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pl-border);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pl-muted);
+  max-width: 62ch;
+}
+
+.pl-dl {
+  display: grid;
+  grid-template-columns: minmax(120px, 26%) 1fr;
+  gap: 10px 18px;
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--pl-border);
+  font-size: 14px;
+}
+
+.pl-dl dt {
+  font-weight: 700;
+  color: var(--pl-navy);
+}
+
+.pl-dl dd { margin: 0; color: var(--pl-ink); }
+
+.pl-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.pl-tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  background: var(--pl-ground);
+  border: 1px solid var(--pl-border);
+  border-radius: 4px;
+  color: var(--pl-ink);
+}
+
+.pl-files {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pl-files code,
+.pl-dl code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12.5px;
+  color: var(--pl-muted);
+}
+
+.pl-alt { margin-bottom: 30px; }
+.pl-alt:last-child { margin-bottom: 0; }
+
+.pl-alt__name {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pl-navy);
+}
+
+.pl-alt__note {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pl-muted);
+  max-width: 62ch;
+}
+
+.pl-alt__demo {
+  background: var(--pl-ground);
+  border: 1px dashed #CFCAC4;
+  border-radius: var(--pl-radius);
+  padding: 24px 18px;
+  overflow-x: auto;
+}
+
+/* ── Pathway view ───────────────────────────────────────────────────────── */
+
+.pl-journey { list-style: none; margin: 0; padding: 0; }
+
+.pl-journey__row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--pl-border);
+}
+
+.pl-journey__num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--pl-muted);
+  padding-top: 4px;
+}
+
+.pl-journey__name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--pl-navy);
+}
+
+.pl-journey__note {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--pl-muted);
+  max-width: 62ch;
+}
+
+.pl-journey__uses {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.pl-journey__uses--loose { margin-top: 0; }
+
+.pl-pill {
+  padding: 7px 14px;
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pl-navy);
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.pl-pill:hover { border-color: var(--pl-orange); color: var(--pl-orange); }
+
+/* ── Demo containers ────────────────────────────────────────────────────── */
+
+/* The pathway sets its own page width and type scale; reproduce the column so
+   demos are laid out as they are in the product, not stretched to the canvas. */
+.pl-demo-column {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pl-demo-column--wide { max-width: 900px; }
+.pl-centre { display: flex; justify-content: center; }
+
+/* The pathway components carry the page's own vertical rhythm, which reads as
+   dead space once they're isolated. Collapse only the leading and trailing
+   margin — the spacing *between* elements is part of the pattern. */
+.pl-demo-column > :first-child { margin-top: 0; }
+.pl-demo-column > :last-child { margin-bottom: 0; }
+
+.pl-demo-hint,
+.pl-demo-label {
+  margin: 0 0 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+}
+
+.pl-demo-label { margin-top: 30px; }
+.pl-demo-label:first-child { margin-top: 0; }
+
+/* Scroll-driven patterns need a container of their own to scroll within. */
+.pl-scrollbox {
+  height: 440px;
+  overflow-y: auto;
+  border-radius: var(--pl-radius);
+  background: #fff;
+}
+
+.pl-scrollbox__spacer { height: 330px; }
+
+/* ── Narrow viewports ───────────────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .pl-root { --pl-page: 16px; }
+  .pl-index { padding-top: 32px; }
+  .pl-canvas { min-height: 360px; padding: 28px 14px; }
+  .pl-pp__body { margin-top: 32px; gap: 32px; }
+  .pl-journey__row { grid-template-columns: 32px 1fr; gap: 10px; }
+  .pl-dl { grid-template-columns: 1fr; gap: 4px 0; }
+  .pl-dl dd { margin-bottom: 10px; }
+  .pl-chrome__row { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
