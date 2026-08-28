@@ -9,7 +9,7 @@ export function AboutPage({ onOpen }: { onOpen: () => void }) {
   const built = PATTERNS.filter((p) => p.status === 'built').length
 
   return (
-    <div className="pl-index pl-index--narrow">
+    <div className="pl-index pl-index--narrow pl-about">
       <header className="pl-index__head">
         <h1 className="pl-display">About this library</h1>
         <p className="pl-lede">
@@ -20,7 +20,7 @@ export function AboutPage({ onOpen }: { onOpen: () => void }) {
 
       <section className="pl-pp__section">
         <h2 className="pl-pp__section-title">What&rsquo;s in it</h2>
-        <ul className="pl-dots">
+        <ul className="pl-bullets">
           <li>{live} patterns rendering in the Foundations pathway today.</li>
           <li>{built} finished patterns with no page to sit on yet.</li>
           <li>

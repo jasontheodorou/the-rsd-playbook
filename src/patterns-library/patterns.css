@@ -506,8 +506,15 @@
   color: var(--pl-muted);
 }
 
-/* Orange-dot list — Symphonia's "Use for" list, in Playbook colour. */
-.pl-dots {
+/*
+ * Bulleted list — a navy square marker, not an orange circle. Orange stays the
+ * accent it is everywhere else in the build (the wordmark dot, one headline
+ * rule); spending it on every bullet of every list dilutes that. A square reads
+ * marginally larger than a circle of the same box, so it is 7px to the old
+ * dot's 8px, and `top` optically centres it on the first line rather than
+ * sitting it on the baseline.
+ */
+.pl-bullets {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -519,17 +526,16 @@
   color: var(--pl-ink);
 }
 
-.pl-dots li { position: relative; padding-left: 22px; }
+.pl-bullets li { position: relative; padding-left: 22px; }
 
-.pl-dots li::before {
+.pl-bullets li::before {
   content: '';
   position: absolute;
   left: 3px;
-  top: 0.55em;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--pl-orange);
+  top: 0.52em;
+  width: 7px;
+  height: 7px;
+  background: var(--pl-navy);
 }
 
 .pl-ref {
@@ -540,6 +546,25 @@
 }
 
 .pl-pp__footer { padding-top: 8px; }
+
+/* ── About ──────────────────────────────────────────────────────────────── */
+
+/*
+ * .pl-pp__section supplies only its internal title-to-body spacing; on the
+ * pattern page the rhythm *between* sections comes from .pl-pp__body's gap.
+ * The About page reuses those sections outside that container, so it has to
+ * supply the same gap itself — without it the sections butt straight together
+ * and every heading reads as a caption on the paragraph above it instead of a
+ * title for the one below. Same 44px, so the two pages breathe alike.
+ */
+.pl-about {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+/* The gap owns the rhythm here, so the head's own margin would double it. */
+.pl-about > .pl-index__head { margin-bottom: 0; }
 
 /* ── Disclosures (developer details, also considered) ───────────────────── */
 
@@ -767,6 +792,7 @@
   .pl-index { padding-top: 32px; }
   .pl-canvas { min-height: 360px; padding: 28px 14px; }
   .pl-pp__body { margin-top: 32px; gap: 32px; }
+  .pl-about { gap: 32px; }
   .pl-journey__row { grid-template-columns: 32px 1fr; gap: 10px; }
   .pl-dl { grid-template-columns: 1fr; gap: 4px 0; }
   .pl-dl dd { margin-bottom: 10px; }

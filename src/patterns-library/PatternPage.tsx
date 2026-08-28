@@ -76,7 +76,7 @@ export function PatternPage({
         <section className="pl-pp__section">
           <h2 className="pl-pp__section-title">Where it&rsquo;s used</h2>
           {pattern.whereUsed.length > 0 ? (
-            <ul className="pl-dots">
+            <ul className="pl-bullets">
               {pattern.whereUsed.map((w) => (
                 <li key={w.ref}>
                   {w.label}
@@ -93,7 +93,7 @@ export function PatternPage({
 
         <section className="pl-pp__section">
           <h2 className="pl-pp__section-title">Behaviour</h2>
-          <ul className="pl-dots">
+          <ul className="pl-bullets">
             <li>{TRIGGER_LABEL[pattern.trigger]}</li>
             <li>
               {pattern.accessibility.reducedMotion === 'supported'
